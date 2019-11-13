@@ -1,16 +1,16 @@
 {
-  "id": "mother-infant-cohort-case",
-  "formId": "mother-infant-cohort-manifest-3a453b",
-  "name": "<t-lang en>Mother-Infant Cohort</t-lang><t-lang fr>Cohorte mère-enfant</t-lang>",
-  "description": "<t-lang en>Select this case type to screen, consent and enroll a pregnant woman.</t-lang><t-lang fr>Sélectionnez ce type de cas pour filtrer, consentir et inscrire une femme enceinte.</t-lang>",
+  "id": "household-case",
+  "formId": "manifest",
+  "name": "<t-lang en>Household</t-lang><t-lang fr>Household</t-lang>",
+  "description": "<t-lang en>Select this case type to a a household to the census.</t-lang><t-lang fr>Select this case type to a a household to the census.</t-lang>",
   "caseRoles": [
     {
-      "id": "infant-role",
-      "label": "<t-lang en>Infant</t-lang><t-lang fr>Bébé</t-lang>",
-      "templateListItem": "<t-lang en>Forms for</t-lang><t-lang fr>Formulaires pour</t-lang> Infant ${data.participant_id}"
+      "id": "household-role",
+      "label": "<t-lang en>Household</t-lang><t-lang fr>Household</t-lang>",
+      "templateListItem": "<t-lang en>Forms for</t-lang><t-lang fr>Formulaires pour</t-lang> Household ${data.participant_id}"
     },
     {
-      "id": "mother-role",
+      "id": "enrolled-infant-role",
       "label": "<t-lang en>Mother</t-lang><t-lang fr>Mère</t-lang>",
       "templateListItem": "<t-lang en>Forms for</t-lang><t-lang fr>Formulaires pour</t-lang> ${data.firstname} ${data.surname} (${data.participant_id})"
     }
