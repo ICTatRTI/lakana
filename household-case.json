@@ -43,7 +43,7 @@
           "forCaseRole": "",
           "name": "Form 02: <t-lang en>Household Eligibility and Consent</t-lang><t-lang fr>Household Eligibility and Consent</t-lang>",
           "required": true,
-          "repeatable": false
+          "repeatable": true
         }
       ]
     }
