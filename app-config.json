@@ -1,29 +1,28 @@
-{
-   "sharedUserDatabase": true,
+ {
+   "serverUrl" : "https://app.reachmali.org/",
    "syncProtocol" : "two-way",
+   "showQueries" : true,
+   "languageCode" : "en",
+   "hashSecurityQuestionResponse" : false,
+   "securityQuestionText" : "What is your year of birth?",
+   "languageDirection" : "ltr",
    "homeUrl" : "case-home",
-   "registrationRequiresServerUser" : false,
-   "serverUrl" : "https://app.santemali.org/",
+   "listUsernamesOnLoginScreen" : true,
+   "uploadUnlockedFormReponses" : false,
+   "centrallyManagedUserProfile" : true,
    "modules" : [
       "csv"
    ],
-   "showQueries" : true,
-   "uploadUnlockedFormReponses" : false,
-   "securityQuestionText" : "What is your year of birth?",
+   "uploadToken" : "gJX53VD7dkW18Xpu",
+   "registrationRequiresServerUser" : false,
+   "sharedUserDatabase" : true,
    "hideProfile" : true,
-   "groupId" : "group-f0f8b07a-c65f-4ae1-8946-a4e0d72e307d",
-   "direction" : "undefined",
+   "groupId" : "group-9c26a885-386a-4154-9a1d-3b5bdd419c0d",
    "columnsOnVisitsTab" : [],
-   "listUsernamesOnLoginScreen" : true,
    "securityPolicy" : [
       "password"
    ],
-   "uploadToken" : "184c8d99-cc7e-458b-9b94-66db465ea99a",
-   "languageCode" : "en",
-   "languageDirection" : "ltr",
-   "centrallyManagedUserProfile" : true,
-   "hashSecurityQuestionResponse" : false,
-   "groupName" : "group-f0f8b07a-c65f-4ae1-8946-a4e0d72e307d",
+   "groupName" : "group-9c26a885-386a-4154-9a1d-3b5bdd419c0d",
+   "direction" : "undefined",
    "barcodeSearchMapFunction": "if ((JSON.parse(data)).participant_id) { return (JSON.parse(data)).participant_id } else { throw 'Incorrect format'} "
- }
- 
+}
