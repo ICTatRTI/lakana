@@ -1,8 +1,8 @@
 [
    {
       "listed" : true,
-      "title" : "<t-lang en>Mother-Infant Cohort Case</t-lang><t-lang fr>Cas de la cohorte mère-enfant</t-lang>",
-      "icon" : "icons:pregnant-woman",
+      "title" : "<t-lang en>Household Case</t-lang><t-lang fr>Household Case</t-lang>",
+      "icon" : "icons:home",
       "type" : "case",
       "searchSettings" : {
          "primaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `<t-lang en>Participant ID</t-lang><t-lang fr>ID de participant</t-lang>: ${searchDoc.variables.participant_id} &nbsp; &nbsp; &nbsp; <t-lang en>Enrollment Date</t-lang><t-lang fr>Date de l'inscriptione</t-lang>: ${(searchDoc.variables.enrollment_date).substring(8,10) + '-' + (searchDoc.variables.enrollment_date).substring(5,7)+ '-' + (searchDoc.variables.enrollment_date).substring(0,4)}` : `<t-lang en>Screening ID</t-lang><t-lang fr>ID de dépistage</t-lang>: ${response._id.substr(0,6)}  &nbsp; &nbsp; &nbsp; <t-lang en>Screening Date</t-lang><t-lang fr>Date de dépistage</t-lang>: ${searchDoc.variables.screening_date ? searchDoc.variables.screening_date : 'N/A' }` }",
@@ -19,73 +19,16 @@
             "screening_date"
          ]
       },
-      "src" : "./assets/mother-infant-cohort-manifest-3a453b/form.html",
-      "description" : "<t-lang en>Select this case type to screen, consent and enroll a pregnant woman.</t-lang><t-lang fr>Sélectionnez ce type de cas pour filtrer, consentir et inscrire une femme enceinte.</t-lang>",
-      "id" : "mother-infant-cohort-manifest-3a453b"
-   },
-   {
-      "listed" : true,
-      "title" : "<t-lang en>Infant-only Cohort Case</t-lang><t-lang fr>Cas de cohorte infantile seulement</t-lang>",
-      "icon" : "icons:shopping-cart",
-      "type" : "case",
-      "searchSettings" : {
-         "primaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `<t-lang en>Participant ID</t-lang><t-lang fr>ID de participant</t-lang>: ${searchDoc.variables.participant_id} &nbsp; &nbsp; &nbsp; <t-lang en>Enrollment Date</t-lang><t-lang fr>Date de l'inscriptione</t-lang>: ${searchDoc.variables.enrollment_date}` : `<t-lang en>Screening ID</t-lang><t-lang fr>ID de dépistage</t-lang>: ${response._id.substr(0,6)}  &nbsp; &nbsp; &nbsp; <t-lang en>Screening Date</t-lang><t-lang fr>Date de dépistage</t-lang>: ${searchDoc.variables.screening_date ? searchDoc.variables.screening_date : 'N/A' }` }",
-         "shouldIndex" : true,
-         "secondaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `<t-lang en>Name</t-lang><t-lang fr>Nom</t-lang>: ${searchDoc.variables.firstname} ${searchDoc.variables.surname}  &nbsp; &nbsp; &nbsp; Village: ${searchDoc.variables.village}  &nbsp; &nbsp; &nbsp; Status: <t-lang en>Enrolled</t-lang><t-lang fr>Inscrite</t-lang> &nbsp; &nbsp; &nbsp;  ` : `<t-lang en>Status</t-lang><t-lang fr>Statut</t-lang>: <t-lang en>Not enrolled</t-lang><t-lang fr>Pas inscrit</t-lang>  &nbsp; &nbsp; &nbsp; ` }",
-         "variablesToIndex" : [
-            "firstname",
-            "surname",
-            "status",
-            "village",
-            "participant_id",
-            "workflow_state",
-            "enrollment_date",
-            "screening_date"
-         ]
-      },
-      "src" : "./assets/infant-only-cohort-manifest-c5833a/form.html",
-      "description" : "<t-lang en>Select this case type to screen, consent and enroll a child only.</t-lang><t-lang fr>Sélectionnez ce type de cas pour filtrer, consentir et inscrire un enfant uniquement.</t-lang>",
-      "id" : "infant-only-cohort-manifest-c5833a"
-   },
-   {
-      "listed" : false,
-      "title" : "<t-lang en>Test Cohort Case</t-lang><t-lang fr>Cas de cohorte de test</t-lang>",
-      "icon" : "icons:code",
-      "type" : "case",
-      "searchSettings" : {
-         "primaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `${searchDoc.variables.first_name} ${searchDoc.variables.last_name}` : `Not enrolled` }",
-         "shouldIndex" : true,
-         "secondaryTemplate" : "",
-         "variablesToIndex" : [
-            "first_name",
-            "last_name",
-            "status"
-         ]
-      },
-      "src" : "./assets/test-cohort-manifest/form.html",
-      "description" : "<t-lang en>Select this case type to test.</t-lang><t-lang fr>Sélectionnez ce type de cas à tester.</t-lang>",
-      "id" : "test-cohort-manifest"
+      "src" : "./assets/household-manifest/form.html",
+      "description" : "<t-lang en>Select this case type to screen a household.</t-lang><t-lang fr>Select this case type to screen a household.</t-lang>",
+      "id" : "household-manifest"
    }, 
    {
       "type" : "form",
       "listed" : false,
-      "title" : "Test Form",
-      "src" : "./assets/test-form/form.html",
-      "id" : "test-form"
-   },
-   {
-      "type" : "form",
-      "listed" : false,
-      "title" : "Test Infant Registration",
-      "src" : "./assets/test-infant-registration/form.html",
-      "id" : "test-infant-registration"
-   },
-   {
-      "type" : "form",
-      "listed" : false,
-      "title" : "Test Mother Registration",
-      "src" : "./assets/test-mother-registration/form.html",
-      "id" : "test-mother-registration"
+      "title" : "Household Eligibility and Consent",
+      "src" : "./assets/form-02-household-eligibility-and-consent/form.html",
+      "id" : "form-02-household-eligibility-and-consent"
    },
    {
       "type" : "form",
@@ -93,180 +36,5 @@
       "title" : "Query",
       "src" : "./assets/query-form/form.html",
       "id" : "query-form"
-   },
-   {
-      "id" : "s01a-participant-information-f254b9",
-      "src" : "./assets/s01a-participant-information-f254b9/form.html",
-      "listed" : false,
-      "title" : "DCF1A: Screening and Enrollment of Pregnant Woman",
-      "type" : "form"
-   },
-   {
-      "id" : "s01b-screening-and-enrollment-infant-only-2951a7",
-      "src" : "./assets/s01b-screening-and-enrollment-infant-only-2951a7/form.html",
-      "title" : "DCF1B: Screening and Enrollment of Infant Only Cohort",
-      "type" : "form"
-   },
-   {
-      "id" : "s02-drug-administration-99380a",
-      "src" : "./assets/s02-drug-administration-99380a/form.html",
-      "type" : "form",
-      "title" : "DCF2: Drug Administration"
-   },
-   {
-      "type" : "form",
-      "title" : "DCF3: Demographic Characteristics",
-      "src" : "./assets/s03-demographic-characteristics-c09a84/form.html",
-      "id" : "s03-demographic-characteristics-c09a84"
-   },
-   {
-      "id" : "s04-current-pregnancy-record-and-pregnancy-history-9858d6",
-      "src" : "./assets/s04-current-pregnancy-record-and-pregnancy-history-9858d6/form.html",
-      "title" : "DCF4: Current Pregnancy Record and Pregnancy History",
-      "type" : "form"
-   },
-   {
-      "src" : "./assets/s05-maternal-physical-exam-1c983b/form.html",
-      "type" : "form",
-      "title" : "DCF5: Maternal Physical Exam",
-      "id" : "s05-maternal-physical-exam-1c983b"
-   },
-   {
-      "src" : "./assets/s06-current-anc-visit-68fc78/form.html",
-      "title" : "DCF6: Current ANC Visit",
-      "type" : "form",
-      "id" : "s06-current-anc-visit-68fc78"
-   },
-   {
-      "type" : "form",
-      "title" : "DCF7: Visit Information",
-      "src" : "./assets/s07-visit-information-82328c/form.html",
-      "id" : "s07-visit-information-82328c"
-   },
-   {
-      "src" : "./assets/s08-maternal-interim-clinical-information-45addc/form.html",
-      "type" : "form",
-      "title" : "DCF8: Maternal Interim Clinical Information",
-      "id" : "s08-maternal-interim-clinical-information-45addc"
-   },
-   {
-      "type" : "form",
-      "title" : "DCF9: Study Attended Delivery - Labor",
-      "src" : "./assets/s09-study-attended-delivery-labor-9891f6/form.html",
-      "id" : "s09-study-attended-delivery-labor-9891f6"
-   },
-   {
-      "src" : "./assets/s10-delivery-outcomes-8cc738/form.html",
-      "type" : "form",
-      "title" : "DCF10: Delivery Outcomes",
-      "id" : "s10-delivery-outcomes-8cc738"
-   },
-   {
-      "id" : "s11-missed-delivery-visit-41448b",
-      "src" : "./assets/s11-missed-delivery-visit-41448b/form.html",
-      "type" : "form",
-      "title" : "DCF11: Missed Delivery Visit"
-   },
-   {
-      "src" : "./assets/s12-infant-clinical-information-20ec72/form.html",
-      "type" : "form",
-      "title" : "DCF12: Infant Clinical Information",
-      "id" : "s12-infant-clinical-information-20ec72"
-   },
-   {
-      "title" : "DCF13: Infant Anthropometrics",
-      "type" : "form",
-      "src" : "./assets/s13-infant-anthropometrics-5bc72a/form.html",
-      "id" : "s13-infant-anthropometrics-5bc72a"
-   },
-   {
-      "id" : "s14-current-epi-visit-841753",
-      "type" : "form",
-      "title" : "DCF14: Current EPI Visit",
-      "src" : "./assets/s14-current-epi-visit-841753/form.html"
-   },
-   {
-      "type" : "form",
-      "title" : "DCF15: Vital Status",
-      "src" : "./assets/s15-vital-status-3c3497/form.html",
-      "id" : "s15-vital-status-3c3497"
-   },
-   {
-      "id" : "s16-serious-adverse-event-9f818a",
-      "title" : "DCF16: Serious Adverse Event",
-      "type" : "form",
-      "src" : "./assets/s16-serious-adverse-event-9f818a/form.html"
-   },
-   {
-      "id" : "s17-adverse-event-of-special-interest-2a347b",
-      "src" : "./assets/s17-adverse-event-of-special-interest-2a347b/form.html",
-      "title" : "DCF17: Adverse Event of Special Interest",
-      "type" : "form"
-   },
-   {
-      "type" : "form",
-      "title" : "DCF18: Protocol Deviation",
-      "src" : "./assets/s18-protocol-deviation-5d5df9/form.html",
-      "id" : "s18-protocol-deviation-5d5df9"
-   },
-   {
-      "src" : "./assets/s19-study-status-b6e57a/form.html",
-      "title" : "DCF19: Study Status",
-      "type" : "form",
-      "id" : "s19-study-status-b6e57a"
-   },
-   {
-      "id" : "s20-missed-visit-7a325d",
-      "src" : "./assets/s20-missed-visit-7a325d/form.html",
-      "title" : "DCF20: Missed Visit",
-      "type" : "form"
-   },
-   {
-      "id" : "s21-mortality-6e765f",
-      "type" : "form",
-      "title" : "DCF21: - Mortality",
-      "src" : "./assets/s21-mortality-6e765f/form.html"
-   },
-   {
-      "src" : "./assets/s22-sample-collection-8c7789/form.html",
-      "title" : "DCF22: Sample Collection",
-      "type" : "form",
-      "id" : "s22-sample-collection-8c7789"
-   },
-   {
-      "id" : "medication-manifest-10fc3b",
-      "description" : "Select this case type to track a medication container.",
-      "src" : "./assets/infant-manifest-115ebb/form.html",
-      "type" : "case",
-      "searchSettings" : {
-         "variablesToIndex" : [
-            "enrollment_id",
-            "enrollment_date"
-         ],
-         "primaryTemplate" : "Enrollment ID: ${searchDoc.variables.enrollment_id}",
-         "shouldIndex" : true,
-         "secondaryTemplate" : "<t-lang en>Enrollment Date</t-lang><t-lang fr>Date de l'inscriptione</t-lang>: ${searchDoc.variables.enrollment_date}, ${event ? `Event Type: ${event.name}` : ''}"
-      },
-      "icon" : "icons:opacity",
-      "title" : "Medication",
-      "listed" : false
-   },
-   {
-      "searchSettings" : {
-         "primaryTemplate" : "<t-lang en>Participant ID</t-lang><t-lang fr>ID de participant</t-lang> ${searchDoc.variables.enrollment_id}",
-         "secondaryTemplate" : "<t-lang en>Enrollment Date</t-lang><t-lang fr>Date de l'inscriptione</t-lang>: ${searchDoc.variables.enrollment_date}, ${event ? `Event Type: ${event.name}` : ''}",
-         "shouldIndex" : true,
-         "variablesToIndex" : [
-            "enrollment_id",
-            "enrollment_date"
-         ]
-      },
-      "type" : "case",
-      "src" : "./assets/infant-manifest-115ebb/form.html",
-      "description" : "Select this case type to record a site level protocol deviation.",
-      "id" : "sample-manifest-10fc3b",
-      "listed" : false,
-      "title" : "Site Level Protocol Deviation",
-      "icon" : "icons:report"
    }
 ]
