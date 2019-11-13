@@ -1,0 +1,173 @@
+      <tangy-form id="s16-serious-adverse-event-9f818a" title="S16 - Serious Adverse Event" category="null" on-open="
+        " on-change="
+        " on-submit="
+        ">
+        <tangy-form-item hide-nav-icons id="item_sae_1" title="Serious Adverse Event" on-open="
+            " on-change="
+            " category="
+              null
+            ">
+          <template>
+            <tangy-box name="header" class="" style="">
+              <div style="border: 1px solid black; background-color:lightgray;padding: 5px 5px 5px 5px; width:100%; margin-left: -15px;">
+                <strong>Participant:</strong> 800001<br>
+                <strong>Facility:</strong> Koutialla CSREF<br>
+              </div>
+            </tangy-box>
+            <tangy-box name="" class="" style=""><strong>Complete this form when informed of a serious adverse event or when indicated based on study review.</strong></tangy-box>
+            <tangy-input name="saenum" class="" style="" required="" label="SAE number:" error-message="" invalid-message="" hint-text="" type="number" inner-label="" allowed-pattern="" min="1" max="999"></tangy-input>
+            <tangy-partial-date name="saerepdat" class="" style="" required="" label="Date of report:" error-message="" invalid-message="" hint-text=""
+              future-date-error-text="<t-lang en>The date cannot be in the future. Please enter a date that is on or before today.</t-lang><t-lang>La date ne peut pas être dans le futur. S'il vous plaît entrer une date qui est sur ou avant aujourd'hui.</t-lang>"
+              missing-date-error-text="<t-lang en>The date is missing. Please enter a valid date.</t-lang><t-lang fr>La date n'est pas manquante. Veuillez entrer une date valide.</t-lang>"
+              invalid-date-error-text="<t-lang en>The date is not valid. Please enter a valid date.</t-lang><t-lang fr>La date n'est pas valide. Veuillez entrer une date valide.</t-lang>" question-number="" min-year="2019" max-year="2025"
+              show-today-button="" disallow-future-date="">
+            </tangy-partial-date>
+          </template>
+        </tangy-form-item>
+        <tangy-form-item hide-nav-icons id="sae-participant-info" title="Participant Information" on-open="
+            " on-change="
+            " category="
+              null
+            ">
+          <template>
+            <tangy-partial-date name="dob" qnum="1." label="Date of birth:" hint-text="Please enter as much information as possible. A partial date is allowed." required="" allow-unkown-day="" allow-unknown-month="" allow-unknown-year=""
+              min-year="1979" max-year="2009">
+            </tangy-partial-date>
+            <tangy-input name="age" question-number="1a." label="Age:" type="number" required="" min="15" max="50" hint-text="Estimated age in years if year of birth is unknown."
+              show-if="getValue('saedob').length === 10 &amp;&amp; getValue('saedob').substring(0,2) === '20'">
+            </tangy-input>
+            <tangy-radio-buttons name="sex" question-number="2." label="Gender of participant:" hint-text="" required="">
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+            </tangy-radio-buttons>
+            <tangy-input name="height" question-number="3." label="Height:" type="text" required="" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value) &amp;&amp; parseFloat(input.value) < 1.5"
+              hint-text="Please enter height in meters to one decimal place." min="1.0" max="1.5">
+            </tangy-input>
+            <tangy-input name="weight" question-number="4." label="Weight:" type="text" required="" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value) &amp;&amp; parseFloat(input.value) < 1.5"
+              hint-text="Please enter weight in kilograms to one decimal place." min="1.0" max="1.5">
+            </tangy-input>
+            <tangy-radio-buttons name="neonate" question-number="5." label="Was participant neonate?" hint-text="" required="">
+              <option value="1">Yes</option>
+              <option value="2">No</option>
+            </tangy-radio-buttons>
+            <div style="margin-left:100px;">
+              <tangy-input name="neonatega" question-number="5a." label="If neonate: gestational age at birth:" type="text" required="" show-if="getValue('neonate') === '1'" hint-text="Please enter gestational age to one decimal place." min="1.0" max="1.5">
+              </tangy-input>
+              <tangy-input name="neonatebw" question-number="5b." label="If neonate: birth weight:" type="text" required="" show-if="getValue('neonate') === '1'" hint-text="Please enter birth weight to one decimal place.">
+              </tangy-input>
+              <tangy-input name="apgar1" question-number="5c1." label="If neonate: 1 min APGAR score:" type="text" required="" show-if="getValue('neonate') === '1'" hint-text="Please enter 1 min APGAR score.">
+              </tangy-input>
+              <tangy-input name="apgar5" question-number="5c2." label="If neonate: 5 mins APGAR score:" type="text" required="" show-if="getValue('neonate') === '1'" hint-text="Please enter 5 mins APGAR score.">
+              </tangy-input>
+            </div>
+            <tangy-input name="apgar10" question-number="5c3." label="If neonate: 10 mins APGAR score:" type="text" required="" show-if="getValue('neonate') === '1'" hint-text="Please enter 10 mins APGAR score.">
+            </tangy-input>
+          </template>
+        </tangy-form-item>
+        <tangy-form-item hide-nav-icons id="sae-participant-history" title="Participant History" on-open="
+            " on-change="
+        let num = this.$.content.querySelectorAll('tangy-checkbox').length
+        for (let i = 0; i < num; i++) {
+            if (this.$.content.querySelectorAll('tangy-checkbox')[i].value === 'on') {
+                this.$.content.querySelectorAll('tangy-partial-date')[(i*2)+1].setAttribute('hidden','');
+                this.$.content.querySelectorAll('tangy-partial-date')[(i*2)+1].value = ''
+            } else {
+                this.$.content.querySelectorAll('tangy-partial-date')[(i*2)+1].removeAttribute('hidden');
+            }
+        }
+            " category="
+              null
+            ">
+          <template>
+            <tangy-box name="historyinstr"> Provide relevant medical history below. Include other illnesses present at time of event and pre-existing medical conditions. Add a new instance for each illness. </tangy-box>
+            <tangy-input-groups initial-count="1" name="sae-participant-history-table">
+              <tangy-input name="illness" label="Illness:" required=""></tangy-input>
+              <tangy-partial-date name="illnessonsetdt" label="Onset date:" hint-text="Please enter a complete date." required="" min-year="2019" max-year="2024" disallow-future-date="">
+              </tangy-partial-date>
+              <tangy-partial-date name="illnesstopdt" label="Stop date:" hint-text="Please enter a complete date." required="" min-year="2019" max-year="2024" disallow-future-date="">
+              </tangy-partial-date>
+              <tangy-checkbox name="illnessongoing">Check if ongoing</tangy-checkbox>
+              <tangy-input name="illnessdtls" label="Pertinant details (include surgical procedures and dates):" required=""></tangy-input>
+            </tangy-input-groups>
+          </template>
+        </tangy-form-item>
+        <tangy-form-item hide-nav-icons id="sae-concomitant-drugs" title="Concomitant Drugs" on-open="
+            " on-change="
+            let num = this.$.content.querySelectorAll('tangy-checkbox').length
+            for (let i = 0; i < num; i++) {
+                if (this.$.content.querySelectorAll('tangy-checkbox')[i].value === 'on') {
+                    this.$.content.querySelectorAll('tangy-partial-date')[(i*2)+1].setAttribute('hidden','');
+                    this.$.content.querySelectorAll('tangy-partial-date')[(i*2)+1].value = '';
+                } else {
+                    this.$.content.querySelectorAll('tangy-partial-date')[(i*2)+1].removeAttribute('hidden');
+                }
+            }
+            " category="
+              null
+            ">
+          <template>
+            <tangy-box name="historyinstr" class="" style=""> List below concomitant drugs taken within two weeks before the event onset. Exclude all drugs only administered more than two weeks before the event, and any drug used to treat the event
+              or taken after event onset. Add a new instance for each medication. </tangy-box>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="conmedname" class="" style="" required="" label="Drug Name (Trade and Generic):" error-message="" invalid-message="" hint-text=""></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="conmedrsn" class="" style="" required="" label="Reason for Use:" error-message="" invalid-message="" hint-text=""></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="conmedrte" class="" style="" required="" label="Route:" error-message="" invalid-message="" hint-text=""></tangy-input>
+            <tangy-partial-date name="conmedstrtdt" class="" style="" required="" label="Start date:" error-message="" invalid-message="" hint-text="Please enter a complete date."
+              future-date-error-text="<t-lang en>The date cannot be in the future. Please enter a date that is on or before today.</t-lang><t-lang>La date ne peut pas être dans le futur. S'il vous plaît entrer une date qui est sur ou avant aujourd'hui.</t-lang>"
+              missing-date-error-text="<t-lang en>The date is missing. Please enter a valid date.</t-lang><t-lang fr>La date n'est pas manquante. Veuillez entrer une date valide.</t-lang>"
+              invalid-date-error-text="<t-lang en>The date is not valid. Please enter a valid date.</t-lang><t-lang fr>La date n'est pas valide. Veuillez entrer une date valide.</t-lang>" question-number="" min-year="2019" max-year="2024"
+              disallow-future-date="">
+            </tangy-partial-date>
+            <tangy-partial-date name="conmedstpdt" class="" style="" required="" label="Stop date:" error-message="" invalid-message="" hint-text="Please enter a complete date."
+              future-date-error-text="<t-lang en>The date cannot be in the future. Please enter a date that is on or before today.</t-lang><t-lang>La date ne peut pas être dans le futur. S'il vous plaît entrer une date qui est sur ou avant aujourd'hui.</t-lang>"
+              missing-date-error-text="<t-lang en>The date is missing. Please enter a valid date.</t-lang><t-lang fr>La date n'est pas manquante. Veuillez entrer une date valide.</t-lang>"
+              invalid-date-error-text="<t-lang en>The date is not valid. Please enter a valid date.</t-lang><t-lang fr>La date n'est pas valide. Veuillez entrer une date valide.</t-lang>" question-number="" min-year="2019" max-year="2024"
+              disallow-future-date="">
+            </tangy-partial-date>
+            <tangy-checkbox name="conmedongoing" class="" style="" label="Check box if ongoing" error-message="" invalid-message="" hint-text="">Check box if ongoing</tangy-checkbox>
+          </template>
+        </tangy-form-item>
+        <tangy-form-item hide-nav-icons id="sae-relevant-tests" title="Relevant Tests" on-open="
+            " on-change="
+            " category="
+            ">
+          <template>
+            <tangy-box name="testsinstr"> List only relevant confirmatory test results for serious adverse event(s), for example, from blood tests, diagnostic imaging. Add a new instance for each test. </tangy-box>
+            <tangy-input name="testname" label="Test:" required=""></tangy-input>
+            <tangy-partial-date name="testdt" label="Date:" hint-text="Please enter a complete date." required="" min-year="2019" max-year="2024" disallow-future-date="">
+            </tangy-partial-date>
+            <tangy-input name="testrslt" label="Result:" required=""></tangy-input>
+            <tangy-input name="tstunits" label="Units:" required=""></tangy-input>
+            <tangy-input name="tstlownorm" label="Normal range - low:" required=""></tangy-input>
+            <tangy-input name="tsthighnorm" label="Normal range - high:" required=""></tangy-input>
+            <tangy-input name="tstcmmts" label="Comments:" required=""></tangy-input>
+          </template>
+        </tangy-form-item>
+        <tangy-form-item hide-nav-icons id="sae-information" title="SAE Information" on-open="
+            " on-change="
+            " category="
+            ">
+          <template>
+            <tangy-box name="saeinstr"> Specify diagnosis if known, rather than symptoms or signs. Add a new instance for each SAE. </tangy-box>
+            <tangy-input name="saeterm" label="SAE term:" hint-text="Single medical concept or final diagnosis, one event term per SAE." required=""></tangy-input>
+            <tangy-partial-date name="saeonsetdt" label="Onset Date:" hint-text="Please enter a complete date." required="" min-year="2019" max-year="2024" disallow-future-date="">
+            </tangy-partial-date>
+            <tangy-checkboxes name="saeseriousness" label="8. Seriousness Criteria (check all that apply):">
+              <option name="saedeath">Resulted in death</option>
+              <option name="saelfethrt">Life-threatening</option>
+              <option name="saehosp">Hospitalization/prolongation of hospitalization</option>
+              <option name="saepersist">Persistent/significant disability/incapacity</option>
+              <option name="saecongenital">Congenital anomaly/Birth defect</option>
+              <option name="saeimprtnt">Important medical event </option>
+            </tangy-checkboxes>
+            <tangy-checkboxes name="saestatus" label="9. Status at date of report or at death (check all that apply):">
+              <option name="saerecovered">Recovered</option>
+              <option name="saerecwithseql">Recovered with sequelae</option>
+              <option name="saerecovering">Recovering</option>
+              <option name="saenotrecvrd">Not recovered</option>
+              <option name="saestatunkn">Unknown</option>
+            </tangy-checkboxes>
+            <tangy-partial-date name="saerecdt" label="If “Recovered” or “Recovered with sequelae?” to Q9, Date of recovery:" hint-text="Please enter a complete date." required="" min-year="2019" max-year="2024" disallow-future-date="" qnum="9a.">
+            </tangy-partial-date>
+          </template>
+        </tangy-form-item>
+      </tangy-form>

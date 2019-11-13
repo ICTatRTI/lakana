@@ -1,0 +1,66 @@
+      <tangy-form id="s18-protocol-deviation-5d5df9" title="S18 - Protocol Deviation" category="null" on-open="
+        " on-change="
+        " on-submit="
+        ">
+        <tangy-form-item hide-nav-icons id="item_987d47df-d2b5-47d9-b48c-0060f8390428" title="Deviation Information" on-open="
+            " on-change="
+            " category="
+            ">
+          <template>
+            <tangy-input name="devnum" type="number" question-number="1." label="Deviation number:" required=""></tangy-input>
+            <tangy-partial-date question-number="2." name="reportdt" class="" style="" label="
+                <t-lang en>Report date:</t-lang>
+                <t-lang fr></t-lang>
+              " error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2010" max-year="2019" show-today-button="" allow-unknown-day="" allow-unknown-month=""
+              disallow-future-date="" required="">
+            </tangy-partial-date>
+            <tangy-partial-date question-number="3." name="protdevdt" class="" style="" label="
+                <t-lang en>Protocol Deviation Date:</t-lang>
+                <t-lang fr></t-lang>
+              " error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2010" max-year="2019" show-today-button="" allow-unknown-day="" allow-unknown-month=""
+              disallow-future-date="" required="">
+            </tangy-partial-date>
+            <tangy-input name="devdesc" question-number="4." label="Brief deviation description:" hint-text="" type="text" allowed-pattern="" required=""></tangy-input>
+            <tangy-input name="stepsavoiddev" question-number="5." label="Describe steps taken to resolve or avoid recurrence of the deviation:" hint-text="" type="text" allowed-pattern="" required=""></tangy-input>
+            <tangy-radio-buttons name="devcat" question-number="6." label="Deviation category:" hint-text="" required="">
+              <option value="1">Eligibility/enrollment</option>
+              <option value="2">study medication temperature</option>
+              <option value="3">Additional study medication administration (extra study medication dose)</option>
+              <option value="4">Error in study medication dose</option>
+              <option value="5">Visit scheduling error</option>
+              <option value="6">Blinding policy/procedure</option>
+              <option value="7">Protocol procuedure/assessment</option>
+              <option value="8">Specimen temperature excursion</option>
+              <option value="9">Error in specimen labeling</option>
+              <option value="10">Missed sample collection</option>
+              <option value="11">Sample not handled per protocol</option>
+              <option value="-8">Other</option>
+            </tangy-radio-buttons>
+            <tangy-input name="othrspec" tangy-if="getValue('devcat') === '-8'" label="Specify:" hint-text="" type="text" allowed-pattern="" required=""></tangy-input>
+            <tangy-radio-buttons name="devressae" question-number="7." label="Did the deviation result in an serious adverse event? (If yes, complete a Serious Adverse Event form)" hint-text="" required="">
+              <option value="1">Yes</option>
+              <option value="2">No</option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="devrestermfu" question-number="8." label="Did the deviation result in subject termination of study follow-up? (If yes, complete the Study Status form)" hint-text="" required="">
+              <option value="1">Yes</option>
+              <option value="2">No</option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="devstab" question-number="9." label="Does the deviation affect, or could it potentially affect, product stability?" hint-text="" required="">
+              <option value="1">Yes</option>
+              <option value="2">No</option>
+              <option value="3">N/A</option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="devirbreq" question-number="10." label="Does this deviation meet IRB reporting requirements?" hint-text="" required="">
+              <option value="1">Yes</option>
+              <option value="2">No</option>
+            </tangy-radio-buttons>
+            <tangy-partial-date question-number="10a." required="" name="irbnotifdt" tangy-if="getValue('devirbreq') === '1'" class="" style="" label="
+                <t-lang en>Date IRB notified:</t-lang>
+                <t-lang fr></t-lang>
+              " error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2010" max-year="2019" show-today-button="" allow-unknown-day="" allow-unknown-month=""
+              disallow-future-date="" required="">
+            </tangy-partial-date>
+            <tangy-input name="comments" question-number="11." label="Comments:" hint-text="" type="text" allowed-pattern="" required=""></tangy-input>
+          </template>
+        </tangy-form-item>
+      </tangy-form>

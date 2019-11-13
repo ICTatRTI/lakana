@@ -1,0 +1,333 @@
+{
+  "id": "infant-only-cohort-case",
+  "formId": "infant-only-cohort-manifest-c5833a",
+  "name": "<t-lang en>Infant-only Cohort</t-lang><t-lang fr>Cohorte infantile seulement</t-lang>",
+  "description": "",
+  "caseRoles": [
+    {
+      "id": "infant-role",
+      "label": "<t-lang en>Infant</t-lang><t-lang fr>Bébé</t-lang>",
+      "templateListItem": "<t-lang en>Forms for</t-lang><t-lang fr>Formulaires pour</t-lang> ${data.firstName} ${data.lastName} (Infant ${id})"
+    }
+  ],
+  "templateCaseTitle": "${getVariable('participant_id') ? `${getVariable('firstname')} ${getVariable('surname')}` : '...'}",
+  "templateCaseDescription": "",
+  "templateCaseEventListItemIcon": "${caseEvent.complete ? 'event_available' : 'event_note'}",
+  "templateCaseEventListItemPrimary": "<span>${caseEventDefinition.name}</span>",
+  "templateCaseEventListItemSecondary": "${TRANSLATE('Scheduled')}: <t-lang en>${formatDate(caseEvent.dateStart,'dddd, MMMM Do YYYY, h:mm:ss a')}</t-lang><t-lang fr>${formatDate(caseEvent.dateStart,'DD-MM-YYYY , h:mm:ss a')}</t-lang>",
+  "templateEventFormListItemIcon": "",
+  "templateEventFormListItemPrimary": "<span>${eventFormDefinition.name}</span>",
+  "templateEventFormListItemSecondary": "<t-lang en>Status</t-lang><t-lang fr>Statut</t-lang>: ${!eventForm.complete ? 'Incomplete' : 'Complete'}",
+  "startFormOnOpen": {
+    "eventId": "event-definition-f5cddc",
+    "eventFormId": "event-form-definition-c8040d"
+  },
+  "eventDefinitions": [ 
+    {
+      "id": "event-definition-f5cddc",
+      "name": "PENTA 1",
+      "description": "Description...",
+      "repeatable": false,
+      "required": true,
+      "estimatedTimeFromCaseOpening": 15552000000,
+      "estimatedTimeWindow": 2592000000,
+      "eventFormDefinitions": [
+        {
+          "id": "event-form-definition-c8040d",
+          "formId": "s01b-screening-and-enrollment-infant-only-2951a7",
+          "forCaseRole": "infant-role",
+          "name": "DCF1B: <t-lang en>Screening and Enrollment of Infant Only Cohort</t-lang><t-lang fr>Dépistage et inscription de la cohorte de nourrissons seulement</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-0ee9e7",
+          "formId": "s12-infant-clinical-information-20ec72",
+          "forCaseRole": "infant-role",
+          "name": "DCF12: <t-lang en>Infant Clinical Information</t-lang><t-lang fr>Evènements cliniques de l’enfant depuis la dernière visite</t-lang> ",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-c25bd8",
+          "formId": "s13-infant-anthropometrics-5bc72a",
+          "forCaseRole": "infant-role",
+          "name": "S13 - <t-lang en>Infant Anthro</t-lang><t-lang fr>Anthropométrie Enfant</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-72d1fd",
+          "formId": "s02-drug-administration-99380a",
+          "forCaseRole": "infant-role",
+          "name": "S02 - <t-lang en>Drug Administration</t-lang><t-lang fr>Dosage AZ</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-4beaaa",
+          "formId": "s14-current-epi-visit-841753",
+          "forCaseRole": "infant-role",
+          "name": "DCF14: <t-lang en>Current EPI visit</t-lang><t-lang fr>Visite PEV en cours</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-96e373",
+          "formId": "s20-missed-visit-7a325d",
+          "forCaseRole": "infant-role",
+          "name": "S20 - <t-lang en>Missed Visit</t-lang><t-lang fr>Visite manquée</t-lang>",
+          "required": false,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-d496f8",
+          "formId": "s11-missed-delivery-visit-41448b",
+          "forCaseRole": "infant-role",
+          "name": "S11 - <t-lang en>Missed Delivery Visit</t-lang><t-lang fr>Visite de livraison manquée</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-5c5c87",
+          "formId": "s08-maternal-interim-clinical-information-45addc",
+          "forCaseRole": "infant-role",
+          "name": "S08 - <t-lang en>Maternal Interim clinical history</t-lang><t-lang fr>Antécédents cliniques maternels provisoires</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-cd3cb9",
+          "formId": "s05-maternal-physical-exam-1c983b",
+          "forCaseRole": "infant-role",
+          "name": "S05 - <t-lang en>Maternal Physical Exam</t-lang><t-lang fr>Examen physique maternel</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-17df05",
+          "formId": "s07-visit-information-82328c",
+          "forCaseRole": "infant-role",
+          "name": "S07 - <t-lang en>Visit Information</t-lang><t-lang fr>Formulaire de fin de cette visite</t-lang>",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-definition-b37676",
+      "name": "PENTA 3",
+      "description": "Description...",
+      "repeatable": false,
+      "required": true,
+      "estimatedTimeFromCaseOpening": 15552000000,
+      "estimatedTimeWindow": 2592000000,
+      "eventFormDefinitions": [
+        {
+          "id": "event-form-definition-53d2a1",
+          "formId": "s12-infant-clinical-information-20ec72",
+          "forCaseRole": "infant-role",
+          "name": "DCF12: <t-lang en>Infant Clinical Information</t-lang><t-lang fr>Evènements cliniques de l’enfant depuis la dernière visite</t-lang> ",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-8386dd",
+          "formId": "s13-infant-anthropometrics-5bc72a",
+          "forCaseRole": "infant-role",
+          "name": "DFC13: <t-lang en>Infant Anthro</t-lang><t-lang fr>Anthropométrie Enfant</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-c66286",
+          "formId": "s02-drug-administration-99380a",
+          "forCaseRole": "infant-role",
+          "name": "DCF2: <t-lang en>Drug Administration</t-lang><t-lang fr>Dosage AZ</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-35a93d",
+          "formId": "s14-current-epi-visit-841753",
+          "forCaseRole": "infant-role",
+          "name": "S14 - <t-lang en>Current EPI visit</t-lang><t-lang fr>Visite PEV en cours</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-2f08de",
+          "formId": "s20-missed-visit-7a325d",
+          "forCaseRole": "infant-role",
+          "name": "DCF20: <t-lang en>Missed Visit</t-lang><t-lang fr>Visite manquée</t-lang>",
+          "required": false,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-f3524a",
+          "formId": "s07-visit-information-82328c",
+          "forCaseRole": "infant-role",
+          "name": "DCF7: <t-lang en>Visit Information</t-lang><t-lang fr>Formulaire de fin de cette visite</t-lang>",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-definition-9fbb03",
+      "name": "6m",
+      "description": "Description...",
+      "repeatable": false,
+      "required": true,
+      "estimatedTimeFromCaseOpening": 15552000000,
+      "estimatedTimeWindow": 2592000000,
+      "eventFormDefinitions": [
+        {
+          "id": "event-form-definition-19b34a",
+          "formId": "s15-vital-status-3c3497",
+          "forCaseRole": "infant-role",
+          "name": "DCF15: <t-lang en>Vital Status</t-lang><t-lang fr>Statut vital</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-163755",
+          "formId": "s12-infant-clinical-information-20ec72",
+          "forCaseRole": "infant-role",
+          "name": "DCF12: <t-lang en>Infant Clinical Information</t-lang><t-lang fr>Evènements cliniques de l’enfant depuis la dernière visite</t-lang> ",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-fe160b",
+          "formId": "s20-missed-visit-7a325d",
+          "forCaseRole": "infant-role",
+          "name": "DCF20: <t-lang en>Missed Visit</t-lang><t-lang fr>Visite manquée</t-lang>",
+          "required": false,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-87de2d",
+          "formId": "s07-visit-information-82328c",
+          "forCaseRole": "infant-role",
+          "name": "DCF7: <t-lang en>Visit Information</t-lang><t-lang fr>Formulaire de fin de cette visite</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-70a98a",
+          "formId": "s19-study-status-b6e57a",
+          "forCaseRole": "infant-role",
+          "name": "DCF19: <t-lang en>Study Status</t-lang><t-lang fr>Statut de l'étude</t-lang>",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-definition-7180d2",
+      "name": "12m",
+      "description": "Description...",
+      "repeatable": false,
+      "required": true,
+      "estimatedTimeFromCaseOpening": 15552000000,
+      "estimatedTimeWindow": 2592000000,
+      "eventFormDefinitions": [
+        {
+          "id": "event-form-definition-e2299d",
+          "formId": "s15-vital-status-3c3497",
+          "forCaseRole": "infant-role",
+          "name": "DCF15: <t-lang en>Vital Status</t-lang><t-lang fr>Statut vital</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-712954",
+          "formId": "s12-infant-clinical-information-20ec72",
+          "forCaseRole": "infant-role",
+          "name": "DCF12: <t-lang en>Infant Clinical Information</t-lang><t-lang fr>Evènements cliniques de l’enfant depuis la dernière visite</t-lang> ",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-589b25",
+          "formId": "s20-missed-visit-7a325d",
+          "forCaseRole": "infant-role",
+          "name": "DCF20: <t-lang en>Missed Visit</t-lang><t-lang fr>Visite manquée</t-lang>",
+          "required": false,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-e9d2cc",
+          "formId": "s07-visit-information-82328c",
+          "forCaseRole": "infant-role",
+          "name": "DCF7: <t-lang en>Visit Information</t-lang><t-lang fr>Formulaire de fin de cette visite</t-lang>",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-definition-85a60d",
+          "formId": "s19-study-status-b6e57a",
+          "forCaseRole": "infant-role",
+          "name": "DCF19: <t-lang en>Study Status</t-lang><t-lang fr>Statut de l'étude</t-lang>",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-definition-78c821",
+      "name": "<t-lang en>Serious Adverse Event</t-lang><t-lang fr>Événement indésirable grave</t-lang>",
+      "description": "",
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "repeatable": true,
+      "required": false,
+      "eventFormDefinitions": [
+        {
+          "id": "event-form-definition-182222",
+          "formId": "s16-serious-adverse-event-9f818a",
+          "forCaseRole": "infant-role",
+          "name": "DCF16: <t-lang en>Serious Adverse Event</t-lang><t-lang fr>Événement indésirable grave</t-lang>",
+          "required": false,
+          "repeatable": true
+        },
+        {
+          "id": "event-form-definition-6c42a2",
+          "formId": "s17-adverse-event-of-special-interest-2a347b",
+          "forCaseRole": "infant-role",
+          "name": "DCF17: <t-lang en>Adverse Event of Special Interest</t-lang><t-lang fr>Evénement indésirable d'intérêt spécial</t-lang>",
+          "required": false,
+          "repeatable": true
+        },
+        {
+          "id": "event-form-definition-d5041d",
+          "formId": "s18-protocol-deviation-5d5df9",
+          "forCaseRole": "infant-role",
+          "name": "DCF18: <t-lang en>Protocol Deviation</t-lang><t-lang fr>Déviation de protocole</t-lang>",
+          "required": false,
+          "repeatable": true
+        }
+      ]
+    },
+    {
+      "id": "query-event",
+      "name": "<t-lang en>Queries</t-lang><t-lang fr>Des requêtes</t-lang>",
+      "description": "",
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "repeatable": false,
+      "required": false,
+      "eventFormDefinitions": [
+        {
+          "id": "query-form-event",
+          "formId": "query-form",
+          "forCaseRole": "infant-role",
+          "name": "<t-lang en>Query</t-lang><t-lang fr>Requete</t-lang>",
+          "required": false,
+          "repeatable": true
+        }
+      ]
+    }
+  ]
+}

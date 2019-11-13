@@ -1,1 +1,359 @@
-{"locationsLevels":[],"locations":{},"metadata":{}}
+{
+  "locations": {
+    "SWuiRlRA": {
+      "parent": "root",
+      "label": "Sikasso",
+      "id": "SWuiRlRA",
+      "level": "region",
+      "children": {
+        "LUjfV7pz": {
+          "parent": "SWuiRlRA",
+          "label": "Koutiala",
+          "id": "LUjfV7pz",
+          "level": "district",
+          "children": {
+            "NhFY3Z87": {
+              "parent": "LUjfV7pz",
+              "label": "Axe 3",
+              "id": "NhFY3Z87",
+              "level": "axes",
+              "children": {
+                "XfFl5rXT": {
+                  "parent": "NhFY3Z87",
+                  "label": "N'Golonianasso",
+                  "id": "XfFl5rXT",
+                  "level": "facility",
+                  "children": {}
+                },
+                "r9CmHZu9": {
+                  "parent": "NhFY3Z87",
+                  "label": "Ferme",
+                  "id": "r9CmHZu9",
+                  "level": "facility",
+                  "children": {}
+                },
+                "JnWbsGn4": {
+                  "parent": "NhFY3Z87",
+                  "label": "Karagouana",
+                  "id": "JnWbsGn4",
+                  "level": "facility",
+                  "children": {}
+                },
+                "LNB60nWY": {
+                  "parent": "NhFY3Z87",
+                  "label": "Zanzoni",
+                  "id": "LNB60nWY",
+                  "level": "facility",
+                  "children": {}
+                },
+                "zfbR6ZX5": {
+                  "parent": "NhFY3Z87",
+                  "label": "N'Tièsso",
+                  "id": "zfbR6ZX5",
+                  "level": "facility",
+                  "children": {}
+                },
+                "fmpkcJSR": {
+                  "parent": "NhFY3Z87",
+                  "label": "Konina",
+                  "id": "fmpkcJSR",
+                  "level": "facility",
+                  "children": {}
+                },
+                "vubMYxmP": {
+                  "parent": "NhFY3Z87",
+                  "label": "M'Pèssoba",
+                  "id": "vubMYxmP",
+                  "level": "facility",
+                  "children": {}
+                },
+                "WKiNtrMH": {
+                  "parent": "NhFY3Z87",
+                  "label": "Mièna",
+                  "id": "WKiNtrMH",
+                  "level": "facility",
+                  "children": {}
+                },
+                "zE2I5gg8": {
+                  "parent": "NhFY3Z87",
+                  "label": "N'Tossoni",
+                  "id": "zE2I5gg8",
+                  "level": "facility",
+                  "children": {}
+                },
+                "2VBkdamu": {
+                  "parent": "NhFY3Z87",
+                  "label": "Pèguèna",
+                  "id": "2VBkdamu",
+                  "level": "facility",
+                  "children": {}
+                },
+                "OYKxZVRm": {
+                  "parent": "NhFY3Z87",
+                  "label": "Kouo",
+                  "id": "OYKxZVRm",
+                  "level": "facility",
+                  "children": {}
+                },
+                "ZF48EVAl": {
+                  "parent": "NhFY3Z87",
+                  "label": "Fonfona",
+                  "id": "ZF48EVAl",
+                  "level": "facility",
+                  "children": {}
+                },
+                "vrKFunZk": {
+                  "parent": "NhFY3Z87",
+                  "label": "Konseguéla",
+                  "id": "vrKFunZk",
+                  "level": "facility",
+                  "children": {}
+                },
+                "KiTWtQUf": {
+                  "parent": "NhFY3Z87",
+                  "label": "Koko",
+                  "id": "KiTWtQUf",
+                  "level": "facility",
+                  "children": {}
+                }
+              }
+            },
+            "4hkUwmKu": {
+              "parent": "LUjfV7pz",
+              "label": "Axe 2",
+              "id": "4hkUwmKu",
+              "level": "axes",
+              "children": {
+                "1Jsy6DcW": {
+                  "parent": "4hkUwmKu",
+                  "label": "Djitamana",
+                  "id": "1Jsy6DcW",
+                  "level": "facility",
+                  "children": {}
+                },
+                "FbWiXhxN": {
+                  "parent": "4hkUwmKu",
+                  "label": "Medina -coura",
+                  "id": "FbWiXhxN",
+                  "level": "facility",
+                  "children": {}
+                },
+                "mxFE4FRJ": {
+                  "parent": "4hkUwmKu",
+                  "label": "Karangasso",
+                  "id": "mxFE4FRJ",
+                  "level": "facility",
+                  "children": {}
+                },
+                "3Dbv6kMA": {
+                  "parent": "4hkUwmKu",
+                  "label": "Molobala",
+                  "id": "3Dbv6kMA",
+                  "level": "facility",
+                  "children": {}
+                },
+                "QeHWyTlp": {
+                  "parent": "4hkUwmKu",
+                  "label": "N'Gountjina",
+                  "id": "QeHWyTlp",
+                  "level": "facility",
+                  "children": {}
+                },
+                "3rY8taCM": {
+                  "parent": "4hkUwmKu",
+                  "label": "N'Tosso",
+                  "id": "3rY8taCM",
+                  "level": "facility",
+                  "children": {}
+                },
+                "LHailhLD": {
+                  "parent": "4hkUwmKu",
+                  "label": "Sanguéla",
+                  "id": "LHailhLD",
+                  "level": "facility",
+                  "children": {}
+                },
+                "9SX3JJnp": {
+                  "parent": "4hkUwmKu",
+                  "label": "Sinkolo",
+                  "id": "9SX3JJnp",
+                  "level": "facility",
+                  "children": {}
+                },
+                "tXQxhrdg": {
+                  "parent": "4hkUwmKu",
+                  "label": "Sougoumba",
+                  "id": "tXQxhrdg",
+                  "level": "facility",
+                  "children": {}
+                },
+                "OBpRNfEn": {
+                  "parent": "4hkUwmKu",
+                  "label": "Tierè",
+                  "id": "OBpRNfEn",
+                  "level": "facility",
+                  "children": {}
+                },
+                "kpK4GtKw": {
+                  "parent": "4hkUwmKu",
+                  "label": "Zangasso",
+                  "id": "kpK4GtKw",
+                  "level": "facility",
+                  "children": {}
+                },
+                "SivM0m3I": {
+                  "parent": "4hkUwmKu",
+                  "label": "Zebala",
+                  "id": "SivM0m3I",
+                  "level": "facility",
+                  "children": {}
+                },
+                "UXwxepd0": {
+                  "parent": "4hkUwmKu",
+                  "label": "Ziena",
+                  "id": "UXwxepd0",
+                  "level": "facility",
+                  "children": {}
+                },
+                "InEzYx7h": {
+                  "parent": "4hkUwmKu",
+                  "label": "Sincina",
+                  "id": "InEzYx7h",
+                  "level": "facility",
+                  "children": {}
+                },
+                "xyTpjxlN": {
+                  "parent": "4hkUwmKu",
+                  "label": "Hamdallaye",
+                  "id": "xyTpjxlN",
+                  "level": "facility",
+                  "children": {}
+                }
+              }
+            },
+            "ggN2CThJ": {
+              "parent": "LUjfV7pz",
+              "label": "Axe 1",
+              "id": "ggN2CThJ",
+              "level": "axes",
+              "children": {
+                "53quCvx6": {
+                  "parent": "ggN2CThJ",
+                  "label": "Baramba",
+                  "id": "53quCvx6",
+                  "level": "facility",
+                  "children": {}
+                },
+                "0lCivixS": {
+                  "parent": "ggN2CThJ",
+                  "label": "Bongosso",
+                  "id": "0lCivixS",
+                  "level": "facility",
+                  "children": {}
+                },
+                "c0iwNx3v": {
+                  "parent": "ggN2CThJ",
+                  "label": "Kouniana",
+                  "id": "c0iwNx3v",
+                  "level": "facility",
+                  "children": {}
+                },
+                "ON4qVZiE": {
+                  "parent": "ggN2CThJ",
+                  "label": "Famoussasso",
+                  "id": "ON4qVZiE",
+                  "level": "facility",
+                  "children": {}
+                },
+                "wLpzJMuK": {
+                  "parent": "ggN2CThJ",
+                  "label": "B.Z",
+                  "id": "wLpzJMuK",
+                  "level": "facility",
+                  "children": {}
+                },
+                "mgOZmQ7E": {
+                  "parent": "ggN2CThJ",
+                  "label": "Leleni",
+                  "id": "mgOZmQ7E",
+                  "level": "facility",
+                  "children": {}
+                },
+                "9Sj2DNWx": {
+                  "parent": "ggN2CThJ",
+                  "label": "CSREF",
+                  "id": "9Sj2DNWx",
+                  "level": "facility",
+                  "children": {}
+                },
+                "40bs7CUI": {
+                  "parent": "ggN2CThJ",
+                  "label": "sorobasso",
+                  "id": "40bs7CUI",
+                  "level": "facility",
+                  "children": {}
+                },
+                "D666ouEd": {
+                  "parent": "ggN2CThJ",
+                  "label": "Koloni",
+                  "id": "D666ouEd",
+                  "level": "facility",
+                  "children": {}
+                },
+                "2Z7MZ4dJ": {
+                  "parent": "ggN2CThJ",
+                  "label": "Yafola",
+                  "id": "2Z7MZ4dJ",
+                  "level": "facility",
+                  "children": {}
+                },
+                "GDDoqJVL": {
+                  "parent": "ggN2CThJ",
+                  "label": "Garasso",
+                  "id": "GDDoqJVL",
+                  "level": "facility",
+                  "children": {}
+                },
+                "R4DxepK0": {
+                  "parent": "ggN2CThJ",
+                  "label": "Sirakélé",
+                  "id": "R4DxepK0",
+                  "level": "facility",
+                  "children": {}
+                },
+                "BVT1TVLt": {
+                  "parent": "ggN2CThJ",
+                  "label": "Sogomougou",
+                  "id": "BVT1TVLt",
+                  "level": "facility",
+                  "children": {}
+                },
+                "Kt9r5xEq": {
+                  "parent": "ggN2CThJ",
+                  "label": "N'Togonasso",
+                  "id": "Kt9r5xEq",
+                  "level": "facility",
+                  "children": {}
+                },
+                "hWBHBof0": {
+                  "parent": "ggN2CThJ",
+                  "label": "Oula",
+                  "id": "hWBHBof0",
+                  "level": "facility",
+                  "children": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "locationsLevels": [
+    "region",
+    "district",
+    "axes",
+    "facility"
+  ],
+  "metadata": {}
+}

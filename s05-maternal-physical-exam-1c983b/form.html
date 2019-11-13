@@ -1,0 +1,60 @@
+      <tangy-form id="s05-maternal-physical-exam-1c983b" title="S05 - Maternal Physical Exam" category="null" on-open="
+        " exit-clicks="
+        " on-change="
+        " on-submit="
+        ">
+        <tangy-form-item id="item_b596a69a-7689-4691-9871-9b2b82b7123e" title="
+        <t-lang en>Maternal Physical Examination</t-lang>
+        <t-lang fr>Examen Physique Maternel</t-lang>" on-open="
+            " on-change="
+            " category="
+              null
+            ">
+          <template>
+            <tangy-radio-buttons name="wttaken" class="" style="" required="" question-number="1." label="<t-lang en>Weight taken?</t-lang><t-lang fr>Poids pris?</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="</option" style="display: inline;">Yes</t-lang>
+                <t-lang fr="" style="display: none;">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="</option" style="display: inline;">No</t-lang>
+                <t-lang fr="" style="display: none;">Non</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="matwt" class="" style="" tangy-if="getValue('wttaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="1a."
+              label="Weight:" error-message="" invalid-message="" hint-text="Enter weight in kg (1 dp)"></tangy-input>
+            <tangy-radio-buttons name="httaken" class="" style="" required="" question-number="2." label="<t-lang en>Height taken?</t-lang><t-lang fr>Taille prise? </t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="</option" style="display: inline;">Yes</t-lang>
+                <t-lang fr="" style="display: none;">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="</option" style="display: inline;">No</t-lang>
+                <t-lang fr="" style="display: none;">Non</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="ht1" class="" style="" tangy-if="getValue('httaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="2a."
+              label="<t-lang en>1st height: </t-lang><t-lang fr>1er</t-lang>" error-message="" invalid-message="" hint-text="<t-lang en>Enter 1st height  (1 decimal place)  in cm </t-lang><t-lang fr></t-lang>"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="ht2" class="" style="" tangy-if="getValue('httaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="2b."
+              label="<t-lang en>2nd height: </t-lang><t-lang fr>1er</t-lang>" error-message="" invalid-message="" hint-text="<t-lang en>Enter 2nd height  (1 decimal place)  in cm </t-lang><t-lang fr></t-lang>"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="ht3" class="" style="" tangy-if="getValue('httaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="2c."
+              label="<t-lang en>3rd height: </t-lang><t-lang fr>1er</t-lang>" error-message="" invalid-message="" hint-text="<t-lang en>Enter 3rd height  (1 decimal place)  in cm </t-lang><t-lang fr></t-lang>"></tangy-input>
+            <tangy-radio-buttons name="muactaken" class="" style="" required="" question-number="3." label="<t-lang en>MUAC taken?</t-lang><t-lang fr> 3.	MUAC  pris?</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes</t-lang>
+                <t-lang fr="" style="display: none;">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">No</t-lang>
+                <t-lang fr="" style="display: none;">Non</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="muac1" class="" style="" tangy-if="getValue('muactaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="3a."
+              label="<t-lang en>1st MUAC:</t-lang><t-lang fr>1er</t-lang>" error-message="" invalid-message="" hint-text="<t-lang en>Enter 1st MUAC (1 decimal place) in cm</t-lang><t-lang fr></t-lang>"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="muac2" class="" style="" tangy-if="getValue('muactaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="3b."
+              label="<t-lang en>2nd MUAC:</t-lang><t-lang fr>1er</t-lang>" error-message="" invalid-message="" hint-text="<t-lang en>Enter 2nd MUAC (1 decimal place) in cm</t-lang><t-lang fr></t-lang>"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="muac3" class="" style="" tangy-if="getValue('muactaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="3c."
+              label="<t-lang en>3rd MUAC:</t-lang><t-lang fr>1er</t-lang>" error-message="" invalid-message="" hint-text="<t-lang en>Enter 3rd MUAC (1 decimal place) in cm</t-lang><t-lang fr></t-lang>"></tangy-input>
+          </template>
+        </tangy-form-item>
+      </tangy-form>

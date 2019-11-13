@@ -1,31 +1,83 @@
-<tangy-form id="user-profile" title="User Profile">
-  <tangy-form-item id="item-1" title="User Profile">
-    <template>
-      <tangy-input 
-        error-message="required" 
-        type="text" 
-        name="first_name" 
-        required 
-        label="First name">
-      </tangy-input>
-      <tangy-input 
-        error-message="required" 
-        type="text" 
-        name="last_name" 
-        required 
-        label="Last name">
-      </tangy-input>
-      <tangy-radio-buttons label="Gender" name="gender" required>
-        <option value="female">Female</option>
-        <option value="male">Male</option>
+
+      <tangy-form id="user-profile" title="User Profile" category=""
+        
+        on-open="
+          
+          
+          
+        
+        
+        "
+        exit-clicks="
+          
+        "
+        on-change="
+          
+          
+          
+        
+        
+        "
+        on-submit="
+          
+        "
+      >
+        
+          <tangy-form-item id="item-1" 
+            title="User Profile"
+            
+            
+            
+            
+            
+            
+            on-open="
+              
+              
+              
+            
+            
+            "
+            on-change="
+              
+              
+              
+            
+            
+            "
+            category="
+              null
+            "
+          >
+            <template>
+              
+      <tangy-input type="text" allowed-pattern="" inner-label="" name="first_name" class="" style="" required="" label="First name" error-message="" invalid-message="" hint-text=""></tangy-input>
+    
+      <tangy-input type="text" allowed-pattern="" inner-label="" name="last_name" class="" style="" required="" label="Last name" error-message="" invalid-message="" hint-text=""></tangy-input>
+    
+      <tangy-radio-buttons name="gender" class="" style="" required="" label="Gender" error-message="" invalid-message="" hint-text="">
+        
+          <option value="female">Female</option>
+        
+          <option value="male">Male</option>
+        
       </tangy-radio-buttons>
-      <tangy-input 
-        error-message="required" 
-        type="number" 
-        name="phone" 
-        required 
-        label="Phone number">
-      </tangy-input>
-    </template>
-  </tangy-form-item>
-</tangy-form>
+    
+      <tangy-input name="phone" class="" style="" required="" label="Phone number" error-message="" invalid-message="" hint-text="" type="number" inner-label="" allowed-pattern=""></tangy-input>
+    
+      <tangy-box name="sync_message"><h3>Sync Settings</h3></tangy-box>
+      <tangy-location name="location" class="" style="" hint-text="" show-levels="region,district,axes">
+      </tangy-location>
+      <tangy-box name="facility_message"><h3>Facility Assignment</h3></tangy-box>
+      <tangy-location name="facility" class="" style="" hint-text="" show-levels="region,district,axes,facility">
+      </tangy-location>
+      
+      
+      
+      
+    
+            </template>
+          </tangy-form-item>
+        
+      </tangy-form>
+    

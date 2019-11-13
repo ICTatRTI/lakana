@@ -1,0 +1,464 @@
+      <tangy-form id="s08-maternal-interim-clinical-information-45addc" title="S08 - Maternal Interim Clinical Information" category="null" on-open="
+        " on-change="
+        " on-submit="
+        ">
+        <tangy-form-item hide-nav-icons id="item_856d0ff7-7426-47e8-a43a-50be10a3b8fd" title="
+        <t-lang en>Maternal Clinical Information</t-lang>
+        <t-lang fr>Informations Cliniques Maternelles Provisoires</t-lang>" on-open="
+            // When viewing a form, the EventInstance's ID will be at position 5 in the URL hash.
+            const eventInstanceId = window.location.hash.split('/')[5]
+            // With the eventInstanceId, we can find the matching eventInstance in caseService.case.events.
+            const eventInstance = caseService.case.events.find(eventInstance => eventInstance.id === eventInstanceId)
+            // With the eventInstance handy, we can use the eventInstance.caseEventDefinitionId to find the EventDefinition inside of caseService.caseDefinition.eventDefinitions.
+            const eventDefinition = caseService.caseDefinition.eventDefinitions.find(eventDefinition => eventDefinition.id === eventInstance.caseEventDefinitionId)
+            " on-change="
+            " category="
+              null
+            ">
+          <template>
+            <tangy-box name="sn08_head" class="" style="">
+              <t-lang en>Maternal Clinical Information</t-lang>
+              <t-lang fr>Informations Cliniques Maternelles Provisoires</t-lang>
+            </tangy-box>
+            <tangy-radio-buttons name="mdrcdavail" class="" style="" required="" question-number="1." label="
+          <t-lang en>Is a medical record available for review at time of interview:</t-lang>
+          <t-lang fr>Y a-t-il un dossier médical disponible pour révision au moment de l'entretien &nbsp; ?</t-lang>
+        " error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+            </tangy-radio-buttons> //Check location of theis tangy-box: <tangy-box name="sn08_head" class="" style="">
+              <t-lang en>Since the last visit or during the current visit has the mother:</t-lang>
+              <t-lang fr>Depuis la dernière visite ou pendant celle en cours la femme a-t-elle: </t-lang>
+            </tangy-box>
+            <tangy-radio-buttons name="diaggestdiab" class="" style="" tangy-if="eventDefinition.id !=== 'event-definition-f5cddc'" required="" question-number="2" label="
+      <t-lang en>Been diagnosed with gestational diabetes:</t-lang>
+      <t-lang fr>Eté diagnostiquée avec un diabète gestationnel?</t-lang>
+      " error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="3">
+                <t-lang en="">N/A diagnosed at previous visit</t-lang>
+                <t-lang fr="">N/A diagnostiquée à la visite précédente</t-lang>
+              </option>
+              <option value="-9">Unknown</option>
+            </tangy-radio-buttons>
+            <!--Hypertension was removed and question 3 is now asking about malaria diagnosis (OS-->
+            <!--
+            <tangy-radio-buttons name="diaghyperten" class="" style="" tangy-if="eventDefinition.id !=== 'event-definition-f5cddc'" required="" question-number="3" label="
+      <t-lang en>Been diagnosed with hypertension:</t-lang>
+<t-lang fr>Eté diagnostiquée avec hypertension: </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="3">
+                <t-lang en="">N/A diagnosed at previous visit</t-lang>
+                <t-lang fr="">N/A diagnostiquée à la visite précédente</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+          (OS)-->
+
+            <tangy-radio-buttons name="diagmalaria" class="" style="" tangy-if="eventDefinition.id !=== 'event-definition-f5cddc'" required="" question-number="4." label="
+      <t-lang en>Been diagnosed with malaria:</t-lang>
+<t-lang fr>Eté diagnostiquée avec paludisme </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <!-- There's a third option like this now...
+                <option value="3">
+                <t-lang en="">N/A diagnosed at previous visit</t-lang>
+                <t-lang fr="">N/A diagnostiquée à la visite précédente</t-lang>
+              </option>
+              (OS)-->
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <!--The question below is now Q3a instead of 4a.-->
+            <tangy-radio-buttons name="trrdt" class="" style="" tangy-if="getValue('diagmalaria') === '1'" question-number="4a." label="
+      <t-lang en>Test result for RDT:</t-lang>
+<t-lang fr>Résultat du test TDR</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <!--Should option values 1&2 be positive for YES and Negative for NO, instead of Yes or No? (OS)-->
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="3">
+                <t-lang en>Not done</t-lang>
+                <t-lang fr>Pas fait</t-lang>
+              </option>
+              <option value="4">
+                <t-lang en>Indeterminant</t-lang>
+                <t-lang fr>Indéterminé</t-lang>
+              </option>
+              <!-- We added a 5th option value...
+                <option value="5">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+              (OS)-->
+              <!--"3b." instead of "4b." below... (OS)-->
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="trsmear" class="" style="" tangy-if="getValue('diagmalaria') === '1'" question-number="4b." label="
+      <t-lang en>Test result for Smear:</t-lang>
+<t-lang fr>Résultat du test goutte épaisse</t-lang>
+" error-message="" invalid-message="" hint-text="">
+<!--Should option values 1&2 be positive for YES and Negative for NO, instead of Yes or No? (OS)-->
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="3">
+                <t-lang en>Not done</t-lang>
+                <t-lang fr>Pas faite</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <!--"3c" instead of "4c" below... (OS)-->
+            <tangy-radio-buttons name="malartrtmnt" class="" style="" tangy-if="getValue('diagmalaria') === '1'" required="" question-number="4c." label="
+      <t-lang en>Did she receive treatment?</t-lang>
+<t-lang fr>A-t-elle reçu un traitement ? </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <!--Below is now Q4 instead of Q5...(OS) -->
+            <tangy-radio-buttons name="experinfectseps" tangy-if="eventDefinition.id !== 'event-definition-f5cddc'" question-number="5." label="
+      <t-lang en>Experienced one or more seizures:</t-lang>
+<t-lang fr>Eu une crise convulsive</t-lang>
+" hint-text="" required="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <!-- This is now Q5 and should follow Q4 as shown below...
+<tangy-radio-buttons name="beenhosp" class="" style="" required="" question-number="7." label="
+      <t-lang en>Had an unplanned/emergency hospitalization for anything other than delivery?</t-lang>
+<t-lang fr>5.	Eté hospitalisée ou a cherché des soins pour une maladie grave ou invalidante &nbsp; ? </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            (OS)-->
+            <!-- Q10 below follows the question above and should be moved up here to be Q6 (OS)-->
+            <!-- I cannot find the Syphillis dianostic test question. It ashoud be Q7 (see below), and then HIV is Q8 
+
+ <tangy-radio-buttons name="" class="" style="" tangy-if="" required="" question-number="7." label="
+      <t-lang en>Rapid syphilis test:</t-lang>
+<t-lang fr>Le test rapide de syphilis  </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang> (IF NO GO TO NEXT QESTION)
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en>Unknown</t-lang> (IF UNK GO TO NEXT QESTION)
+                <t-lang fr>Inconnu</t-lang>
+              </option>
+        <tangy-radio-buttons name="" class="" style="" tangy-if="getValue('') === '1'" question-number="7a." label="
+      <t-lang en>Test result:</t-lang>
+<t-lang fr>Quel était le résultat du test &nbsp; ?</t-lang>" error-message="" invalid-message="" hint-text="">
+             <option value="1">
+                <t-lang en>Positive</t-lang>
+                <t-lang fr>Positif</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>Negative</t-lang> (IF NEG GO TO NEXT QESTION)
+                <t-lang fr>Négatif</t-lang>
+              </option>
+              <option value="3">
+                <t-lang en>Indeterminant</t-lang> (IF UNDETER GO TO NEXT QESTION)
+                <t-lang fr>Indéterminé</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en>Unknown</t-lang> (IF UNK GO TO NEXT QESTION)
+                <t-lang fr>Inconnu</t-lang>
+              </option>
+        <tangy-radio-buttons name="" class="" style="" tangy-if="getValue('') === '1'" question-number="7b." label="
+      <t-lang en>Is she currently being treated (If syphilis test is positive):</t-lang>
+<t-lang fr>Est-elle sous traitement &nbsp; ?</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang> 
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en>Unknown</t-lang>
+                <t-lang fr>Inconnu</t-lang>
+              </option>
+              </tangy-radio-buttons>
+              (OS) -->
+
+              <!--HIV question below should be the last of the diagnostics questions and is Q8 on paper forms (OS) -->
+            <tangy-radio-buttons name="diaghiv" class="" style="" required="" question-number="6." label="
+      <t-lang en>Been diagnosed with HIV:</t-lang>
+<t-lang fr>Eté diagnostiquée avec le VIH</t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+              <option value="3">
+                <t-lang en="">Prefers not to disclose</t-lang>
+                <t-lang fr="">Préfère ne pas le divulguer</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="motherarv" class="" style="" tangy-if="getValue('diaghiv') === '1'" question-number="6a." label="
+      <t-lang en>Is the mother receiving antiretroviral therapy:</t-lang>
+<t-lang fr>La mère est-elle sous un traitement antirétroviral &nbsp; ?  </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="prhylxantibiot" class="" style="" tangy-if="getValue('diaghiv') === '1'" question-number="6b." label="
+      <t-lang en>Is the mother receiving regular infection prophylaxis with cotrimoxazole or other prophelactic antibiotivc (do not include intermittent or single-dose preventative treatment of malaria or other parasitic disease)?</t-lang>
+<t-lang fr>La mère reçoit-elle une prophylaxie régulière contre l'infection notamment le cotrimoxazole ou un autre antibiotique prophylactique &nbsp; ? (ne pas inclure de traitement préventif intermittent ou à dose unique du paludisme ou d'une autre maladie parasitaire) </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <!-- Q7 below is Q5 as shown above... not sure if necessary to move (OS)-->
+            <tangy-radio-buttons name="beenhosp" class="" style="" required="" question-number="7." label="
+      <t-lang en>Had an unplanned/emergency hospitalization for anything other than delivery?</t-lang>
+<t-lang fr>Eté hospitalisée ou cherché des soins pour une maladie grave ou invalidante? </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+
+            <!--3 new questions were added to this from and are Q numbers 9, 10, & 11 on paper form (see below)
+              
+<tangy-radio-buttons name="" class="" style="" required="" question-number="9." label="
+      <t-lang en>?</t-lang>
+<t-lang fr>	La femme a-t-elle eu des selles anormalement molles ou liquides au cours de la dernière semaine &nbsp; ? </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+              </tangy-radio-buttons>
+<tangy-radio-buttons name="" class="" style="" required="" question-number="10." label="
+      <t-lang en>?</t-lang>
+<t-lang fr>La femme a-t-elle eu de la fièvre ou une sensation d’avoir le corps chaud au cours de la dernière semaine &nbsp; ? </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+              </tangy-radio-buttons>
+  <tangy-radio-buttons name="" class="" style="" required="" question-number="11." label="
+      <t-lang en>?</t-lang>
+<t-lang fr>La femme a-t-elle eu une toux ou des difficultés respiratoires au cours de la dernière semaine &nbsp; ? </t-lang>
+" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+              </tangy-radio-buttons>
+              (OS)-->
+          </template>
+        </tangy-form-item>
+        <!--It looks like DCF 8b starts here ? (OS)-->
+        <tangy-form-item hide-nav-icons id="section_5cdd03cce9d64d8688884e4e6a5cf0fd" title="
+            <t-lang en>PENTA-1 (6 week postpartum) Clinical Information</t-lang>
+<t-lang fr>Informations Cliniques sur PENTA-1 (6 semaines post-partum)</t-lang>
+" on-open="
+            " on-change="
+            " category="
+              null
+            ">
+            <!--Before the sentence below, "Since delivery...", there should be a first question asking for mother's medical reccords for rewview (OS)-->
+          <template>
+            <tangy-box name="pnta1head">
+              <t-lang en> Since Delivery, has the mother:</t-lang>
+              <t-lang fr>Depuis l’accouchement, la mère a-t-elle :</t-lang>
+            </tangy-box>
+            <tangy-radio-buttons name="hadsignsinf" question-number="8." label="
+      <t-lang en>Had signs of severe infection or sepsis (Suspected or confirmed infection with either fever (>38 C) or hypothermia (<36 C) AND evidence of  end organ dysfunction including tachycardia (≥120 bpm), low BP (<90/50 mm Hg), tachypnea (≥24/min), altered mental status, jaundice and reduced urine output (<500 ml/24 hours or <20 cc/hr over several hours). Suspected infection may be chorioamnionitis, endometritis, wound infection of perineal or cesarean wound, abdominal/pelvic abscess, mastitis, breast abscess, pyelonephritis, pneumonia etc.)</t-lang>
+<t-lang fr>Présentait des signes d'infection grave ou de septicémie (infection suspectée ou confirmée accompagnée de fièvre (> 38 ° C) ou d'hypothermie (<36 ° C) ET signe d'un dysfonctionnement d'organe final comprenant une tachycardie (≥ 120 bpm), une pression artérielle basse (<90/50 mm Hg) tachypnée (≥ 24 / min), altération de l'état mental, jaunisse et diminution du débit urinaire (<500 ml / 24 heures ou <20 cc / h sur plusieurs heures). L'infection suspectée peut être une chorioamniotite, une endométrite, une infection des lésions césarienne, abcès abdominal / pelvien, mastite, abcès du sein, pyélonéphrite, pneumonie, etc.)</t-lang>
+" hint-text="" required="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="pphem" question-number="9." label="
+      <t-lang en>Experienced post-partum hemorrhage:</t-lang>
+<t-lang fr>9.	Présenté une hémorragie post-partum</t-lang>
+" hint-text="" required="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <!--The question below is question num 6 on the paper form, not sure it matters (OS)...-->
+            <tangy-radio-buttons name="exphives" class="" style="" required="" question-number="10." label="
+      <t-lang en>Experienced hives, difficulty breathing, swelling around the face or any allergic reaction after receiving the previous study drug dose:</t-lang>
+<t-lang fr>A eu de l’urticaire, de la difficulté respiratoire, le gonflement du visage ou une autre réaction allergique après avoir reçu la dose précédente du médicament d’étude &nbsp; ? </t-lang>
+" error-message="" invalid-message="" hint-text="">
+<!--If yes to option value 1, prompt to fill out SAE form (OS)-->
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+          </template>
+        </tangy-form-item>
+      </tangy-form>

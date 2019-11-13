@@ -8,20 +8,5 @@
     "label": "French",
     "languageCode": "fr",
     "languageDirection": "ltr"
-  },
-  {
-    "label": "Jordanian",
-    "languageCode": "JO_ar",
-    "languageDirection": "rtl"
-  },
-  {
-    "label": "Khmer",
-    "languageCode": "KH_km",
-    "languageDirection": "ltr"
-  },
-  {
-    "label": "Russian",
-    "languageCode": "ru",
-    "languageDirection": "ltr"
   }
 ]

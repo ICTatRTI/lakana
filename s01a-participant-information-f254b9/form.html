@@ -1,0 +1,2281 @@
+      <tangy-form id="s01a-participant-information-f254b9" title="
+          <t-lang en>Form 1A - Screening and Enrollment of Pregnant Woman</t-lang>
+          <t-lang fr>Formulaire 1A - Dépistage et Inscription des Femmes Enceintes </t-lang>
+      " category="null"
+        
+        on-open="
+         if (!caseService.getVariable('status')) caseService.setVariable('status', 'Screening');
+        "
+        exit-clicks="
+         
+        "
+        on-change="
+      
+         // To do: (1) Check section names match this code; (2) Check statuses are set correctly;
+         // (3) Check logic
+
+         const status = caseService.getVariable('status');
+       
+        if (status === 'Not Eligible') {
+          sectionDisable('item_consent');
+          sectionDisable('randomization');
+          sectionDisable('randomization_summary');
+          sectionDisable('participant_information');
+          sectionDisable('eligible_and_enrolled');
+          sectionDisable('section_eligible_not_enrolled');
+          sectionDisable('eligsummary');
+          sectionDisable('eligibility_summary');
+          sectionDisable('consent_status');
+        }
+        if (status === 'Eligible: Not Consented' || status === 'Not Consented') {
+          sectionEnable('item_consent');
+          sectionEnable('section_eligible_not_enrolled');
+          sectionDisable('randomization');
+          sectionDisable('randomization_summary');
+          sectionDisable('participant_information');
+          sectionDisable('eligible_and_enrolled');
+          sectionDisable('eligsummary');
+          sectionDisable('eligibility_summary');
+          sectionEnable('consent_status');
+        }
+        if (status === 'Consented') {
+          sectionEnable('eligible_and_enrolled');
+          sectionEnable('randomization');
+          sectionEnable('randomization_summary');
+          sectionDisable('section_eligible_not_enrolled');
+          sectionEnable('eligsummary');
+          sectionEnable('consent_status');
+          sectionEnable('eligibility_summary');
+        }
+        if (status === 'Enrolled') {
+          sectionEnable('participant_information');
+        }
+
+        "
+        on-submit="
+          if (caseService.getVariable('status') === 'Enrolled') {
+
+            caseService.setVariable('firstname', getValue('firstname'));
+            caseService.setVariable('surname', getValue('surname'));
+            caseService.setVariable('village', getValue('village'));
+            caseService.setVariable('ageatenrol', getValue('ageatenrol'));
+            caseService.setVariable('headofhouse', getValue('headofhouse'));
+ 
+            // Create the Mother Participant.
+            const participant = caseService.createParticipant('mother-role')
+            caseService.setParticipantData(participant.id, 'firstname', getValue('firstname'))
+            caseService.setParticipantData(participant.id, 'surname', getValue('surname'))
+            caseService.setParticipantData(participant.id, 'participant_id', getValue('participant_id'))
+            // Some variables for helping calculate time in milliseconds.
+            const now = Date.now()
+            const day = 1000*60*60*24
+            const month = day*30
+            // Create events and schedule them.
+            const ancFollowUpEvent = caseService.createEvent('event-definition-cf58ca')
+            caseService.scheduleEvent(ancFollowUpEvent.id, now+(1*month), now+(1*month))
+            const deliveryEvent = caseService.createEvent('event-definition-682ca6')
+            caseService.scheduleEvent(deliveryEvent.id, now+(9*month), now+(9*month))
+            const penta1Event = caseService.createEvent('event-definition-f5cddc')
+            caseService.scheduleEvent(penta1Event.id, now+(10*month), now+(10*month))
+            const penta3Event = caseService.createEvent('event-definition-b37676')
+            caseService.scheduleEvent(penta3Event.id, now+(11*month), now+(11*month))
+            const sixmEvent = caseService.createEvent('event-definition-9fbb03')
+            caseService.scheduleEvent(sixmEvent.id, now+(15*month), now+(15*month))
+            const twelvemEvent = caseService.createEvent('event-definition-7180d2')
+            caseService.scheduleEvent(twelvemEvent.id, now+(21*month), now+(21*month))
+          }
+        "
+      >
+        
+      <!-- Start of screening section -->
+
+          <tangy-form-item id="screening_part_1" 
+            title="
+          <t-lang en>Screening for All Women</t-lang><t-lang fr>Dépistage pour toutes les femmes</t-lang>
+              "
+             
+            on-open="
+
+
+            inputs.screening_date.value = new Date().toISOString().split('T')[0];
+            inputs.screening_time.value = new Date().toISOString().split('T')[1].substring(0,5);
+       
+  
+            "
+            on-change="
+
+
+           
+            "
+            category="
+              
+            null
+          
+            "
+          >
+            <template>
+                
+    <!-- Standard fields that should be on every form -->
+  
+    <paper-button onclick="
+      var instructions = document.getElementsByName('instructions')[0];
+      instructions.hidden = true;
+      instructions.innerHTML = 'Hello';
+     " style="text-transform: capitalize; size: 0.8em;">Hide instructions</paper-button>
+
+
+   
+    <tangy-input label="Content Release Version" name="content_release_version" value="v33" hidden=""></tangy-input>
+    <tangy-input label="Form Version" name="form_version" value="v2" hidden=""></tangy-input>
+    <tangy-input name="queries" hidden=""></tangy-input>
+
+    <!-- Form specific hidden fields -->
+
+    <!-- <tangy-input type="date" name="screening_date" hidden=""></tangy-input> -->
+  
+    <!-- Instructions -->
+
+    <tangy-template name="instructions" class="" style="font-size: 1.0em; ">
+      <div style="border: 1px gray solid; margin:10px 10px 0px 0px; padding:10px 10px 0px 10px; background-color:var(--tangy-select-background-color, rgba(0, 0, 0, 0.04));">
+        <t-lang en=""><strong>Instructions:</strong></t-lang>
+        <t-lang fr=""><strong>Instructions:</strong></t-lang>    
+          <ul>
+            <li> 
+              <t-lang en="">This form should be completed for all pregnant women who attend a routine ANC visit at this facility.</t-lang>
+              <t-lang fr="">Ce formulaire doit être rempli pour toutes les femmes enceintes qui se présentent à une visite de routine des soins prénatals (CPN) dans cet établissement.</t-lang>
+            </li>
+            <li>               
+              <t-lang en="">Please record the woman's Screening ID so that you can resume the screening process if interrupted.</t-lang>
+              <t-lang fr="">Veuillez noter l'ID de dépistage de la femme afin de pouvoir revenir au processus de dépistage  en cas d'interruption.</t-lang>
+            </li>
+            <li>    
+              <t-lang en="">The woman's Screening ID is: <b>${caseService.case._id.substring(0,6)}</b>.</t-lang>
+              <t-lang fr="">ID de dépistage: <b>${caseService.case._id.substring(0,6)}</b>.</t-lang>
+            </li>
+          </ul>
+        
+        </div>
+    </tangy-template>
+     
+    
+    <tangy-partial-date question-number=" " name="screening_date" class="" style=""  
+    label="
+    <t-lang en>Screening date:</t-lang>
+    <t-lang fr>Date de dépistage:</t-lang>
+  " error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2019" max-year="2023" show-today-button="" required="" disallow-future-date="">
+  </tangy-partial-date>
+  <tangy-input question-number=" " name="screening_time" type="time" format="24"
+  required="" placeholder=" " inner-label = " " required="" label="
+  <t-lang en>Screening time:</t-lang>
+  <t-lang fr>Heure de dépistage:</t-lang>">
+</tangy-input>
+
+  
+    <!-- Question 1 -->
+
+    <tangy-radio-buttons question-number="1." name="ultgesage" class="" style="" required="" label="
+          <t-lang en>Is there gestational age dating information from an ultrasound available in the medical record?</t-lang>
+          <t-lang fr>Y-a-t ’il des informations sur l’estimation de l’âge gestationnel à partir d’une échographie provenant du dossier médical ?</t-lang>
+
+    " error-message=" " invalid-message="" hint-text="" error-text="
+        <t-lang en>This question is required. Please provide a response.</t-lang>
+        <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse, s'il vous plaît.</t-lang>
+      ">
+      <option value="1">
+        <t-lang en="">Yes</t-lang>
+        <t-lang fr="">Oui</t-lang>
+      </option>
+      <option value="2">
+        <t-lang en="">No</t-lang>
+        <t-lang fr="">Non</t-lang>
+      </option>
+    </tangy-radio-buttons>
+
+    <!-- Question 1a -->
+
+    <tangy-partial-date question-number="1a." name="ultsnddt" class="" style="" tangy-if="getValue('ultgesage') === '1'" label="
+      <t-lang en>Date that ultrasound was performed:</t-lang>
+      <t-lang fr>Date du jour où l’échographie a été faite ? :</t-lang>
+    " error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2010" max-year="2023" required="">
+    </tangy-partial-date>
+
+    <!-- Question 1b -->
+
+    <tangy-input name="gesageultsndwk" class="" style="" tangy-if="getValue('ultgesage') === '1'" required="" question-number="1b." label="
+    <t-lang en>Gestation age as assessed by ultrasound at time of ultrasound:</t-lang>
+    <t-lang fr>Âge gestationnel évalué par écographie au moment de l’écographie :</t-lang>
+   " error-message="Error message" invalid-message="" type="number" inner-label=" " allowed-pattern="" hint-text="
+        <t-lang en>Weeks.</t-lang>
+        <t-lang fr>Semaines.</t-lang>
+        " error-text="
+        <t-lang en>This question is required. Please provide a response.</t-lang>
+        <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse, s'il vous plaît.</t-lang>
+        "></tangy-input>
+
+    <tangy-input name="gesageultsnddy" class="" style="" tangy-if="getValue('ultgesage') === '1'" required="" question-number=" " label="
+      <t-lang en>Gestation age as assessed by ultrasound at time of ultrasound:</t-lang>
+      <t-lang fr>Âge gestationnel évalué par écographie au moment de l’écographie :</t-lang>
+    
+    " hint-text="
+    <t-lang en>Days.</t-lang>
+    <t-lang fr>Journées.</t-lang>" error-message=" " invalid-message="" type="number" inner-label=" " allowed-pattern="" error-text="
+    <t-lang en>Gestational age as assessed by ultrasound at time of ultrasound:</t-lang>
+    <t-lang fr>Âge gestationnel évalué par écographie au moment de l’écographie:</t-lang>
+    ">
+    </tangy-input>
+
+    <!--
+
+      <tangy-box name="ga_warning" style="font-size: 1.1em" show-if="(parseInt(getValue('gesageultsndwk')) >= 0 &amp;&amp; parseInt(getValue('gesageultsndwk')) < 12) || (parseInt(getValue('gesageultsndwk')) > 42 &amp;&amp; parseInt(getValue('gesageultsndwk')) <= 44)">
+        <div style="border: 2px #AFD8F8 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#DFEFFC;">
+          <iron-icon icon="warning" style="padding: 5px 0;"></iron-icon>
+          <span style="font-size: 0.8em;">
+            <t-lang en=""><strong>Warning:</strong> Gestational age at time of ultrasound is outside of the normal range (12 weeks to 42 weeks). Please review this value prior to submitting the form.</t-lang>
+            <t-lang fr=""><strong>Attention:</strong> L'âge gestationnel au moment de l'échographie est en dehors de l'interval normale (12 semaines à 42 semaines). Veuillez vérifier les chiffres avant de soumettre le formulaire.</t-lang>
+          </span>
+        </div>
+     </tangy-box>
+
+     <tangy-box name="ga_query" style="font-size: 1.1em" show-if="parseInt(getValue('gesageultsndwk')) < 0 || parseInt(getValue('gesageultsndwk')) > 44">
+        <div style="border: 2px #EDC240 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#F8E7B3;">
+          <iron-icon icon="help-outline" style="padding: 5px 0; --iron-icon-fill-color: #af8b1c;"></iron-icon>
+          <span style="font-size: 0.8em;">
+            <t-lang en=""><strong>Query:</strong> Gestational age at time of ultrasound is outside of the acceptable range (0 weeks to 44 weeks). A data query has been added. Please review and resolve any open queries after submitting the form.</t-lang>
+            <t-lang fr=""><strong>Requete:</strong> L'âge gestationnel au moment de l'échographie est en dehors de l'interval acceptable (0 à 44 semaines). Une requête de données a été ajoutée. Veuillez examiner et résoudre toute requête ouverte après avoir soumis le formulaire.</t-lang>
+          </span>
+        </div>
+     </tangy-box>
+
+     -->
+
+     <!-- Question 1c -->
+
+     <!-- (FYI)This question is different on the DCF now, and is supposed to be auto populated_Ousmane (OS)
+     <tangy-input name="gatodaywk" class="" style="" tangy-if="getValue('ultgesage') === '1'" required="" question-number="1c." label="
+    <t-lang en>Estimated gestation age today (based on Q1a and Q1b responses): </t-lang>
+    <t-lang fr>Âge gestationnel aujourd'hui :</t-lang>
+   " error-message="" invalid-message="" type="number" inner-label=" " allowed-pattern="" hint-text="
+        <t-lang en>Weeks.</t-lang>
+        <t-lang fr>Semaines.</t-lang>
+        " error-text="
+        <t-lang en>This question is required. Please provide a response.</t-lang>
+        <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît.</t-lang>
+        "></tangy-input>
+
+    <tangy-input name="gatodaydy" class="" style="" tangy-if="getValue('ultgesage') === '1'" required="" question-number=" " label="
+      <t-lang en>Estimated gestation age today (based on Q1a and Q1b responses): </t-lang>
+      <t-lang fr>Âge gestationnel aujourd’hui :</t-lang>
+    
+    " hint-text="
+    <t-lang en>Days.</t-lang>
+    <t-lang fr>Jours.</t-lang>" error-message=" " invalid-message="" type="number" inner-label=" " allowed-pattern="" error-text="
+    <t-lang en>Gestational age today</t-lang>
+    <t-lang fr>Âge gestationnel aujourd’hui :</t-lang>
+    ">
+    </tangy-input>
+  -->
+    <tangy-input name="gaInDays" hidden=""></tangy-input>
+
+<!-- Assuming this is question 1c? said so above too; it is different now. Changed french to match DCF 
+English version says "Gestational age today" (OS)-->
+
+    <tangy-partial-date question-number="1c." name="gaDate" class="" style="" tangy-if="getValue('ultgesage') === '1'" label="
+      <t-lang en>Gestational age assessment date:</t-lang>
+      <t-lang fr>âge gestationnel aujourd’hui:</t-lang>
+    " error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2010" max-year="2023" show-today-button=""  required=""
+    tangy-if="getValue('ultgesage') === '1'">
+    </tangy-partial-date>
+
+    <!-- Question 2 -->
+
+    <tangy-radio-buttons name="fundht" class="" style="" required="" question-number="2." label="
+     <t-lang en>Was fundal height evaluated during ANC visit today?</t-lang>
+     <t-lang fr>La hauteur utérine a-t-elle été évalué aujourd’hui ?</t-lang>
+    " error-message="" invalid-message="" hint-text="" error-text="
+    <t-lang en>This question is required. Please provide a response.</t-lang>
+    <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît .</t-lang>
+    ">
+      <option value="1">
+        <t-lang en="">Yes</t-lang>
+        <t-lang fr="">Oui</t-lang>
+      </option>
+      <option value="2">
+        <t-lang en="">No</t-lang>
+        <t-lang fr="">Non</t-lang>
+      </option>
+    </tangy-radio-buttons>
+
+    <!-- Question 2a -->
+
+    <tangy-radio-buttons name="fundpalp" class="" style="" required="" question-number="2a." label="
+    <t-lang en>Was the fundus palpated during ANC visit today?</t-lang>
+    <t-lang fr>Le fond utérin a-t-il été palpé ?</t-lang>
+   " error-message="" 
+   tangy-if="getValue('fundht') === '1'"
+   invalid-message="" hint-text="" error-text="
+   <t-lang en>This question is required. Please provide a response.</t-lang>
+   <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît .</t-lang>
+   ">
+     <option value="1">
+       <t-lang en="">Yes</t-lang>
+       <t-lang fr="">Oui</t-lang>
+     </option>
+     <option value="2">
+       <t-lang en="">No</t-lang>
+       <t-lang fr="">Non</t-lang>
+     </option>
+   </tangy-radio-buttons>
+
+   <!-- Question 3 - should be auto populated to tell them what gestational age is (OS)-->
+
+   <tangy-radio-buttons name="gagte12" class="" style="" required="" question-number="3." label="
+     <t-lang en>Is the estimated gestational age greater than or equal to 12 weeks, according to the study algorithm?</t-lang>
+     <t-lang fr>L’âge gestationnel estimé est-il supérieur ou égal à 12 semaines, selon l’échographie ou la mesure de la hauteur utérine ?</t-lang>
+    " error-message="" hidden="" invalid-message="" hint-text="
+      <t-lang en>If YES to Q1, and adjusted gestational 1c ≥ 12 weeks, select YES. If NO to Q1, but Q2A is YES, select YES. Otherwise select NO.</t-lang>
+      <t-lang fr>Si NON à Q1, et 1c ≥ 12 semaines, sélectionnez OUI. Si NON à Q1, mais Q2A est OUI, sélectionnez OUI. Autrement sélectionnez NON.</t-lang>
+    " error-text="
+    <t-lang en>This question is required. Please provide a response.</t-lang>
+    <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît.</t-lang>
+    ">
+      <option value="1">
+        <t-lang en="">Yes</t-lang>
+        <t-lang fr="">Oui</t-lang>
+      </option>
+      <option value="2">
+        <t-lang en="">No</t-lang>
+        <t-lang fr="">Non</t-lang>
+      </option>
+    </tangy-radio-buttons>
+
+  
+    
+            </template>
+          </tangy-form-item>
+
+          <tangy-form-item id="ga_assessment"
+            on-open = "
+            
+            function calculateGestationalAge(dateOfUltrasound, dateOfAssessment, weeks, days) {
+              let gaInDays = (weeks * 7) + days;
+              var now = moment(dateOfAssessment); 
+              var end = moment(dateOfUltrasound); 
+              
+              var duration = moment.duration(now.diff(end));
+              var days = duration.asDays();
+        
+              return days + gaInDays;
+            }
+            
+            function gaInformation(meetsGaRequirement) {
+              let allInformationRequired = false;
+              if (meetsGaRequirement === true) {
+                inputs.gagte12.value[0].value = true;
+                inputs.gagte12.value[1].value = false;
+              } else {
+                inputs.gagte12.value[0].value = false;
+                inputs.gagte12.value[1].value = true;
+              }
+            }
+  
+            // Get data from form
+            const gaAvailable = parseInt(getValue('ultgesage'));
+            const gaWeeks = parseInt(getValue('gesageultsndwk'));
+            const gaDays = parseInt(getValue('gesageultsnddy'));
+            const fundalHeightEvaluated = parseInt(getValue('fundht'));
+            const fundusPalpated = parseInt(getValue('fundpalp'));
+            const ultrasoundDate = getValue('ultsnddt');
+            const gaAssessmentDate = getValue('gaDate');
+
+            const age = calculateGestationalAge(ultrasoundDate, gaAssessmentDate, gaWeeks, gaDays);
+  
+            if (gaAvailable === 1 && age >= 84) {
+              gaInformation(true);
+            } else if (fundalHeightEvaluated === 1 && fundusPalpated === 1) {
+              gaInformation(true);
+            } else {
+              gaInformation(false);
+            }
+
+            inputs.gaInDays.value = age;
+
+            const gaInDays = getValue('gaInDays');
+          
+            let gaWk = 0;
+            let gaDy  = 0;
+
+            if (gaInDays !== '') {
+              gaWk = Math.trunc(parseInt(getValue(gaInDays))/7);
+              gaDy = parseInt(gaInDays) % 7;
+            }
+
+            console.log('Gestational age in days: ' + getValue('gaInDays'));
+            console.log('Is GA greater than or equal to 12 weeks: ' + getValue('gagte12'));
+            console.log('Gestational age is ' + gaWk + ' weeks and ' + gaDy + ' days.');
+         
+            "
+          >
+            <template>
+                <!-- Does participant meet GA criteria? -->
+
+                <tangy-template name="participant_ga_no" style="font-size: 1.1em" hidden=""  show-if="getValue('gagte12') ==='2'">
+                    <div style="border: 2px #CB4C4C solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#EDB8B8;">
+                      <iron-icon icon="icons:error" style="padding: 5px 0; --iron-icon-fill-color: #CB4C4C;"></iron-icon>
+                      <span style="font-size: 0.8em;">
+                        <t-lang en="">
+                            <strong>Gestational age does not meet the inclusion criteria:</strong>
+                            <ul>
+                                <li>${(parseInt(getValue('ultgesage')) === 1 ? 'Gestational age is ' + Math.trunc(parseInt(getValue('gaInDays'))/7) + ' weeks and ' + parseInt(getValue('gaInDays')) % 7 + ' days.' : 'Gestational age dating information from an ultrasound is not available.')}</li>
+                                <li>${(parseInt(getValue('fundht')) === 1 ? (parseInt(getValue('fundpalp')) === 1 ? 'Fundus is palpated.' : 'Fundus is not palpated.') : 'Fundus was not evaluated.')}</li>
+                              </ul>
+                            Please review Questions 1-2 before proceeding.
+                        </t-lang>
+                        <t-lang fr="">
+                            <strong>L'âge gestationnel ne répond pas aux critères d'inclusion:</strong>
+                            <ul>
+                                <li>${(parseInt(getValue('ultgesage')) === 1 ? 'L\'âge gestationnel est de ' + Math.trunc(parseInt(getValue('gaInDays'))/7) + ' semaines et ' + parseInt(getValue('gaInDays')) % 7 + ' jours.' : 'L\'information sur l\'estimation de l\'âge gestationnel à partir d\'une échographie n\'est pas disponible.')}</li>
+                                <li>${(parseInt(getValue('fundht')) === 1 ? (parseInt(getValue('fundpalp')) === 1 ? 'Fond utérin a été palpé.' : 'Fond utérin non palpé.') : 'Fond utérin non évalué.')}</li>
+                            </ul>
+                            Veuillez réviser les questions 1 et 2 avant de continuer.
+                        </t-lang>
+                      </span>
+                    </div>
+                </tangy-template>
+              
+                <tangy-template name="participant_ga_yes" style="font-size: 1.1em" hidden="" show-if="getValue('gagte12') ==='1'">
+                  <div style="border: 2px #008002 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#d9fcd9;">
+                    <iron-icon icon="icons:check-circle" style="padding: 5px 0; --iron-icon-fill-color: #008002;"></iron-icon>
+                    <span style="font-size: 0.8em;">
+                      <t-lang en="">
+                          <strong>Gestational age meets the inclusion criteria:</strong>
+                          <ul>
+                            <li>${(parseInt(getValue('ultgesage')) === 1 ? 'Gestational age is ' + Math.trunc(parseInt(getValue('gaInDays'))/7) + ' weeks and ' + parseInt(getValue('gaInDays')) % 7 + ' days.' : 'Gestational age dating information from an ultrasound is not available.')}</li>
+                            <li>${(parseInt(getValue('fundht')) === 1 ? (parseInt(getValue('fundpalp')) === 1 ? 'Fundus is palpated.' : 'Fundus is not palpated.') : 'Fundus was not evaluated.')}</li>
+                          </ul>
+                          Please click the next button to continue the screening process.
+
+                      </t-lang>
+                      <t-lang fr>
+                          <strong>L'âge gestationnel répond aux critères d'inclusion:</strong>
+                          <ul>
+                              <li>${(parseInt(getValue('ultgesage')) === 1 ? 'L\'âge gestationnel est de ' + Math.trunc(parseInt(getValue('gaInDays'))/7) + ' semaines et ' + parseInt(getValue('gaInDays')) % 7 + ' jours.' : 'L\'information sur la datation de l\'âge gestationnel à partir d\'une échographie n\'est pas disponible.')}</li>
+                              <li>${(parseInt(getValue('fundht')) === 1 ? (parseInt(getValue('fundpalp')) === 1 ? 'Fond utérin a été palpé.' : 'Fond utérin n\'a pas été palpé.') : 'Fond utérin n\'a pas été évalué.')}</li>
+                          </ul>
+                          Tapez sur le bouton suivant pour continuer le processus de dépistage.
+                        </t-lang>
+                    </span>
+                  </div>
+              </tangy-template>
+            </template>
+          </tangy-form-item>
+
+          <tangy-form-item id="screening_part_2" 
+          title="
+        <t-lang en>Screening for All Women</t-lang><t-lang fr>Dépistage pour toutes les femmes</t-lang>
+            "
+           
+          on-open="
+            
+          
+            //inputs.screening_date.value = new Date().toISOString().substr(0,10)
+
+        
+          "
+          on-change="
+            
+         
+          "
+          category="
+            
+          null
+        
+          "
+        >
+          <template>
+
+            <!-- Question 4 -->
+
+             <!-- I think we removed the error message below on paper DCF 1a; 
+              we're going to rely on local staff to determine wether particpant is in labor (OS) -->
+
+    <tangy-radio-buttons name="labor" class="" style="" required="" question-number="4." label="
+    <t-lang en>Is the woman in active labor?</t-lang>
+    <t-lang fr>La femme est-elle en travail selon l’avis du personnel local en charge de la femme &nbsp; ?</t-lang>
+    
+   " error-message="" invalid-message="" hint-text="
+     <t-lang en>≥3 painful uterine contractions in the last 10 min with or without cervical change.</t-lang>
+     <t-lang fr>≥3 contractions utérines douloureuses au cours des 10 dernières minutes avec ou sans modification du col de l'utérus.</t-lang>
+   " error-text="
+   <t-lang en>This question is required. Please provide a response.</t-lang>
+   <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît .</t-lang>
+   ">
+     <option value="1">
+       <t-lang en="">Yes</t-lang>
+       <t-lang fr="">Oui</t-lang>
+     </option>
+     <option value="2">
+       <t-lang en="">No</t-lang>
+       <t-lang fr="">Non</t-lang>
+     </option>
+   </tangy-radio-buttons>
+
+    <!-- Question 5 -->
+
+    <tangy-radio-buttons name="understand" class="" style="" required="" question-number="5." label="
+    <t-lang en>Does the participant understand and is she able comply with the study procedures, as determined by the study staff?</t-lang>
+    <t-lang fr>La participante comprend t-elle et est-elle capable de se conformer aux procédures de l'étude, telles que déterminées par le personnel de l'étude &nbsp; ?</t-lang>
+  " error-message="" invalid-message="" hint-text="
+  " error-text="
+  <t-lang en>This question is required. Please provide a response.</t-lang>
+  <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît.</t-lang>
+  ">
+    <option value="1">
+      <t-lang en="">Yes</t-lang>
+      <t-lang fr="">Oui</t-lang>
+    </option>
+    <option value="2">
+      <t-lang en="">No</t-lang>
+      <t-lang fr="">Non</t-lang>
+    </option>
+  </tangy-radio-buttons>
+
+   <!-- Question 6 -->
+
+   <tangy-radio-buttons name="condcmply" class="" style="" required="" question-number="6." label="
+    <t-lang en>Does the participant have a condition that, in the opinion of the investigator, might compromise her well-being, or affect the ability of the participant to comply with study procedures?</t-lang>
+    <t-lang fr>La participante a-t-elle une condition qui, selon l’avis de l’investigateur pourrai compromettre son bien être ou affecter sa capacité de se conformer au procédure de l’étude &nbsp; ?</t-lang>
+   " error-message="" invalid-message="" hint-text="
+   " error-text="
+   <t-lang en>This question is required. Please provide a response.</t-lang>
+   <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît .</t-lang>
+   ">
+     <option value="1">
+       <t-lang en="">Yes</t-lang>
+       <t-lang fr="">Oui</t-lang>
+     </option>
+     <option value="2">
+       <t-lang en="">No</t-lang>
+       <t-lang fr="">Non</t-lang>
+     </option>
+   </tangy-radio-buttons>
+
+  <!-- Question 7 -->
+   
+  <tangy-radio-buttons name="reside" class="" style="" required="" question-number="7." label="
+  <t-lang en>Do you plan to reside in the study area until your baby is at least 6 months old?</t-lang>
+  <t-lang fr>Compter vous résider dans la zone de l'étude jusqu'à ce que votre bébé ait au moins 6 mois ?</t-lang>
+ " error-message="" invalid-message="" hint-text="
+ " error-text="
+ <t-lang en>This question is required. Please provide a response.</t-lang>
+ <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît.</t-lang>
+ ">
+   <option value="1">
+     <t-lang en="">Yes</t-lang>
+     <t-lang fr="">Oui</t-lang>
+   </option>
+   <option value="2">
+     <t-lang en="">No</t-lang>
+     <t-lang fr="">Non</t-lang>
+   </option>
+ </tangy-radio-buttons>
+
+ <!-- Question 8 -->
+
+ <tangy-radio-buttons name="macrolideall" question-number="8." label="
+ <t-lang en>Do you have a known allergy to macrolide (for example: azithromycin, erythromycin, or clarithromycin) antibiotics?</t-lang>
+ <t-lang fr>La participante a-t-elle une allergie connue aux antibiotiques macrolides (par exemple &nbsp; : azithromycine, érythromycine, clarithromycine, ou josacine) &nbsp; ?</t-lang>
+ " hint-text="
+   <t-lang en>Hives, difficulty breathing, swelling around your face or any other evidence of an allergic reaction after receiving a macrolide antibiotic.</t-lang>
+   <t-lang fr>Urticaire, difficulté à respirer, gonflement autour du visage ou tout autre signe de réaction allergique après avoir reçu un macrolide.</t-lang>
+ " required="" error-text="
+ <t-lang en>Please select Yes or No.</t-lang>
+ <t-lang fr>Veuillez sélectionner Oui ou Non.</t-lang>
+ ">
+
+   <option value="1">
+     <t-lang en="">Yes</t-lang>
+     <t-lang fr="">Oui</t-lang>
+   </option>
+
+   <option value="2">
+     <t-lang en="">No</t-lang>
+     <t-lang fr="">Non</t-lang>
+   </option>
+
+ </tangy-radio-buttons>
+
+ <!-- Question 9 -->
+
+ <tangy-radio-buttons name="treatazithro" question-number="9." label="
+ <t-lang en>Are you currently being treated with azithromycin for a medical condition?</t-lang>
+ <t-lang fr>La participante est-elle actuellement en cours de traitement avec azithromycine, érythromycine, clarithromycine, ou josacine, pour une condition médicale  &nbsp; ?</t-lang>
+ " hint-text="
+ <t-lang en>Check yes if there is documentation, if participant reports taking this drug referring to it by name, or participant shows medication bottle.</t-lang>
+ <t-lang fr>Cochez Oui s'il y a une documentation, si la participante déclare avoir pris ce médicament en se référant à son nom, ou si la participante montre un flacon de médicaments.</t-lang>
+ " required="" error-text="
+ <t-lang en>Please select Yes or No.</t-lang>
+ <t-lang fr>Veuillez sélectionner Oui ou Non.</t-lang>
+ ">
+
+   <option value="1">
+     <t-lang en="">Yes</t-lang>
+     <t-lang fr="">Oui</t-lang>
+   </option>
+
+   <option value="2">
+     <t-lang en="">No</t-lang>
+     <t-lang fr="">Non</t-lang>
+   </option>
+
+ </tangy-radio-buttons>
+
+ <!-- Question 10 -->
+
+ <tangy-partial-date name="womdob" class="" style="" required="" label="
+ <t-lang en>What is your date of birth?</t-lang>
+ <t-lang fr>Date de naissance de la participante:</t-lang>
+" error-message="" invalid-message="" hint-text="
+ <t-lang en>Enter the woman's birth date with as much information as possible. A partial date is allowed if the exact date of birth is unknown.</t-lang>
+ <t-lang fr>Entrez la date de naissance de la femme avec autant d'informations que possible. Une date partielle est autorisée si la date de naissance exacte est inconnue.</t-lang>
+" future-date-error-text="" missing-date-error-text="
+ <t-lang en> Woman's date of birth is required. Please enter as much information as is known.</t-lang>
+ <t-lang fr>La date de naissance de la femme est obligatoire. S'il vous plaît entrer autant d'informations que l'on sait.</t-lang>
+" invalid-date-error-text="" question-number="10." min-year="1974" max-year="2003" allow-unknown-day="" allow-unknown-month="" allow-unknown-year="" disallow-future-date="">
+</tangy-partial-date>
+
+<!-- Question 10a -->
+
+<tangy-input question-number="10a." name="estageyrunk" class="" style="" tangy-if="getValue('womdob').substring(0,4)  === '9999'" required="" label="
+ <t-lang en>Estimated age if year is unknown:</t-lang>
+ <t-lang fr>Âge estimé si l'année est inconnue &nbsp; ?:</t-lang>
+" error-message=" " invalid-message=" " hint-text=" " type="number" inner-label=" " allowed-pattern=""></tangy-input>
+
+<!-- Question 11 -->
+
+<tangy-radio-buttons question-number="11." name="marstatus" class="" style="" required="" label="
+ <t-lang en>What is your marital status &nbsp; ?</t-lang>
+ <t-lang fr>État civil de la participante &nbsp; ?:</t-lang>
+" error-message="" invalid-message="" hint-text="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît.</t-lang>
+">
+
+ <option value="1">
+   <t-lang en="">Married or living in union</t-lang>
+   <t-lang fr="">Mariée ou en concubinage</t-lang>
+   </option>
+
+ <option value="2">
+   <t-lang en="">Divorced</t-lang>
+   <t-lang fr="">Divorcée</t-lang>
+   </option>
+
+ <option value="3">
+   <t-lang en="">Widowed</t-lang>
+   <t-lang fr="">Veuve</t-lang>
+   </option>
+
+ <option value="4">
+   <t-lang en="">Single</t-lang>
+   <t-lang fr="">Célibataire</t-lang>
+   </option>
+
+</tangy-radio-buttons>
+
+<!-- Question 11a -->
+
+<tangy-radio-buttons question-number="11a." name="mlhusb18yrup" class="" style="" tangy-if="getValue('marstatus') === '1'" required="" label="
+<t-lang en>Is you husband 18 years or older?</t-lang>
+<t-lang fr> Le mari est-t-il âgé de 18 ans ou plus &nbsp; ?</t-lang>
+" error-message="" invalid-message="" hint-text="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît.</t-lang>
+">
+
+ <option value="1">
+   <t-lang en="">Yes</t-lang>
+   <t-lang fr="">Oui</t-lang>
+ </option>
+
+ <option value="2">
+   <t-lang en="">No</t-lang>
+   <t-lang fr="">Non</t-lang>
+ </option>
+
+ <option value="-9"> <!-- -9? (OS) -->
+   <t-lang en="">Don't Know</t-lang>
+   <t-lang fr="">Inconnu</t-lang>
+   </option>
+
+</tangy-radio-buttons>
+
+<!-- Question 12 -->
+
+<tangy-radio-buttons name="enrollprev" class="" style="" required="" question-number="12." type="number" inner-label=" " allowed-pattern="" label="
+ <t-lang en>Have you been previously enrolled in the SANTE trial?</t-lang>
+ <t-lang fr>La participante a-t-elle déjà été inscrite à l’essai SANTE au paravent &nbsp; ?</t-lang>
+" error-message="" invalid-message="" hint-text=" " error-text="
+ <t-lang en>This question is required. Please provide a response.</t-lang>
+ <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît &nbsp;.</t-lang>
+">
+
+ <option value="1">
+   <t-lang en="">Yes, enrolled in previous pregnancy</t-lang>
+   <t-lang fr="">Oui, déjà inscrite lors de la grossesse précédente</t-lang>
+ </option>
+<!--Option value 2 below does not exist on DCF-1 anymore; I commented it out (OS)
+ <option value="2">
+  <t-lang en="">Yes, enrolled in this pregnancy</t-lang>
+  <t-lang fr="">OUI, déjà inscrite lors de la grossesse courante</t-lang>
+</option>
+-->
+<!-- The option below would now be option value 2 (OS)-->
+ <option value="3">
+   <t-lang en="">No</t-lang>
+   <t-lang fr="">Non</t-lang>
+ </option>
+
+</tangy-radio-buttons>
+
+<!-- Question 12a -->
+<!-- There is also a hint text telling investigator to also look for particioant ID on reccords
+I added the code below... See hint text below (OS) -->
+<tangy-input question-number="12a." type="text" allowed-pattern="" inner-label=" " name="prevenrollid" class="" style="" tangy-if="getValue('enrollprev') === '1' || getValue('enrollprev') === '2'"  label="
+<t-lang en>Previous participant ID (PID):</t-lang>
+<t-lang fr>Quel était votre ID de participant précédent &nbsp; ?</t-lang>
+
+" hint-text="
+ <t-lang en>Study staff must look for participant ID</t-lang>
+ <t-lang fr>Le personnel doit chercher l'ID du participant.</t-lang>
+
+" error-message="" error-text="
+ <t-lang en>This question is required. Please provide a response.</t-lang>
+ <t-lang fr>Cette question est obligatoire. Veuillez fournir une réponse s'il vous plaît.</t-lang>
+"></tangy-input>
+
+
+          </template>
+          </tangy-form-item>
+
+        
+<!-- End of screening section -->
+
+
+<!-- Start of eligibility assessment -->
+        
+          <tangy-form-item id="eligible_for_consent" 
+            title="<t-lang en>Eligibility for Consent</t-lang><t-lang fr>Éligibilité au consentement</t-lang>"
+            
+            
+            on-open="
+                   
+
+          if (getValue('gagte12') === '1' && getValue('reside') === '1' && getValue('understand') === '1'
+              && getValue('labor') === '2' && getValue('macrolideall') === '2' && getValue('condcmply') === '2'
+              && getValue('treatazithro') === '2') {
+              caseService.setVariable('status', 'Eligible: Not Consented');
+              itemShow('participant_eligible');
+              itemHide('participant_not_eligible');
+          } else {
+              caseService.setVariable('status', 'Not Eligible');
+              itemShow('participant_not_eligible');
+              itemHide('participant_eligible');
+          }
+          
+            "
+            on-change="
+              
+            
+          
+            "
+            category="
+              
+            null
+          
+            "
+          >
+            <template>
+              
+   <!-- questions 13, 14, 15 are skipped but sort of asked later on the eform. Not sure if intentional,  (OS)-->
+
+    <tangy-radio-buttons name="partelig" question-number="16." label="
+      <t-lang en>Is the participant eligible for SANTE?</t-lang>
+      <t-lang fr>La participante est-elle admissible à l’étude SANTE ?</t-lang>
+     " hint-text="
+     <t-lang en>Are responses to all questions 9-11 YES and responses to all questions 12-15 NO?</t-lang>
+     <t-lang fr>Est-ce que toutes les réponses aux questions  9-11 sont OUI et toutes les réponses aux questions 12-15 NON ?</t-lang>
+     " required="" error-text="
+     <t-lang en>Please review the eligibility criteria shown above and select Yes or No.</t-lang>
+     <t-lang fr>Veuillez examiner les critères d’éligibilité indiqués ci-dessus et sélectionner Oui ou Non.</t-lang>
+    " hidden="">
+
+      <option value="1">
+        <t-lang en="">Yes</t-lang>
+        <t-lang fr="">Oui</t-lang>
+      </option>
+
+      <option value="2">
+        <t-lang en="">No</t-lang>
+        <t-lang fr="">Non</t-lang>
+      </option>
+
+    </tangy-radio-buttons>
+
+    <tangy-box name="participant_not_eligible" style="font-size: 1.1em" hidden="">
+      <div style="border: 2px #CB4C4C solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#EDB8B8;">
+        <iron-icon icon="icons:error" style="padding: 5px 0; --iron-icon-fill-color: #CB4C4C;"></iron-icon>
+        <span style="font-size: 0.8em;">
+          <t-lang en="">
+              <strong>Participant NOT eligible:</strong>
+              The participant is not eligible. Please click the next button to complete the screening process.
+          </t-lang>
+          <t-lang fr="">
+              <strong>Participant NON éligible:</strong>
+              Le participant n'est pas éligible. Veuillez cliquer sur le bouton suivant pour terminer le processus de sélection.
+          </t-lang>
+         </span>
+      </div>
+   </tangy-box>
+
+   <tangy-box name="participant_eligible" style="font-size: 1.1em" hidden="">
+    <div style="border: 2px #008002 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#d9fcd9;">
+      <iron-icon icon="icons:check-circle" style="padding: 5px 0; --iron-icon-fill-color: #008002;"></iron-icon>
+      <span style="font-size: 0.8em;">
+        <t-lang en="">
+            <strong>Participant eligible:</strong>
+            The participant is eligible for consent. Please click the next button to begin the consent process.
+        </t-lang>
+        <t-lang fr="">
+            <strong>Participant éligible</strong>
+            Le participant est éligible. Veuillez cliquer sur le bouton suivant pour commencer le processus de consentement.
+        </t-lang>
+       </span>
+    </div>
+ </tangy-box>
+
+
+  
+          
+            </template>
+          </tangy-form-item>
+        
+<!-- End of eligibility assessment -->
+
+<!-- Start of consent assessment -->
+
+          <tangy-form-item id="item_consent" 
+            title="<t-lang en>Consent Form</t-lang><t-lang fr>Formulaire de consentement</t-lang>"
+            
+            
+            
+            
+            
+            
+            on-open="
+            console.log(caseService.getVariable('status'));
+
+            const dob = getValue('womdob');
+            let imputed_dob;
+            let day = dob.split('-')[2];
+            let month = dob.split('-')[1];
+            let year = dob.split('-')[0];
+            let age = 0;
+            let adult = false;
+            let age16 = false;
+                
+            if (year === '9999') {
+              age = parseInt(getValue('estageyrunk'));
+            } else {
+              if (day === '99') {
+                day = '15';
+              }
+              if (month === '99') {
+                month = '6';
+              }
+              imputed_dob = moment(year + '-' + month + '-' + day);
+              //let today = moment(moment().format('YYYY-MM-DD'));
+              let today = moment(getValue('screening_date'));
+              age = today.diff(imputed_dob, 'years');
+            }
+      
+            if (age >= 18) {
+              adult = '1';
+            }
+
+            if (age >= 16) {
+              age16 = '1';
+            }
+
+            const married = getValue('marstatus');
+            const adultHusband = getValue('mlhusb18yrup');
+
+            console.log ('Entered dob: ' + dob);
+            console.log ('Imputed dob: ' + imputed_dob);
+            console.log ('Age: ' + age);
+            console.log ('Married: ' + (married === '1' ? 'Yes' : 'No'));
+            console.log ('Husband over 18: ' + (adultHusband === '1' ? 'Yes' : 'No'));
+            
+            if (adult === '1') {
+              itemShow('consent_instr');
+              itemShow('consent_name');
+              itemShow('consent_signature');
+              itemHide('assent_instr');
+              itemHide('assent_name');
+              itemHide('assent_signature');
+              itemHide('parent_consent_instr');
+              itemHide('parent_name');
+              itemHide('parent_consent_signature'); 
+              itemHide('husband_consent_instr');
+              itemHide('husband_name');
+              itemHide('husband_consent_signature');
+
+              inputs.consent_required.value = '1';
+              inputs.assent_required.value = '0';
+              inputs.parent_consent_required.value = '0';
+              inputs.husband_consent_required.value = '0';
+
+            } else {
+              if (married === '1') {
+                  if (age16 === '1') {
+                    // Under 18, over 16, married
+                    itemShow('consent_instr');
+                    itemShow('consent_signature');
+                    itemShow('consent_name');
+                    itemHide('assent_instr');
+                    itemHide('assent_signature');
+                    itemHide('assent_name');
+                    itemHide('parent_consent_instr');
+                    itemHide('parent_consent_signature'); 
+                    itemHide('parent_name');
+                    itemHide('husband_consent_instr');
+                    itemHide('husband_consent_signature');
+                    itemHide('husband_name');
+                    
+                    inputs.consent_required.value = '1';
+                    inputs.assent_required.value = '0';
+                    inputs.parent_consent_required.value = '0';
+                    inputs.husband_consent_required.value = '0';
+
+                  } else {
+                    if (adultHusband === '1') {
+                      itemHide('consent_instr');
+                      itemHide('consent_signature');
+                      itemHide('consent_name');
+                      itemShow('assent_instr');
+                      itemShow('assent_signature');
+                      itemShow('assent_name');
+                      itemHide('parent_consent_instr');
+                      itemHide('parent_consent_signature'); 
+                      itemHide('parent_name');
+                      itemShow('husband_consent_instr');
+                      itemShow('husband_consent_signature');
+                      itemShow('husband_name');
+
+                      inputs.consent_required.value = '0';
+                      inputs.assent_required.value = '1';
+                      inputs.parent_consent_required.value = '0';
+                      inputs.husband_consent_required.value = '1';
+
+                    } else {
+                      itemHide('consent_instr');
+                      itemHide('consent_signature');
+                      itemHide('consent_name');
+                      itemShow('assent_instr');
+                      itemShow('assent_signature');
+                      itemShow('assent_name');
+                      itemShow('parent_consent_instr');
+                      itemShow('parent_consent_signature');
+                      itemShow('parent_name'); 
+                      itemHide('husband_consent_instr');
+                      itemHide('husband_consent_signature');
+                      itemHide('husband_name');
+
+                      inputs.consent_required.value = '0';
+                      inputs.assent_required.value = '1';
+                      inputs.parent_consent_required.value = '1';
+                      inputs.husband_consent_required.value = '0';
+                    }     
+                  }
+                } else {
+                  // Under 18, not married  
+                  itemHide('consent_instr');
+                  itemHide('consent_signature');
+                  itemHide('consent_name');
+
+                  itemShow('assent_instr');
+                  itemShow('assent_signature');
+                  itemShow('assent_name');
+
+                  itemShow('parent_consent_instr');
+                  itemShow('parent_consent_signature'); 
+                  itemShow('parent_name');
+            
+                  itemHide('husband_consent_instr');
+                  itemHide('husband_consent_signature');
+                  itemHide('husband_name');
+
+                  inputs.consent_required.value = '0';
+                  inputs.assent_required.value = '1';
+                  inputs.parent_consent_required.value = '1';
+                  inputs.husband_consent_required.value = '0';
+                }
+              }
+           
+      
+            "
+            on-change="
+              
+
+              const consentObtained = getValue('consent_signature') !== '' ? true : false;
+              const assentObtained = getValue('assent_signature') !== '' ? true : false;
+              const parentConsentObtained = getValue('parent_consent_signature') !== '' ? true : false;
+              const husbandConsentObtained = getValue('husband_consent_signature') !== '' ? true : false;
+
+              const consentRequired = getValue('consent_required') === '1' ? true : false;
+              const assentRequired = getValue('assent_required') === '1' ? true : false;
+              const parentConsentRequired = getValue('parent_consent_required') === '1' ? true : false;
+              const husbandConsentRequired = getValue('husband_required') === '1' ? true : false;
+
+              const witnessRequired  = getValue('partliterate') === '2' ? true : false;
+              const witnessObtained = getValue('witness_signature') !== '' ? true : false;
+              
+              let overallConsentObtained = true;
+
+              console.log('Consent required: ' + consentRequired);
+              console.log('Consent obtained: ' + consentObtained);
+              console.log('Assent required: ' + assentRequired);
+              console.log('Assent obtained: ' + assentObtained);
+              console.log('Parent consent required: ' + parentConsentRequired);
+              console.log('Parent consent obtained: ' + parentConsentObtained);
+              console.log('Husband consent required: ' + husbandConsentRequired);
+              console.log('Husband consent obtained: ' + husbandConsentObtained);
+
+              if (consentRequired) {
+                if (!consentObtained) {
+                  overallConsentObtained = false;
+                }
+              }
+
+              if (assentRequired) {
+                if (!assentObtained) {
+                  overallConsentObtained = false;
+                }
+              }
+
+              if (parentConsentRequired) {
+                if (!parentConsentRequired) {
+                  overallConsentObtained = false;
+                }
+              }
+             
+              if (husbandConsentRequired) {
+                if (!husbandConsentObtained) {
+                  overallConsentObtained = false;
+                }
+              }
+
+              if (witnessRequired) {
+                if (!witnessObtained) {
+                  overallConsentObtained = false;
+                }
+              }
+
+    
+            
+
+              console.log(overallConsentObtained);
+
+      
+
+            switch(overallConsentObtained) {
+            case true:
+            caseService.setVariable('status', 'Consented')
+
+            break
+            case false:
+            caseService.setVariable('status', 'Not Consented')
+
+  
+    }
+
+
+    console.log(caseService.getVariable('status'));
+          
+            "
+            category="
+              
+            
+  null
+
+          
+            "
+          >
+            <template>
+              
+            
+  <tangy-box name="consentinstr" style="font-size:1.1em; background-color:var(--tangy-select-background-color, rgba(0, 0, 0, 0.04));">
+      <div style="border: 1px gray solid; margin:0px 0px 0px 0px; padding:10px 10px 0px 10px;">
+        <t-lang en="">
+            Participant Consent:
+            <ul>
+              <li>The woman is eligible for the SANTE study.</li>
+              <li>Please review the informed consent form with the participant.</li>
+              <li>If the woman would like to participate in the study, please complete the consent questions below.</li>
+            </ul>
+        </t-lang>
+        <t-lang fr="">
+            Consentement du Participant :
+            <ul>
+              <li>La femme est éligible à l’étude SANTE.</li>
+              <li>Veuillez examiner le formulaire de consentement éclairé avec le participant.</li>
+              <li>Si la femme souhaite participer à l'étude, veuillez répondre aux questions de consentement ci-dessous.</li>
+            </ul>
+        </t-lang>
+     </div>
+
+    </tangy-box>
+
+    <!-- Question 22 -->
+<!-- This is question 13 on DCF1a and there's a 13a (OS)-->
+<tangy-radio-buttons  name="partliterate" label="
+<t-lang en>Is the participant literate?</t-lang>
+<t-lang fr>Est-ce que le participant est lettré ? </t-lang>
+" hint-text="" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+">
+<option value="1">
+    <t-lang en="">Yes</t-lang>
+    <t-lang fr="">Oui</t-lang>
+  </option>
+  <option value="2">
+      <t-lang en="">No</t-lang>
+      <t-lang fr="">Non</t-lang>
+    </option>
+  </tangy-radio-buttons>
+
+
+    <tangy-input name="consent_required" label="
+      <t-lang en>Consent:</t-lang>
+      <t-lang fr>Consentement:</t-lang>
+    " hidden=""></tangy-input>
+    <tangy-input name="assent_required" label="
+    <t-lang en>Assent:</t-lang>
+    <t-lang fr>Assentiment:</t-lang>
+    " hidden=""></tangy-input>
+    <tangy-input name="parent_consent_required" label="
+    <t-lang en>Parent:</t-lang>
+    <t-lang fr>Parente:</t-lang>
+    " hidden=""></tangy-input>
+    <tangy-input name="husband_consent_required" label="
+    <t-lang en>Husband:</t-lang>
+    <t-lang fr>Mari:</t-lang>
+    " hidden=""></tangy-input>
+
+    <!-- Woman's consent -->
+
+    <tangy-box name="consent_instr">
+      <t-lang en=""><strong>Woman's consent:</strong></t-lang>
+      <t-lang fr="">Consentement de la femme:</t-lang>
+    </tangy-box>
+    <tangy-signature name="consent_signature">
+    </tangy-signature>
+    <tangy-input name="consent_name" 
+    label="
+      <t-lang en>Woman's name:</t-lang>
+      <t-lang fr>Nom de femme:</t-lang>"
+      required="">
+    </tangy-input>
+
+    <!-- Parent consent -->
+
+    <tangy-box name="parent_consent_instr">
+        <t-lang en=""><strong>Parent or guardian's consent:</strong></t-lang>
+        <t-lang fr=""><strong>Consentement du parent ou du tuteur:</strong></t-lang>
+      </tangy-box>
+      <tangy-signature name="parent_consent_signature">
+      </tangy-signature>
+      <tangy-input name="parent_name" 
+      label="
+        <t-lang en>Parent's or guardian's name:</t-lang>
+        <t-lang fr>Nom du parent ou du tuteur:</t-lang>"
+        required="">
+      </tangy-input>
+
+      <!-- Husband's consent -->
+  
+      <tangy-box name="husband_consent_instr">
+        <t-lang en=""><strong>Husband's consent:</strong></t-lang>
+        <t-lang fr=""><strong>Consentement de l'époux:</strong></t-lang>
+      </tangy-box>
+      <tangy-signature name="husband_consent_signature">
+      </tangy-signature>
+      <tangy-input name="husband_name" 
+      label="
+        <t-lang en>Husband's name:</t-lang>
+        <t-lang fr>Nom de l'Epoux:</t-lang>"
+        required="">
+      </tangy-input>
+
+      <!-- Woman's assent -->
+  
+    <tangy-box name="assent_instr">
+      <t-lang en=""><strong>Woman's assent:</strong></t-lang>
+      <t-lang fr=""><strong>Consentement de la femme:</strong></t-lang>
+    </tangy-box>
+    <tangy-signature name="assent_signature">
+    </tangy-signature>
+    <tangy-input name="assent_name" 
+    label="
+      <t-lang en>Woman's name:</t-lang>
+      <t-lang fr>Nom de femme:</t-lang>"
+      required="">
+    </tangy-input>
+
+    <!-- Witness -->
+
+    <tangy-box name="witness_instr" show-if="getValue('partliterate') ==='2'">
+        <t-lang en=""><strong>Witness signature:</strong></t-lang>
+        <t-lang fr=""><strong>Signature du témoin:</strong></t-lang>
+      </tangy-box>
+      <tangy-signature name="witness_signature" show-if="getValue('partliterate') ==='2'">
+      </tangy-signature>
+
+      <tangy-input name="witness_name" 
+      label="
+        <t-lang en>Witness's name:</t-lang>
+        <t-lang fr>Nom du témoin:</t-lang>"
+        required="" show-if="getValue('partliterate') ==='2'">
+      </tangy-input>
+
+    <tangy-radio-buttons name="consent" class="" style="" label="
+    <t-lang en>Has appropriate consent been provided?</t-lang>
+    <t-lang fr>Le consentement approprié a-t-il été fourni?</t-lang>
+    " error-message="" invalid-message="" hint-text="" required="" hidden="">
+      <option value="yes">Oui</option>
+      <option value="no">Non</option>
+    </tangy-radio-buttons>
+
+    <tangy-partial-date question-number="" name="partcondt" label="
+    <t-lang en>Date consent assessed:</t-lang>
+    <t-lang fr>Date d'évaluation du consentement:</t-lang>
+    " hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2019" max-year="2024" required="" show-today-button="">
+    </tangy-partial-date>
+
+
+<tangy-select question-number="21." name="penameobtncon" label="
+<t-lang en>Staff code and name of person obtaining consent:</t-lang>
+<t-lang fr>Code du personnel et nom de la personne ayant obtenu le consentement:</t-lang>
+" hint-text="" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>" show-if="getValue('consent') ==='yes'">
+
+<option value="1">Staff member 1</option>
+
+<option value="2">Staff member 2</option>
+
+<option value="3">Staff member 3</option>
+
+</tangy-select>
+
+
+
+<tangy-input question-number="23." name="partcontim" label="
+<t-lang en>Participant consent time:</t-lang>
+<t-lang fr>Temps de consentement du participant:</t-lang>
+" type="time" hint-text="
+<t-lang en>Please enter time in 12 hour format with AM or PM as appropriate.</t-lang>
+<t-lang fr>Veuillez entrer l'heure au format 12 heures avec AM ou PM selon le cas.</t-lang>
+" required="" show-if="getValue('consent') ==='yes'">
+</tangy-input>
+
+
+          
+            </template>
+          </tangy-form-item>
+        
+
+<tangy-form-item id="consent_status"
+     title="<t-lang en>Consent status</t-lang><t-lang fr>Statut de consentement</t-lang>"
+     on-open="
+
+
+
+        let consent = caseService.getVariable('status');
+        if (consent === 'Consented') {
+          itemShow('participant_consented');
+          itemHide('participant_not_consented');
+        } else {
+          itemShow('participant_not_consented');
+          itemHide('participant_consented');
+        }
+
+        console.log(consent);
+     "
+     >
+    
+    
+     <template>
+
+        <tangy-box name="participant_not_consented" style="font-size: 1.1em" hidden="" >
+            <div style="border: 2px #CB4C4C solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#EDB8B8;">
+              <iron-icon icon="icons:error" style="padding: 5px 0; --iron-icon-fill-color: #CB4C4C;"></iron-icon>
+              <span style="font-size: 0.8em;">
+                <t-lang en="">
+                    <strong>Participant NOT consented:</strong>
+                    The participant has not provided consent. Please click the next button to complete the screening process.
+                </t-lang>
+                <t-lang fr="">
+                    <strong>Le participant N'A PAS consenti:</strong>
+                    Le participant n'a pas donné son consentement. Veuillez cliquer sur le bouton suivant pour terminer le processus de sélection.
+                </t-lang>
+               </span>
+            </div>
+         </tangy-box>
+      
+         <tangy-box name="participant_consented" style="font-size: 1.1em" hidden="" >
+          <div style="border: 2px #008002 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#d9fcd9;">
+            <iron-icon icon="icons:check-circle" style="padding: 5px 0; --iron-icon-fill-color: #008002;"></iron-icon>
+            <span style="font-size: 0.8em;">
+              <t-lang en="">
+                  <strong>Participant consented:</strong>
+                  The participant has provided consent. Please click the next button to continue the screening process.
+              </t-lang>
+              <t-lang fr="">
+                  <strong>Le participant a consenti:</strong>
+                  Le participant a donné son consentement. Veuillez cliquer sur le bouton suivant pour continuer le processus de filtrage.
+              </t-lang>
+             </span>
+          </div>
+       </tangy-box>
+
+     </template>
+    </tangy-form-item>
+
+
+          <tangy-form-item id="section_eligible_not_enrolled" 
+            title="<t-lang en>Eligible But Not Enrolled</t-lang><t-lang fr>Admissible mais non inscrit</t-lang>"
+            
+            
+            
+            
+            
+            
+            on-open="
+              
+    
+          
+            "
+            on-change="
+              
+            
+          
+            "
+            category="
+              
+            null
+          
+            "
+          >
+            <template>
+              
+      <!-- Question 18 -->
+
+    <tangy-checkboxes question-number="18." name="eligcnorsn" label="
+    <t-lang en>If the participant was eligible, but consent was not obtained from the participant or the participant’s guardian, indicate the reasons why (select all that apply):</t-lang>
+    <t-lang fr>Si le participant était éligible, mais le consentement n’a pas été obtenue du participant ou du gardien du participant indiquez les raisons pourquoi (sélectionnez tout ce qui s’applique):</t-lang>
+    " hint-text="" required="" error-text="
+    <t-lang en>Please select at least one option.</t-lang>
+    <t-lang fr>Veuillez sélectionner au moins une option.</t-lang>
+    ">
+
+      <option value="1"><t-lang en="">Time commitment</t-lang>
+      <t-lang fr="">Manque de temps</t-lang></option>
+
+      <option value="2"><t-lang en="">Does not like research</t-lang>
+      <t-lang fr="">N’aime pas la recherche</t-lang></option>
+
+      <option value="3"><t-lang en="">Participant's parent/guardian/husband is not present</t-lang>
+      <t-lang fr="">Parent / gardien /mari du participant n’est pas présent</t-lang></option>
+
+      <option value="4"><t-lang en="">Participant's parent/guardian/husband refused</t-lang>
+      <t-lang fr="">Parent/gardien/mari du participant a refusé</t-lang></option>
+
+      <option value="5"><t-lang en="">Concern of potential risks to infant</t-lang>
+      <t-lang fr="">Constitue des risques potentiels pour l’enfant</t-lang></option>
+
+      <option value="6"><t-lang en="">Concern of potential risks to fetus</t-lang>
+      <t-lang fr="">Constitue des risques potentiels au fœtus</t-lang></option>
+
+      <option value="7"><t-lang en="">Concern of potential risks to woman</t-lang>
+      <t-lang fr="">Constitue des risques potentiels à la femme</t-lang></option>
+
+      <option value="-8"><t-lang en="">Other</t-lang>
+      <t-lang fr="">Autre</t-lang></option>
+
+    </tangy-checkboxes>
+
+    <tangy-input question-number=" " name="elignconrsn" label="
+    <t-lang en>Specify:</t-lang>
+    <t-lang fr>Spécifiez</t-lang>
+    " hint-text="" type="text" tangy-if="getValue('eligcnorsn').includes('-8')" allowed-pattern="" required="" error-text="
+    <t-lang en>This question is required. Please provide a response.</t-lang>
+    <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    "></tangy-input>
+
+
+
+  
+          
+            </template>
+          </tangy-form-item>
+
+  <!-- Start of consent administration questions (item needs to be renamed) -->
+
+
+          <tangy-form-item id="eligible_and_enrolled" 
+          title="<t-lang en>Eligible and Enrolled</t-lang><t-lang fr>Admissible et inscrit</t-lang>"
+          
+          
+          
+          
+          
+          
+          on-open="
+      
+          "
+          on-change="
+            
+        
+      
+          "
+          category="
+            
+        null
+      
+          "
+        >
+          <template>
+            
+        
+
+<!-- Question 20 -->
+
+<tangy-checkboxes question-number="20." name="langconsent" label="
+<t-lang en>Language used during consent process:</t-lang>
+<t-lang fr>Langue utilisé pendant le processus de consentement:</t-lang>
+" hint-text="" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+">
+
+<option value="1">
+    <t-lang en="">French</t-lang>
+    <t-lang fr="">Français</t-lang>
+  </option>
+
+  <option value="2">
+    <t-lang en="">Bambara</t-lang>
+    <t-lang fr="">Bambara</t-lang>
+  </option>
+
+  <option value="3">
+      <t-lang en="">Minianka</t-lang>
+      <t-lang fr="">Minianka</t-lang>       
+  </option>
+
+  <option value="-8">
+    <t-lang en="">Other</t-lang>
+    <t-lang fr="">Autre</t-lang>
+  </option>
+
+  </tangy-checkboxes>
+
+<!--
+<tangy-radio-buttons question-number="20." name="langconsent" label="
+<t-lang en>Language used during consent process:</t-lang>
+<t-lang fr>Langue utilisé pendant le processus de consentement:</t-lang>
+" hint-text="" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+">
+
+  <option value="1">
+    <t-lang en="">French</t-lang>
+    <t-lang fr="">Français</t-lang>
+  </option>
+
+  <option value="2">
+    <t-lang en="">Bambara</t-lang>
+    <t-lang fr="">Bambara</t-lang>
+  </option>
+
+  <option value="3">
+      <t-lang en="">Minianka</t-lang>
+      <t-lang fr="">Minianka</t-lang>       
+  </option>
+
+  <option value="-8">
+    <t-lang en="">Other</t-lang>
+    <t-lang fr="">Autre</t-lang>
+  </option>
+
+</tangy-radio-buttons>
+
+-->
+
+<!-- Question 21 -->
+
+<tangy-radio-buttons question-number="21." name="consrecnatlang" label="
+<t-lang en>Did participant listen to the translated consent recording in the local language?</t-lang>
+<t-lang fr>Est-ce que le participant a écouté à l’enregistrement du consentement traduit en langue locale? </t-lang> " hint-text="" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>">
+
+  <option value="1">
+    <t-lang en="">Yes</t-lang>
+    <t-lang fr="">Oui</t-lang>
+  </option>
+
+  <option value="2"><t-lang en="">No</t-lang>
+  <t-lang fr="">Non</t-lang></option>
+
+</tangy-radio-buttons>
+
+<!-- Question 21a -->
+
+<tangy-input question-number="21a." name="consrecnatlangrsn" label="
+<t-lang en>Reason:</t-lang>
+<t-lang fr>Raison:</t-lang>
+" hint-text="
+<t-lang en>Reason why participant did not listen to the translated consent recording in the local language.</t-lang>
+<t-lang fr>Raison pour laquelle le participant n'a pas écouté dans la langue locale.</t-lang>
+" type="text" tangy-if="getValue('consrecnatlang') === '2'" allowed-pattern="" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+"></tangy-input>
+
+
+
+<!-- Question 22a -->
+
+<tangy-radio-buttons question-number="22a." name="witnessfcp" label="
+<t-lang en>Did a witness present for the full consent process and sign the consent form? </t-lang>
+<t-lang fr>Est ce qu’un témoin était présent pendant la durée totale du processus de consentement et a signé le formulaire de consentement ?</t-lang>
+" hint-text="" tangy-if="getValue('partilterate') === '2'" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>">
+
+  <option value="1">
+    <t-lang en="">Yes</t-lang>
+    <t-lang fr="">Oui</t-lang>
+  </option>
+
+  <option value="2">
+    <t-lang en="">No</t-lang>
+    <t-lang fr="">Non</t-lang>
+  </option>
+
+</tangy-radio-buttons>
+
+<!-- Question 23 -->
+
+<tangy-radio-buttons name="piwsigncf" question-number="23." label="
+<t-lang en>Did participant, investigator/designee, and witness (if applicable) sign and date the consent form?</t-lang>
+<t-lang fr>Est-ce que le participant, le témoin (si applicable) et l’investigateur/délégué, et ont signé et daté le formulaire de consentement ? </t-lang> " hint-text="" required="">
+
+  <option value="1">
+    <t-lang en="">Yes</t-lang>
+    <t-lang fr="">Oui</t-lang>
+  </option>
+
+  <option value="2">
+    <t-lang en="">No</t-lang>
+    <t-lang fr="">Non</t-lang>
+  </option>
+
+</tangy-radio-buttons>
+
+<!-- Question 23a -->
+
+<tangy-input name="piwsigncfrsn" label="
+<t-lang en>Reason:</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+" question-number=" " inner-label=" " hint-text="
+<t-lang en>Reason why participant, investigator/designee, and witness (if applicable) did not sign and date the consent form.</t-lang>
+<t-lang fr>Raison pour laquelle le participant, l'enquêteur / mandataire et le témoin (le cas échéant) n'ont pas signé et daté le formulaire de consentement.</t-lang>
+" type="text" tangy-if="getValue('piwsigncf') === '2'" allowed-pattern="" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+"></tangy-input>
+
+<!-- Question 24 -->
+
+<tangy-radio-buttons name="cscfgivpart" question-number="24." label="
+<t-lang en>Was the copy of the signed consent form given to the participant?</t-lang>
+<t-lang fr>Est-ce qu’une copie du consentement signé a été donné au participant ? </t-lang>
+" hint-text="" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>">
+
+  <option value="1">
+    <t-lang en="">Yes</t-lang>
+    <t-lang fr="">Oui</t-lang>
+  </option>
+
+  <option value="2">
+    <t-lang en="">No</t-lang>
+    <t-lang fr="">Non</t-lang>
+  </option>
+
+</tangy-radio-buttons>
+
+<!-- Question 24a -->
+
+<tangy-input name="cscfgivpartrsn" label="Reason:" question-number=" " hint-text="
+<t-lang en>Reason why the copy of the signed consent form was not given to the participant.</t-lang>
+<t-lang fr>Raison pour laquelle la copie du formulaire de consentement signé n'a pas été remise au participant.</t-lang>
+" type="text" tangy-if="getValue('cscfgivpart') === '2'" allowed-pattern="" required="" error-text="
+<t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+"></tangy-input>
+
+
+
+
+
+      
+          </template>
+        </tangy-form-item>
+
+<!-- End of consent administration questions (item needs to be renamed) -->
+
+<!-- Start of eligibility summary -->
+
+<tangy-form-item id="eligibility_summary" 
+title="<t-lang en>Eligibility Summary</t-lang><t-lang fr>Résumé d'admissibilité</t-lang>"
+
+
+
+
+
+
+on-open="
+if (getValue('gagte12') === '1' && getValue('understand') === '1' && getValue('reside') === '1'
+&& getValue('labor') === '2' && getValue('macrolideall') === '2' && getValue('condcmply') === '2'
+&& getValue('treatazithro') === '2') {
+caseService.setVariable('status', 'Eligible');
+itemShow('participant_eligible');
+itemHide('participant_not_eligible');
+} else {
+caseService.setVariable('status', 'Not Eligible');
+itemShow('participant_not_eligible');
+itemHide('participant_eligible');
+}
+
+console.log(caseService.getVariable('status'));
+
+"
+on-change="
+  
+
+
+"
+category="
+  
+null
+
+"
+>
+
+<template>
+
+    <tangy-template name="eligsummary" style="font-size: 1em;">
+
+      <div style="border: 1px gray solid; margin:10px 10px 0px 0px; padding:0px 10px 0px 10px; background-color:var(--tangy-select-background-color, rgba(0, 0, 0, 0.04));">
+        <t-lang en="">
+            <h3>Summary of Eligibility Criteria</h3>
+            <p>
+              Review the inclusion and exclusion critera below to determine the woman's eligibility for the SANTE study. If any of the responses are missing or incorrect, press the 'Previous button' to return to  the previous pages to make corrections.
+            </p>
+            <b>Inclusion Criteria:</b>
+          
+            <ol start="9">
+              <li>
+                Estimated gestational age is MORE THAN OR EQUAL TO 12 weeks: <b>${(getValue('gagte12') === '1' ? 'Yes': (getValue('gagte12') === '2' ? 'No' : 'Unknown'))}</b>  </li>
+              <li>
+                Participant understands and can comply with the study procedures, as determined by the study staff: <b>${(getValue('understand') === '1' ? 'Yes': (getValue('understand') === '2' ? 'No' : 'Unknown'))}</b></li>
+              <li>
+                Participant intends to reside in the study area until her newborn infant is at least 12 months old: <b>${(getValue('reside') === '1' ? 'Yes': (getValue('reside') === '2' ? 'No' : 'Unknown'))}</b></li>
+            </ol>
+            <b>Exclusion Criteria:</b>
+            <ol start="12">
+              <li>
+                Is the participant in active labor (≥3 painful uterine contractions in the last 10 min)? <b>${(getValue('labor') === '1' ? 'Yes': (getValue('labor') === '2' ? 'No' : 'Unknown'))}</b></li>
+              <li>
+                Does the participant have a known allergy to macrolide (for example: azithromycin, erythromycin, or clarithromycin) antibiotics? <b>${(getValue('macrolideall') === '1' ? 'Yes': (getValue('macrolideall') === '2' ? 'No' : 'Unknown'))}</b></li>
+              <li>Does the participant have a condition that, in the opinion of the investigator, might compromise her well-being, or affect the ability of the participant to comply with study procedures? <b>${(getValue('condcmply') === '1' ? 'Yes': (getValue('condcmply') === '2' ? 'No' : 'Unknown'))}</b></li>
+              <li>
+                Is the participant currently being treated with azithromycin for a medical condition? <b>${(getValue('treatazithro') === '1' ? 'Yes': (getValue('treatazithro') === '2' ? 'No' : 'Unknown'))}</b></li>
+            </ol>
+        </t-lang>
+        <t-lang fr="">
+            <h3>Résumé des critères d'admissibilité</h3>
+            <p>
+                Passez en revue les critères d'inclusion et d'exclusion ci-dessous pour déterminer l'éligibilité de la femme à l'étude SANTE. Si l'une des réponses est manquante ou incorrecte, appuyez sur le bouton «Précédent» pour revenir aux pages précédentes et apporter des corrections.
+            </p>
+            <b>Critère d’Inclusion:</b>
+          
+            <ol start="9">
+              <li>
+                  Âge gestationnel estimée est PLUS DE OU EGALE A 12 semaines: <b>${(getValue('gagte12') === '1' ? 'Oui': (getValue('gagte12') === '2' ? 'Non' : 'Inconnu'))}</b>  </li>
+              <li>
+                  Le participant comprend et peut se conformer à toutes les procédures de l’étude comme déterminé par le personnel de l’étude: <b>${(getValue('understand') === '1' ? 'Oui': (getValue('understand') === '2' ? 'Non' : 'Inconnu'))}</b></li>
+              <li>
+                  Le participant a l’intention de résider dans la zone d’étude jusqu’à ce que son nouveau-né soit âgé d’au moins 12 mois: <b>${(getValue('reside') === '1' ? 'Oui': (getValue('reside') === '2' ? 'Non' : 'Inconnu'))}</b></li>
+            </ol>
+            <b>Critères de non Inclusion:</b>
+            <ol start="12">
+              <li>
+                  Le participant est-elle en travail actif ? (≥3 contractions utérines douloureuses dans les 10 dernières minutes avec ou sans changement cervical)? <b>${(getValue('labor') === '1' ? 'Oui': (getValue('labor') === '2' ? 'Non' : 'Inconnu'))}</b></li>
+              <li>
+                  Le participant a-t-il une allergie connue aux antibiotiques macrolides (par exemple: azithromycine, erythromycine, ou clarithromycine)?  <b>${(getValue('macrolideall') === '1' ? 'Oui': (getValue('macrolideall') === '2' ? 'Non' : 'Inconnu'))}</b></li>
+              <li>Le participant a-t-il une condition qui, selon l’opinion de l’investigateur, pourrait compromettre son bien-être, ou affecter sa capacité à se conformer aux procédures d’étude ? <b>${(getValue('condcmply') === '1' ? 'Oui': (getValue('condcmply') === '2' ? 'Non' : 'Inconnu'))}</b></li>
+              <li>
+                  Le participant est-il actuellement en cours de traitement azithromycine pour des raisons médicales ?  <b>${(getValue('treatazithro') === '1' ? 'Oui': (getValue('treatazithro') === '2' ? 'Non' : 'Inconnu'))}</b></li>
+            </ol>
+        </t-lang>
+       
+      </div>
+
+    </tangy-template>
+    </template>
+    </tangy-form-item>
+
+
+<!-- End of eligibility summary -->
+
+        
+          <tangy-form-item id="randomization" 
+            title="<t-lang en>Randomization</t-lang><t-lang fr>Randomisation</t-lang>"
+            
+            
+            
+            
+            
+            
+            on-open="
+              
+                        
+            console.log(caseService.getVariable('status'));
+   
+            itemHide('duplicate_enrollment'); 
+     
+
+          
+            "
+            on-change="
+              
+            
+     
+  
+    if (getValue('barcode_data')) {
+      const barcodeData = JSON.parse(getValue('barcode_data'))
+      const pid = barcodeData.participant_id;
+      caseService.valueExists('s01a-participant-information-f254b9','participant_id', pid ).then(
+        (result) => {
+          if (result) {
+            itemShow('duplicate_enrollment');
+            inputs.barcode_data.value = '';
+  
+          } else {
+         
+            itemHide('duplicate_enrollment');
+            itemShow('successful_enrollment');
+
+            inputs.enrollment_date.value = new Date().toISOString().substr(0,10)
+            inputs.enrollment_time.value = new Date().toISOString().substr(11,5) 
+
+            inputs.treatment_assignment.value = barcodeData.treatment_assignment
+            inputs.participant_id.value = barcodeData.participant_id
+            inputs.bin_mother.value = barcodeData['bin-mother']
+            inputs.bin_infant.value = barcodeData['bin-infant']
+            inputs.sub_studies.value = inputs.sub_studies.value.map(option => {
+              if (
+                (barcodeData['sub-studies']['S1'] === true && option.name === 'S1') || 
+                (barcodeData['sub-studies']['S2'] === true && option.name === 'S2') || 
+                (barcodeData['sub-studies']['S3'] === true && option.name === 'S3') || 
+                (barcodeData['sub-studies']['S4'] === true && option.name === 'S4') 
+              ) {
+                return {...option, value: 'on'}
+              } else if (
+                (barcodeData['sub-studies']['S1'] === false && option.name === 'S1') || 
+                (barcodeData['sub-studies']['S2'] === false && option.name === 'S2') || 
+                (barcodeData['sub-studies']['S3'] === false && option.name === 'S3') || 
+                (barcodeData['sub-studies']['S4'] === false && option.name === 'S4') 
+              ) {
+                return {...option, value: ''}
+              }
+            })
+            // Set case variables.
+    
+
+            caseService.setVariable('participant_id', getValue('participant_id'))
+            caseService.setVariable('enrollment_date', getValue('enrollment_date'))
+            caseService.setVariable('enrollment_time', getValue('enrollment_time'))
+            caseService.setVariable('treatment_assignment', getValue('treatment_assignment'))
+            caseService.setVariable('bin_mother', getValue('bin_mother'))
+            caseService.setVariable('bin_infant', getValue('bin_infant'))
+            caseService.setVariable('sub_studies', getValue('sub_studies'))
+            caseService.setVariable('status', 'Enrolled')
+        
+          }
+        }
+      );
+    }
+
+       
+  
+    
+          
+            "
+            category="
+              
+            
+          
+            "
+          >
+            <template>
+              
+                <tangy-box name="rand_instr" style="font-size: 1.1em">
+                  <div style="border: 2px #AFD8F8 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#DFEFFC;">
+                    <iron-icon icon="warning" style="padding: 5px 0;"></iron-icon>
+                    <span style="font-size: 1em;">
+                        <t-lang en="">
+                          <strong>Data cannot be changed once woman is randomized.</strong>
+                            <ul>
+                              <li>The woman is elligible for the SANTE study.</li>
+                              <li>Please select a new QR code label from the list.</li>
+                              <li>Click <strong>Scan</strong> to continute the process.</li>
+                            </ul>
+                          </t-lang>
+                        <t-lang fr="">
+                            <strong>Les données ne peuvent pas être modifiées une fois que la femme est randomisée.</strong>
+                            <ul>
+                                <li>La femme est éligible à l’étude SANTE.</li>
+                                <li>Veuillez sélectionner une nouvelle étiquette de code QR dans la liste.</li>
+                                <li>Cliquez sur <strong> Analyser </strong> pour poursuivre le processus.</li>
+                              </ul>
+        
+                        </t-lang>
+                     </span>
+                  </div>
+               </tangy-box>
+            
+           
+    <tangy-qr name="barcode_data" hide-output="" required=""
+    error-text ="
+    <t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>"
+    >
+    </tangy-qr>
+    <!--
+    <tangy-checkbox name="barcode_unavailable"  hidden="">Check this if barcode is unavailable</tangy-checkbox>
+    -->
+    <tangy-input name="participant_id" label="Participant ID" hint-text="" type="text" allowed-pattern="" hidden=""></tangy-input>
+    <tangy-select name="treatment_assignment" label="Treatment Assignment" hint-text="" hidden="">
+      <option value="Placebo">Placebo</option>
+      <option value="Experiment">Experiment</option>
+    </tangy-select>
+    <tangy-input name="bin_mother" label="bin-mother" hint-text="" type="text" allowed-pattern="" hidden=""></tangy-input>
+    <tangy-input name="bin_infant" label="bin-infant" hint-text="" type="text" allowed-pattern="" hidden=""></tangy-input>
+    <tangy-checkboxes name="sub_studies" label="Sub Studies" hint-text="" hidden="">
+      <option value="S1">S1</option>
+      <option value="S2">S2</option>
+      <option value="S3">S3</option>
+      <option value="S4">S4</option>
+    </tangy-checkboxes>  
+
+    <tangy-partial-date name="enrollment_date" label="
+    <t-lang en>Enrollment Date:</t-lang>
+    <t-lang fr>Date de l'inscription:</t-lang>
+    " hint-text="" future-date-error-text="" disallow-future-date="" missing-date-error-text="" invalid-date-error-text="" min-year="2019" max-year="2023" required="" show-today-button="" >
+    </tangy-partial-date>
+    <tangy-input name="enrollment_time" label="
+    <t-lang en>Enrollment time:</t-lang>
+    <t-lang fr>Temps d'inscription:</t-lang>
+    " type="time" hint-text="" required="" placeholder=" " inner-label=" "
+    error-text ="
+    <t-lang en>This question is required. Please provide a response.</t-lang>
+<t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    "
+
+    ></tangy-input>
+
+    <tangy-box name="duplicate_enrollment" style="font-size: 1.1em" hidden="">
+      <div style="border: 2px #CB4C4C solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#EDB8B8;">
+        <iron-icon icon="icons:error" style="padding: 5px 0; --iron-icon-fill-color: #CB4C4C;"></iron-icon>
+        <span style="font-size: 0.8em;">
+          <t-lang en="">
+              <strong>Duplicate randomization:</strong>
+              The participant id that was scanned already exists. Please choose another QR-coded label and repeat the randomization process.
+          </t-lang>
+          <t-lang fr="">
+              <strong>Randomisation en double:</strong>
+              L'identifiant de participant qui a été analysé existe déjà. Veuillez choisir une autre étiquette codée QR et répéter le processus de randomisation.
+          </t-lang>
+         </span>
+      </div>
+   </tangy-box>
+
+   <tangy-box name="successful_enrollment" style="font-size: 1.1em" hidden="">
+    <div style="border: 2px #008002 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#d9fcd9;">
+      <iron-icon icon="icons:check-circle" style="padding: 5px 0; --iron-icon-fill-color: #008002;"></iron-icon>
+      <span style="font-size: 0.8em;">
+        <t-lang en="">
+            <strong>Randomization successful:</strong>
+            The participant has been randomized successfully. Please click the next button to view treatment information.
+        </t-lang>
+        <t-lang fr="">
+            <strong>Randomisation réussie:</strong>
+            Le participant a été randomisé avec succès. Cliquez sur le bouton suivant pour afficher les informations sur le traitement.
+        </t-lang>
+       </span>
+    </div>
+ </tangy-box>
+
+  
+
+  
+          
+            </template>
+          </tangy-form-item>
+        
+          <tangy-form-item id="randomization_summary" 
+            title="<t-lang en>Randomization Summary</t-lang><t-lang fr>Résumé de la randomisation</t-lang>"
+             hide-back-button
+            
+            
+            
+            
+            
+            on-open="
+              
+            
+          
+            "
+            on-change="
+              
+            
+          
+            "
+            category="
+              
+            
+          
+            "
+          >
+            <template>
+              
+            
+    <tangy-template name="randsum" style="font-size:1.1em;">
+
+      <div style="border: 1px gray solid; margin:10px 10px 0px 0px; padding:0px 10px 0px 10px; background-color:var(--tangy-select-background-color, rgba(0, 0, 0, 0.04));">
+     
+        <t-lang en="">
+
+            <h3>Enrollment and Randomization Summary</h3>
+            <p>
+              The participant has been enrolled and randomized.
+              Please verify that the participant ID matches the participant label.
+            
+            </p>
+            <b>Randomization Information:</b>
+          
+            <ul>
+              <li>
+                Participant ID: <b>${getValue('participant_id')}</b></li>
+              <li>
+                Treatment Bin for Woman: <b>${getValue('bin_mother')}</b></li>
+             </ul>
+        </t-lang>
+        <t-lang fr="">
+          
+            <h3>Résumé d'inscription et de randomisation</h3>
+            <p>
+                Le participant a été inscrit et randomisé.
+                Veuillez vérifier que l'ID de participant correspond à l'étiquette du participant.
+            
+            </p>
+            <b>Informations de randomisation:</b>
+          
+            <ul>
+              <li>
+                  ID de participant: <b>${getValue('participant_id')}</b></li>
+              <li>
+                  Traitement bin pour femme: <b>${getValue('bin_mother')}</b></li>
+             </ul>
+        </t-lang>
+     
+        
+     </div>
+    </tangy-template>
+ 
+  
+          
+            </template>
+          </tangy-form-item>
+        
+          <tangy-form-item id="participant_information" 
+            title="<t-lang en>Participant Information</t-lang><t-lang fr>Information du participant</t-lang>"
+            
+            
+            
+            
+            
+            
+            on-open="
+              
+            
+          
+          
+            "
+            on-change="
+ 
+          
+          
+            "
+            category="
+              
+            
+            null
+          
+          
+            "
+          >
+            <template>
+              
+            
+
+      <tangy-box name="partinfoinst" style="font-size:1.1em; background-color:var(--tangy-select-background-color, rgba(0, 0, 0, 0.04));">
+
+
+
+          <div style="border: 1px gray solid; margin:0px 0px 0px 0px; padding:10px 10px 0px 10px;">
+            <t-lang en="">
+                Instructions:
+                <ul>
+                  <li>Please ask the participant for the information listed below. </li>
+                  <li>This information can be used to locate a participant at subsequent visits if they do not have their participant ID.</li>
+                </ul>
+            </t-lang>
+            <t-lang fr="">
+                Instructions:
+                <ul>
+                  <li>Veuillez demander au participant les informations énumérées ci-dessous. </li>
+                  <li>Ces informations peuvent être utilisées pour localiser un participant lors de visites ultérieures s'il ne possède pas son identifiant de participant.</li>
+                </ul>
+            </t-lang>
+         </div>
+  
+        </tangy-box>
+     
+        <tangy-box name="names_heading" class="" style="">
+          <t-lang en=""><strong>Names:</strong></t-lang>
+          <t-lang fr=""><strong>Des noms:</strong></t-lang>
+        </tangy-box>
+
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="surname" class="" style="" required="" placeholder=" " label="
+    <t-lang en>Surname:</t-lang>
+    <t-lang fr>Nom de famille:</t-lang>
+    " error-message="" invalid-message="" hint-text="" error-text="
+    <t-lang en>Please enter a value for this question.</t-lang>
+    <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    "></tangy-input>
+
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="firstname" class="" style="" required="" label="
+    <t-lang en>First name:</t-lang>
+    <t-lang fr>Prénom:</t-lang>
+    " error-message="" invalid-message="" error-text="Required" placeholder=" "></tangy-input>
+
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="middlename" class="" style="" label="
+    <t-lang en>Middle name:</t-lang>
+    <t-lang fr>Deuxième nom:</t-lang>
+    " error-message="" invalid-message="" error-text="Required" placeholder=" "></tangy-input>
+
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="nickname1" class="" style="" label="
+    <t-lang en>First nickname:</t-lang>
+    <t-lang fr>Premier pseudo:</t-lang>
+    " error-message="" invalid-message="" placeholder=" " error-text="
+    <t-lang en>Please enter a value for this question.</t-lang>
+    <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    "></tangy-input>
+
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="nickname2" class="" style="" label="
+    <t-lang en>Second nickname:</t-lang>
+    <t-lang fr>Deuxième surnom:</t-lang>
+    " error-message="" invalid-message="" placeholder=" " error-text="
+    <t-lang en>Please enter a value for this question.</t-lang>
+    <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    "></tangy-input>
+
+    <tangy-box name="phone_numbers_message" class="" style="">
+      <t-lang en=""><strong>Phone numbers:</strong></t-lang>
+      <t-lang fr=""><strong>Les numéros de téléphone:</strong></t-lang>
+    </tangy-box>
+
+    <tangy-radio-buttons name="phoneyn" class="" style="" required="" label="
+    <t-lang en>Does the participant have access to a mobile phone?</t-lang>
+    <t-lang fr>Le participant a-t-il accès à un téléphone portable?</t-lang>
+    " error-message="" invalid-message="" hint-text="
+    <t-lang en>Is the participant able to send and recive messages and phone calls?</t-lang>
+    <t-lang fr>Le participant peut-il envoyer et recevoir des messages et des appels téléphoniques?</t-lang>
+    " error-text="
+    <t-lang en>This question is required. Please provide a response.</t-lang>
+    <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    ">
+    <option value="1">
+      <t-lang en="">Yes</t-lang>
+      <t-lang fr="">Oui</t-lang>
+    </option>
+    <option value="2">
+      <t-lang en="">No</t-lang>
+      <t-lang fr="">Non</t-lang>
+    </option>
+  </tangy-radio-buttons>
+
+  <tangy-input type="text" allowed-pattern="" inner-label=" " name="phone1" class="" style="" label="
+  <t-lang en>Preferred telephone number:</t-lang>
+  <t-lang fr>Numéro de téléphone préféré:</t-lang>
+  " error-message="" invalid-message="" required="" placeholder=" " error-text="
+  <t-lang en>Please enter a value for this question.</t-lang>
+  <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+  " show-if="getValue('phoneyn') ==='1'"></tangy-input>
+
+  <tangy-input type="text" allowed-pattern="" inner-label=" " name="phone2" class="" style="" label="
+  <t-lang en>Second telephone number:</t-lang>
+  <t-lang fr>Deuxième numéro de téléphone:</t-lang>
+  " error-message="" invalid-message="" placeholder=" " error-text="
+  <t-lang en>Please enter a value for this question.</t-lang>
+  <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+  " show-if="getValue('phoneyn') ==='1'"></tangy-input>
+
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="phone2name" class="" style="" label="
+    <t-lang en>Name associated with second telephone number:</t-lang>
+    <t-lang fr>Nom associé au deuxième numéro de téléphone:</t-lang>
+    " error-message="" invalid-message="" placeholder=" " error-text="
+    <t-lang en>Please enter a value for this question.</t-lang>
+    <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    " show-if="getValue('phone2') !== ''"></tangy-input>
+
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="phone2rel" class="" style="" label="
+    <t-lang en>Relationship:</t-lang>
+    <t-lang fr>Relation:</t-lang>
+    " error-message="" invalid-message="" placeholder=" " error-text="
+    <t-lang en>Please enter a value for this question.</t-lang>
+    <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    " show-if="getValue('phone2') !== ''"></tangy-input>
+
+    <tangy-box name="other_info_message" class="" style="">
+     <t-lang en=""><strong>Other information:</strong></t-lang>
+     <t-lang fr="">Les autres informations:</t-lang>
+    </tangy-box>
+
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="headofhouse" class="" style="" required="" label="
+    <t-lang en>Head of household:</t-lang>
+    <t-lang fr>Chef de ménage:</t-lang>
+    " error-message="" invalid-message="" hint-text="
+    <t-lang en>Please enter the full first and surname of the head of household.</t-lang>
+    <t-lang fr>Veuillez saisir le prénom complet et le nom du chef de ménage.</t-lang>
+    " error-text="
+    <t-lang en>Please enter a value for this question.</t-lang>
+    <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    "></tangy-input>
+
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="village" class="" style="" required="" placeholder=" " label="
+    <t-lang en>Village of residence:</t-lang>
+    <t-lang fr>Village de résidence:</t-lang>
+    " error-message="" invalid-message="" hint-text="" error-text="
+    <t-lang en>Please enter a value for this question.</t-lang>
+    <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+    "></tangy-input>
+
+      <tangy-input type="text" allowed-pattern="" inner-label=" " name="mothervillage" class="" style="" required="" placeholder=" " label="
+      <t-lang en>Mother's village:</t-lang>
+      <t-lang fr>Village de la mère:</t-lang>
+      " error-message="" invalid-message="" hint-text="" error-text="
+      <t-lang en>Please enter a value for this question.</t-lang>
+      <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+      "></tangy-input>
+
+    
+      <tangy-input name="ageatenrol" class="" style="" required="" label="
+      <t-lang en>Age at enrollment:</t-lang>
+      <t-lang fr>Age à l'inscription:</t-lang>
+      " error-message="" placeholder=" " invalid-message="" hint-text="" type="number" inner-label=" " allowed-pattern="" error-text="
+      <t-lang en>Please enter a value for this question.</t-lang>
+      <t-lang fr>Cette question est obligatoire. S'il vous plaît fournir une réponse.</t-lang>
+      "></tangy-input>
+
+
+    <tangy-box name="facility_assignment_message" class="" style="">
+      <t-lang en=""><strong>Facility Assignment:</strong></t-lang>
+      <t-lang fr=""><strong>Affectation de l'installation:</strong></t-lang>
+    </tangy-box>
+
+
+  
+          
+            </template>
+          </tangy-form-item>
+        
+    
+        
+          <tangy-form-item id="item_finall" 
+            title="<t-lang en>Screening Complete</t-lang><t-lang fr>Dépistage terminé</t-lang>"
+            
+            
+            
+            
+            
+            
+            on-open="
+              
+            "
+            on-change="
+              
+            "
+            category="
+              
+            "
+          >
+            <template>
+              
+        <tangy-box name="final" style="font-size:1.1em; background-color:var(--tangy-select-background-color, rgba(0, 0, 0, 0.04));">
+
+
+          <div style="border: 1px gray solid; margin:0px 0px 0px 0px; padding:10px 10px 0px 10px;">
+            <t-lang en="">
+                Screening complete:
+                <ul>
+                  <li>The screening process is now complete. </li>
+                  <li>Please submit the form using the button below.</li>
+                </ul>
+            </t-lang>
+            <t-lang fr="">
+                Dépistage terminé:
+                <ul>
+                   <li> Le processus de sélection est maintenant terminé. </li>
+                   <li> Envoyez le formulaire à l'aide du bouton ci-dessous. </li>
+                </ul>
+            </t-lang>
+            
+         </div>
+  
+        </tangy-box>
+      
+            </template>
+          </tangy-form-item>
+        
+      </tangy-form>
+    

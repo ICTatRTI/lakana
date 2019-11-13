@@ -1,0 +1,207 @@
+      <tangy-form id="s06-current-anc-visit-68fc78" title="S06 - Current ANC Visit" category="null" on-open="
+        " exit-clicks="
+        " on-change="
+        " on-submit="
+        ">
+        <tangy-form-item hide-nav-icons id="item_af434aa4-ba7e-44c7-9951-f6e23544e92b" title="<t-lang en>Current routine ANC Visit</t-lang><t-lang fr>Visite de CPN de routine en cours</t-lang> " on-open="
+            " on-change="
+            " category="
+              null
+            ">
+          <template>
+            <!-- Question 1 is different on paper DCF. I fixed it mostly in french (OS)-->
+            <!--Decided to come back to this; eform structure varies a lot from DCF. Happy to take a look later
+            and format by commenting code I add so you can review-->
+            <tangy-radio-buttons name="hrass" class="" style="" required="" question-number="1." label="<t-lang en>What is the reason for your clinic visit today?</t-lang><t-lang fr>Quelle est la raison de votre visite à la clinique aujourd’hui &nbsp; ? (Sélectionnez une réponse) </t-lang>" error-message="" invalid-message=""
+              hint-text="">
+              <option value="1">
+                <t-lang en="">Doptone</t-lang>
+                <t-lang fr="">Visite de routine CPN-1</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">Pinard horn</t-lang>
+                <t-lang fr="">Visite de routine CPN-2</t-lang>
+              </option>
+              <option value="3">
+                <t-lang en="">Ultrasound</t-lang>
+                <t-lang fr="">Visite de routine CPN-3</t-lang>
+              </option>
+              <option value="4">
+                  <t-lang en="">Routine ANC-4 visit</t-lang>
+                  <t-lang fr="">Visite de routine CPN-4</t-lang>
+                </option>
+              <option value="5">
+                <t-lang en="">Other</t-lang>
+                <t-lang fr="">Autre</t-lang>
+              </option>
+              <option value="6">
+                  <t-lang en="">Unknown</t-lang>
+                  <t-lang fr="">Inconnu</t-lang>
+                </option>
+            </tangy-radio-buttons>
+            <tangy-input name="fetalhr" class="" style="" tangy-if="getValue('hrass') === '1' || getValue('hrass') === '2' || getValue('hrass') === '3' || getValue('hrass') === '4'" required=""
+              question-number="2" label="<t-lang en>Fetal heart rate during exam:</t-lang><t-lang fr>Avant de tomber enceinte, aviez-vous des menstruations régulières &nbsp; ?</t-lang>" error-message="" invalid-message=""
+              hint-text="<t-lang en>Enter fetal heart rate in BPM</t-lang><t-lang fr>qui duraient quelques jours, à peu près tous les mois</t-lang>" type="number" inner-label="" allowed-pattern=""></tangy-input>
+            <tangy-box name="recanc" class="" style="" required="">
+              <t-lang en="">Has the woman received the following at this ANC visit?</t-lang>
+              <t-lang fr="">La femme a-t-elle reçu ce qui suit lors de cette visite de CPN?</t-lang>
+            </tangy-box>
+            <tangy-radio-buttons name="iptpsp" class="" style="" required="" question-number="3" label="IPTp-SP:" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="">Yes</t-lang>
+                <t-lang fr="">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">No</t-lang>
+                <t-lang fr="">Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="dosenum" class="" style="" tangy-if="getValue('iptpsp') === '1'" required="" question-number="3a" label="<t-lang en>Which dose number?</t-lang><t-lang fr>Combien de dose? </t-lang>" error-message="" invalid-message=""
+              hint-text="">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="tetvac" class="" style="" required="" question-number="4" label="<t-lang en>Tetanus vaccination:</t-lang><t-lang fr>Vaccine contre le tétanos:</t-lang> " error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="">Yes</t-lang>
+                <t-lang fr="">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">No</t-lang>
+                <t-lang fr="">Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="vactetpreg" class="" style="" tangy-if="getValue('tetvac') === '2'" required=""
+              question-number="4a." label="<t-lang en>Has she been vaccinated against tetanus previously during this pregnancy?</t-lang><t-lang fr>A-t-elle déjà reçu un vaccin contre le tétanos au cours de cette grossesse?</t-lang>" error-message="" invalid-message=""
+              hint-text="">
+              <option value="1">
+                <t-lang en="">Yes</t-lang>
+                <t-lang fr="">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">No</t-lang>
+                <t-lang fr="">Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="syphraptst" class="" style="" required="" question-number="5." label="<t-lang en>Syphilis rapid test:</t-lang><t-lang fr>Le test rapide de syphilis: </t-lang> " error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="">Yes</t-lang>
+                <t-lang fr="">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">No</t-lang>
+                <t-lang fr="">Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown </t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="syphresult" class="" style="" tangy-if="getValue('syphraptst') === '1'" required="" question-number="5a." label="<t-lang en>What is the result?</t-lang><t-lang fr>Quel était le résultat?</t-lang>" error-message=""
+              invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="">Positive</t-lang>
+                <t-lang fr="">Positif</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">Negative</t-lang>
+                <t-lang fr="">Negatif</t-lang>
+              </option>
+              <option value="3">
+                <t-lang en="">indeterminate</t-lang>
+                <t-lang fr="">Indéterminé </t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="rectreat" class="" style="" tangy-if="getValue('syphresult') === '1'" required="" question-number="5a1."
+            label="<t-lang en>Is she receiving treatment?</t-lang><t-lang fr>Est-elle sous traitement?</t-lang>" error-message=""
+              invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="">Yes</t-lang>
+                <t-lang fr="">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">No</t-lang>
+                <t-lang fr="">Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown </t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="prevtstsyph" class="" style="" tangy-if="getValue('syphraptst') === '2' || getValue('syphraptst') === '-9'" required=""
+              question-number="5b." label="<t-lang en>Has she been previously tested for syphilis during this pregnancy?</t-lang><t-lang fr>Has she been previously tested for syphilis during this pregnancy?</t-lang>" error-message="" invalid-message=""
+              hint-text="">
+              <option value="1">
+                <t-lang en="">Yes</t-lang>
+                <t-lang fr="">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">No</t-lang>
+                <t-lang fr="">Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown </t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="prevsyphres" class="" style="" tangy-if="getValue('prevtstsyph') === '1'" required=""
+            question-number="5b1." label="<t-lang en>What was the result?</t-lang><t-lang fr>Quel était le résultat? </t-lang>" error-message=""
+              invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="">Positive</t-lang>
+                <t-lang fr="">Positif</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">Negative</t-lang>
+                <t-lang fr="">Negatif</t-lang>
+              </option>
+              <option value="3">
+                <t-lang en="">indeterminate</t-lang>
+                <t-lang fr="">Indéterminé </t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="ptsyphtreat" class="" style="" tangy-if="getValue('prevsyphres') === '1'" required=""
+            question-number="5b1a." label="<t-lang en>Was she treated?</t-lang><t-lang fr>A-t-elle été traité?</t-lang>" error-message=""
+              invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="">Yes</t-lang>
+                <t-lang fr="">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="">No</t-lang>
+                <t-lang fr="">Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="">Unknown</t-lang>
+                <t-lang fr="">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+          </template>
+        </tangy-form-item>
+      </tangy-form>

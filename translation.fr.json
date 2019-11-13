@@ -1,6 +1,4 @@
 {
-  "Unable to check for update. Make sure you are connected to the Internet and try again.": "Impossible de vérifier la mise à jour. Assurez-vous d'être connecté à Internet et réessayez.",
-  "Failed to download application configuration file": "Échec du téléchargement du fichier de configuration de l'application",
   "accept": "acceptez",
   "clear": "réinitialiser",
   "scan": "Analyse",
@@ -51,6 +49,7 @@
   "There is unsaved data. Are you sure you would like to exit the form?": "Il y a des données non sauvegardées. Êtes-vous sûr de vouloir quitter le formulaire?",
   "The form is not yet complete. Are you sure you would like to exit the form?": "Le formulaire n'est pas encore complet. Êtes-vous sûr de vouloir quitter le formulaire?",
   "The app will now check for an application update and attempt to download. Please stay connected to the Internet during this process. Tap OK to proceed.": "L'application va maintenant rechercher une mise à jour de l'application et tenter de télécharger. Veuillez rester connecté à Internet pendant ce processus. Appuyez sur OK pour continuer.",
+  "Unable to check for update. Make sure you are connected to the Internet and try again.": "Impossible de vérifier la mise à jour. Assurez-vous d'être connecté à Internet et réessayez.",
   "Case": "Cas",
   "Cases": "Des cas",
   "Check for Update": "Vérifier la mise à jour",
@@ -227,5 +226,7 @@
   "Home": "Page D'accueil",
   "Scan Code": "Scannez le code",
   "Screening ID": "ID de dépistage",
-  "Participant ID": "ID de participant"
+  "Participant ID": "ID de participant",
+  "Name": "Nom"
+
 }

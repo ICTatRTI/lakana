@@ -1,0 +1,11 @@
+{
+   "locations" : {
+      
+   },
+   "locationsLevels" : [
+      "region",
+      "district",
+      "facility"
+   ],
+   "metadata" : {}
+}

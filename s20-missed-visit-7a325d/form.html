@@ -1,0 +1,56 @@
+      <tangy-form id="s20-missed-visit-7a325d" title="S20 - Missed Visit" category="null" on-open="
+        " on-change="
+        " on-submit="
+        ">
+        <tangy-form-item hide-nav-icons id="item_20f7217e-27d3-42f1-b005-c271d5ec338d" title="Contact participant" on-open="
+            " on-change="
+            " category="
+            ">
+          <template>
+            <tangy-partial-date question-number="1." name="contattempdt" class="" style="" label="
+                <t-lang en>Date of contact attempt:</t-lang>
+                <t-lang fr></t-lang>
+              " error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2010" max-year="2019" show-today-button="" allow-unknown-day="" allow-unknown-month=""
+              disallow-future-date="" required="">
+            </tangy-partial-date>
+            <tangy-radio-buttons name="methattempt" question-number="2." label="Method of attempt:" hint-text="">
+              <option value="1">SANTE staff phone</option>
+              <option value="2">SANTE staff home visit</option>
+              <option value="3">Relais</option>
+              <option value="-8">Other</option>
+            </tangy-radio-buttons>
+            <tangy-input name="staffphnspec" tangy-if="getValue('methattempt') === '1'" label="Specify for Sante staff phone:" hint-text="" type="text" allowed-pattern="" required=""></tangy-input>
+            <tangy-input name="homevisitspec" tangy-if="getValue('methattempt') === '2'" label="Specify for Sante staff home visit:" hint-text="" type="text" allowed-pattern="" required=""></tangy-input>
+            <tangy-input name="moaothrspec" tangy-if="getValue('methattempt') === '-8'" label="Specify for other:" hint-text="" type="text" allowed-pattern="" required=""></tangy-input>
+            <tangy-radio-buttons name="contmade" question-number="3." label="Was successful contact made?" hint-text="">
+              <option value="1">Yes</option>
+              <option value="2">No (attempt to contact again in 1 week)</option>
+              <option value="-9">Unknown</option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="visitmissrsn" tangy-if="getValue('contmade') === '1'" question-number="3b." label="Why was visit missed?" hint-text="">
+              <option value="1">Forgot/have not gone to facility for care</option>
+              <option value="2">Received services (ANC follow up/Delivery/Penta-1/Penta-3) at different facility but still in same residence</option>
+              <option value="3">No longer needs services, early termination of pregnancy (Study exit, missed delivery visit)</option>
+              <option value="4">Permanent moved out of study area but willing to continue to be contacted by phone for vital status outcome (trigger supervisor review)</option>
+              <option value="5">Temporarily moved out of study area but plan to return</option>
+              <option value="6">Request withdrawal from study (study exit)</option>
+              <option value="7">Maternal participant death (SAE/study exit)</option>
+              <option value="8">Infant participant death (SAE/study exit)</option>
+              <option value="-8">Other</option>
+            </tangy-radio-buttons>
+            <tangy-input name="othrspec" tangy-if="getValue('visitmissrsn') === '-8'" label="Specify for other:" hint-text="" type="text" allowed-pattern="" required=""></tangy-input>
+            <tangy-partial-date question-number="3b1." name="curvstexpdt" tangy-if="getValue('visitmissrsn') === '1'" class="" style="" label="
+                  <t-lang en>What is the new expected date for current visit?</t-lang>
+                  <t-lang fr>What is the new expected date for current visit?</t-lang>
+                " error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2010" max-year="2019" show-today-button="" allow-unknown-day="" allow-unknown-month=""
+              disallow-future-date="" required="">
+            </tangy-partial-date>
+            <tangy-partial-date question-number="3b2." name="nexvstexpdt" tangy-if="getValue('visitmissrsn') === '2' || getValue('visitmissrsn') === '4' || getValue('visitmissrsn') === '5'" class="" style="" label="
+                  <t-lang en>What is the expected date for the next visit?</t-lang>
+                  <t-lang fr>What is the expected date for the next visit?</t-lang>
+                " error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text="" min-year="2010" max-year="2019" show-today-button="" allow-unknown-day="" allow-unknown-month=""
+              disallow-future-date="" required="">
+            </tangy-partial-date>
+          </template>
+        </tangy-form-item>
+      </tangy-form>

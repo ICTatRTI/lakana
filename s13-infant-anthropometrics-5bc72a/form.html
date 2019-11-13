@@ -1,0 +1,120 @@
+      <tangy-form id="s13-infant-anthropometrics-5bc72a" title="
+          <t-lang en>S13 - Infant Anthropometrics</t-lang>
+          <t-lang fr>S13 - Anthropométrie infantile</t-lang>
+      " category="null" on-open="
+        " on-change="
+        " on-submit="
+        ">
+        <tangy-form-item id="item_eef3ce45-cc29-4bf0-90da-cd29d34fdacf" title="
+            <t-lang en>Physical Examination</t-lang>
+            <t-lang fr>Examen Physique</t-lang>
+          " on-open="
+          " on-change="
+          " category="
+            null
+          ">
+          <template>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="input1" class="" style="" label="First question..." error-message="" invalid-message="" hint-text=""></tangy-input>
+            <tangy-radio-buttons name="wttaken" class="" style="" required="" question-number="1." label="
+        <t-lang en>Weight taken?</t-lang>
+        <t-lang fr>Poids pris?</t-lang>
+    " error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="wt1" class="" style="" tangy-if="getValue('wttaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="" label="
+          <t-lang en>1st weight taken:</t-lang>
+          <t-lang fr>1er poids pris:</t-lang>
+          " error-message="" invalid-message="" hint-text="Enter 1dp.  in kg"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="wt2" class="" style="" tangy-if="getValue('wttaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="" label="
+          <t-lang en>2nd weight taken:</t-lang>
+          <t-lang fr>2ème poids pris:</t-lang>
+     " error-message="" invalid-message="" hint-text="Enter 1dp.  in kg"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="wt3" class="" style="" tangy-if="getValue('wttaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number="" label="
+          <t-lang en>3rd weight taken:</t-lang>
+          <t-lang fr>3ème poids pris:</t-lang>
+            " error-message="" invalid-message="" hint-text="Enter 1dp.  in kg"></tangy-input>
+            <tangy-radio-buttons name="lentaken" class="" style="" required="" question-number="2." label="
+          <t-lang en>Length taken?</t-lang>
+          <t-lang fr>Taille prise?</t-lang>
+    " error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="len1" class="" style="" tangy-if="getValue('lentaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number=""
+              label="
+          <t-lang en>1st length taken:</t-lang>
+          <t-lang fr>1ère longueur prise:</t-lang>
+            " error-message="" invalid-message="" hint-text="Enter 1dp.  in cm"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="len2" class="" style="" tangy-if="getValue('lentaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number=""
+              label="
+          <t-lang en>2nd length taken:</t-lang>
+          <t-lang fr>2ème longueur prise:</t-lang>
+    " error-message="" invalid-message="" hint-text="Enter 1dp.  in cm"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="len3" class="" style="" tangy-if="getValue('lentaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number=""
+              label="3rd length taken:" error-message="" invalid-message="" hint-text="Enter 1dp.  in cm"></tangy-input>
+            <tangy-radio-buttons name="muactaken" class="" style="" required="" question-number="3." label="
+        <t-lang en>MUAC taken?</t-lang>
+        <t-lang fr>MUAC prise?</t-lang>
+        " error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="muac1" class="" style="" tangy-if="getValue('muactaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number=""
+              label="
+              <t-lang en>1st MUAC taken:</t-lang>
+<t-lang fr>1ère MUAC prise:</t-lang>" error-message="" invalid-message="" hint-text="Enter 1dp.  in cm"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="muac2" class="" style="" tangy-if="getValue('muactaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number=""
+              label="
+              <t-lang en>2nd MUAC taken:</t-lang>
+<t-lang fr>2ème MUAC prise:</t-lang>" error-message="" invalid-message="" hint-text="Enter 1dp.  in cm"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="muac3" class="" style="" tangy-if="getValue('muactaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number=""
+              label="
+              <t-lang en>3rd MUAC taken:</t-lang>
+<t-lang fr>3ème MUAC prise:</t-lang>" error-message="" invalid-message="" hint-text="Enter 1dp.  in cm"></tangy-input>
+            <tangy-radio-buttons name="hctaken" class="" style="" required="" question-number="4." label="
+        <t-lang en>Head circumference taken?</t-lang>
+        <t-lang fr>Circonférence de la tête?</t-lang>
+          " error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en>Yes</t-lang>
+                <t-lang fr>Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en>No</t-lang>
+                <t-lang fr>Non</t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="hc1" class="" style="" tangy-if="getValue('hctaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number=""
+              label="
+              <t-lang en>1st head circumference taken:</t-lang>
+<t-lang fr>1ère circonférence de la tête </t-lang>" error-message="" invalid-message="" hint-text="Enter 1dp.  in cm"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="hc2" class="" style="" tangy-if="getValue('hctaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number=""
+              label="
+              <t-lang en>2nd head circumference taken:</t-lang>
+<t-lang fr>2ème circonférence de la tête</t-lang>" error-message="" invalid-message="" hint-text="Enter 1dp.  in cm"></tangy-input>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="hc3" class="" style="" tangy-if="getValue('hctaken') === '1'" valid-if="/^[0-9]+\.[0-9]{1}$|[0-9]+\.[0-9]{1}[^0-9]/.test(input.value)" required="" question-number=""
+              label="
+              <t-lang en>3rd head circumference taken:</t-lang>
+<t-lang fr>3ème circonférence de la tête</t-lang>" error-message="" invalid-message="" hint-text="Enter 1dp.  in cm"></tangy-input>
+          </template>
+        </tangy-form-item>
+      </tangy-form>

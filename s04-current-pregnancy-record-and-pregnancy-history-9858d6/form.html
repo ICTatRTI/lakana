@@ -1,0 +1,210 @@
+      <tangy-form id="s04-current-pregnancy-record-and-pregnancy-history-9858d6" title="S04 - Current Pregnancy Record and Pregnancy History" category="null" on-open="
+        " exit-clicks="
+        " on-change="
+        " on-submit="
+        ">
+        <tangy-form-item id="item_045a08aa-07cc-4116-93f3-f491ca2e2d6b" title="Pregnancy History" on-open="
+            " on-change="
+            " category="
+              null
+            ">
+          <template>
+            <tangy-input name="numprevpreg" class="" style="" required="" question-number="1." label="<t-lang en>Number of previous pregnancies (excluding current pregnancy):</t-lang><t-lang fr>Nombre de grossesses (excepté celle en cours) &nbsp; :</t-lang>"
+              error-message="" invalid-message="" hint-text="<t-lang en>record “0” if none </t-lang><t-lang fr>entrez “00” s'il n'y en a pas et Allez à Q8 </t-lang>" type="number" inner-label="" allowed-pattern=""></tangy-input>
+            <tangy-input name="prepreglivbir" class="" style="" required="" question-number="2." label="<t-lang en>Number of prior pregnancies with live births:</t-lang><t-lang fr>Nombre de grossesses antérieures avec naissances vivantes &nbsp; :</t-lang>" error-message=""
+              invalid-message="" hint-text="<t-lang en>record “0” if none </t-lang><t-lang fr>entrez “00” s'il n'y en a pas</t-lang>" type="number" inner-label="" allowed-pattern=""></tangy-input>
+            <tangy-input name="numlivchld" class="" style="" required="" question-number="3." label="<t-lang en>Number of living children:</t-lang><t-lang fr>Nombre d'enfants en vie &nbsp; :</t-lang>" error-message="" invalid-message=""
+              hint-text="<t-lang en>record “0” if none </t-lang><t-lang fr>entrez “00” s'il n'y en a pas</t-lang>" type="number" inner-label="" allowed-pattern=""></tangy-input>
+            <tangy-input name="prevstillbir" class="" style="" required="" question-number="4." label="<t-lang en>Number of prior stillbirths:</t-lang><t-lang fr>Nombre de mort-nés &nbsp; :</t-lang>" error-message="" invalid-message=""
+              hint-text="<t-lang en>record “0” if none, enter -9 if unknown </t-lang><t-lang fr>entrez “00” s'il n'y en a pas</t-lang>" type="number" inner-label="" allowed-pattern=""></tangy-input>
+            <tangy-input name="prevpreglt20wk" class="" style="" required=""question-number="5" label="<t-lang en>Prior pregnancies ending at <20 weeks:</t-lang><t-lang fr>Grossesses antérieures ayant avorté à moins de 5 mois:</t-lang>" error-message=""
+              invalid-message="" hint-text="<t-lang en>record “0” if none, enter -9 if unknown</t-lang><t-lang fr>entrez “00” s'il n'y en a pas, entrez -9 si inconnu</t-lang>" type="number" inner-label="" allowed-pattern=""></tangy-input>
+            <tangy-partial-date name="lastdelivdt" class="" style="" required="" question-number="6" label="" error-message="" invalid-message="" hint-text="" future-date-error-text="" missing-date-error-text="" invalid-date-error-text=""
+              question-number="<t-lang en>Date of last delivery:</t-lang><t-lang fr>Date du dernier accouchement &nbsp; : </t-lang>" min-year="2010" max-year="2019" allow-unknown-day="" allow-unknown-month="" allow-unknown-year=""
+              disallow-future-date="">
+            </tangy-partial-date>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="estmonldeliv" class="" style="" tangy-if="getValue('lastdelivdt').substring(5,7) === '99'" required=""
+              label="<t-lang en>Estimated months ago if month is unknown: </t-lang><t-lang fr>Estimée en mois si le mois est inconnu </t-lang>" error-message="" invalid-message="" hint-text="<t-lang en>leave blank if month is known</t-lang><t-lang fr>Laissez vide si le mois est connu</t-lang> "></tangy-input>
+            <tangy-radio-buttons name="lplivbirth" class="" style="" required="" question-number="7." label="<t-lang en>Did last pregnancy end in a live birth?</t-lang><t-lang fr>Votre dernière grossesse a-t-elle donné une naissance vivante &nbsp; ?</t-lang>" error-message=""
+              invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes</t-lang>
+                <t-lang fr="" style="display: none;">Oui</t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">No</t-lang>
+                <t-lang fr="" style="display: none;">Non</t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="" style="display: inline;">Unknown</t-lang>
+                <t-lang fr="" style="display: none;">Inconnu</t-lang>
+              </option>
+            </tangy-radio-buttons>
+          </template>
+        </tangy-form-item>
+        <tangy-form-item id="section_f0c9901da5d1409ca63978126bc57d3b" title="Clinical History" on-open="
+            " on-change="
+            " category="
+              null
+            ">
+          <template>
+            <tangy-radio-buttons name="medrecavail" class="" style="" required="" question-number="8"
+              label="<t-lang en>Is a medical record available for review at time of interview? </t-lang><t-lang fr>Un dossier médical est-il disponible pour révision au moment de l'entretien &nbsp; ?</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes<t-lang fr="" style="display: none;">Oui</t-lang>
+                </t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">No<t-lang fr="" style="display: none;">Non</t-lang>
+                </t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <!-- I notice the t-lang structures are different from previosu forms; the way the en ends and fr
+            begins... I tried to correct and match (see above </t-lang><t-lang fr> vs </t-lang fr>)
+              but I am not sure if it makes a difference? (OS)-->
+            <tangy-radio-buttons name="sickcelldis" class="" style="" required="" question-number="9" label="<t-lang en>Sickle cell disease: <t-lang fr>  Drépanocytose &nbsp; :</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes<t-lang fr="" style="display: none;">Oui</t-lang>
+                </t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">No<t-lang fr="" style="display: none;">Non</t-lang>
+                </t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="" style="display: inline;">Unknown <t-lang fr="" style="display: none;">Inconnu</t-lang>
+                </t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="diabetes" class="" style="" required="" question-number="10." label="<t-lang en>Diabetes:<t-lang fr>Diabète &nbsp; :</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes, diagnosed before pregnancy<t-lang fr="" style="display: none;">Oui, diagnostiquée avant la grossesse</t-lang>
+                </t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">Yes, Gestational diabetes<t-lang fr="" style="display: none;">Oui, diabète gestationel</t-lang>
+                </t-lang>
+              </option>
+              <option value="3">
+                <t-lang en="" style="display: inline;">No<t-lang fr="" style="display: none;">Non</t-lang>
+                </t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="" style="display: inline;">Unknown <t-lang fr="" style="display: none;">Inconnu</t-lang>
+                </t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="hypertens" class="" style="" required="" question-number="11." label="<t-lang en>Hypertension:<t-lang fr>Hypertension &nbsp; :</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes, diagnosed before pregnancy<t-lang fr="" style="display: none;">Oui, diagnostiquée avant la grossesse</t-lang>
+                </t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">Yes, diagnosed during pregnancy and diagnosis date known <t-lang fr="" style="display: none;">Oui, diagnostiquée au cours de la grossesse et la date du diagnostic est connue</t-lang>
+                </t-lang>
+              </option>
+              <option value="3">
+                <t-lang en="" style="display: inline;">Yes, diagnosed during pregnancy and diagnosis date unknown <t-lang fr="" style="display: none;">Oui, diagnostiquée au cours de la grossesse et la date du diagnostic est inconnue </t-lang>
+                </t-lang>
+              </option>
+              <option value="4">
+                <t-lang en="" style="display: inline;">No <t-lang fr="" style="display: none;">Non</t-lang>
+                </t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-partial-date name="htpregdt" class="" style="" tangy-if="getValue('hypertens') === '2'" required=""
+              label="<t-lang en>11a. Date of onset:<t-lang fr>11a. diagnostiquée au cours de la grossesse et la date du diagnostic est connue &nbsp; :</t-lang>" error-message="" invalid-message="" hint-text="" future-date-error-text=""
+              missing-date-error-text="" invalid-date-error-text="" question-number="" min-year="2010" max-year="2019" show-today-button="" allow-unknown-day="" allow-unknown-month="" allow-unknown-year="" disallow-future-date="">
+            </tangy-partial-date>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="estmoht" class="" style="" tangy-if="getValue('htpregdt').substring(5,7) === '99'" required="" label="<t-lang en>Estimated months ago if month is unknown: </t-lang><t-lang fr>Estimez en mois si la date est inconnu  &nbsp; :</t-lang>" error-message=""
+              invalid-message="" hint-text=""></tangy-input>
+            <tangy-radio-buttons name="seizpreg" class="" style="" required="" question-number="12" label="<t-lang en>Seizures during this pregnancy: <t-lang fr>Crises convulsives pendant la grossesse &nbsp; :</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes<t-lang fr="" style="display: none;">Oui</t-lang>
+                </t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">No<t-lang fr="" style="display: none;">Non</t-lang>
+                </t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="" style="display: inline;">Unknown <t-lang fr="" style="display: none;">Inconnu</t-lang>
+                </t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="hiv" class="" style="" required="" question-number="13" label="<t-lang en>HIV<t-lang fr>VIH</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes<t-lang fr="" style="display: none;">Oui</t-lang>
+                </t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">No<t-lang fr="" style="display: none;">Non</t-lang>
+                </t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="" style="display: inline;">Unknown<t-lang fr="" style="display: none;">Inconnu</t-lang>
+                </t-lang>
+              </option>
+              <option value="3">
+                <t-lang en="" style="display: inline;">Prefers not to disclose<t-lang fr="" style="display: none;">Préfère ne pas le divulguer</t-lang>
+                </t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="antiretrov" class="" style="" tangy-if="getValue('hiv') === '1'" required=""
+              question-number="13a." label="<t-lang en>Is the mother receiving antiretroviral therapy?<t-lang fr>La mère reçoit-elle un traitement antirétroviral &nbsp; ?</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes<t-lang fr="" style="display: none;">Oui</t-lang>
+                </t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">No<t-lang fr="" style="display: none;">Non</t-lang>
+                </t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="" style="display: inline;">Unknown<t-lang fr="" style="display: none;">Inconnu</t-lang>
+                </t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-radio-buttons name="prophcotrim" class="" style="" tangy-if="getValue('hiv') === '1'" required=""
+              question-number="13b." label="<t-lang en>Is the mother receiving regular infection prophylaxis with co-trimoxazole or other prophylactic antibiotic (do not include intermittent or single-dose preventative treatment of malaria or other parasitic disease)? <t-lang fr>La mère reçoit-elle une prophylaxie régulière contre l'infection notamment le cotrimoxazole ou un autre antibiotique prophylactique (ne pas inclure de traitement préventif intermittent ou à dose unique du paludisme ou d'une autre maladie parasitaire) &nbsp; ?</t-lang>"
+              error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes<t-lang fr="" style="display: none;">Oui</t-lang>
+                </t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">No<t-lang fr="" style="display: none;">Non</t-lang>
+                </t-lang>
+              </option>
+              <option value="-9">
+                <t-lang en="" style="display: inline;">Unknown<t-lang fr="" style="display: none;">Inconnu</t-lang>
+                </t-lang>
+              </option>
+            </tangy-radio-buttons>
+          </template>
+        </tangy-form-item>
+        <tangy-form-item id="section_4d7461088d9a439b950c91b984c40960" title="Current Pregnancy" on-open="
+            " on-change="
+            " category="
+              null
+            ">
+          <template>
+            <tangy-radio-buttons name="firancvis" class="" style="" required=""
+              question-number="14" label="<t-lang en>Is this the mother's first ANC visit for this pregnancy?<t-lang fr>Cette visite est-elle la première CPN de la mère pour cette grossesse &nbsp; ?</t-lang>" error-message="" invalid-message="" hint-text="">
+              <option value="1">
+                <t-lang en="" style="display: inline;">Yes<t-lang fr="" style="display: none;">Oui</t-lang>
+                </t-lang>
+              </option>
+              <option value="2">
+                <t-lang en="" style="display: inline;">No<t-lang fr="" style="display: none;">Non</t-lang>
+                </t-lang>
+              </option>
+            </tangy-radio-buttons>
+            <tangy-partial-date name="firancdt" class="" style="" tangy-if="getValue('firancvis') === '2'" required="" question-number="14a." label=" <t-lang en>When was the first ANC visit for this pregnancy?<t-lang fr>Quand a eu lieu la première CPN pour cette grossesse?</t-lang>" error-message="" invalid-message="" hint-text="" future-date-error-text=""
+              missing-date-error-text="" invalid-date-error-text="" question-number="14a." min-year="2010" max-year="2019" show-today-button="" allow-unknown-day="" allow-unknown-month="" allow-unknown-year="">
+            </tangy-partial-date>
+            <tangy-input type="text" allowed-pattern="" inner-label="" name="estwkanc" class="" style="" tangy-if="getValue('firancdt').substring(5,7) === '99'" required="" label="<t-lang en>Estimated weeks ago if month is unknown:<t-lang fr>
+              Estimer le nombre de semaine depuis la première CPN pour cette grossesse si la date est inconnu &nbsp; :</t-lang>" error-message="" invalid-message="" hint-text=""></tangy-input>
+          </template>
+        </tangy-form-item>
+      </tangy-form>
