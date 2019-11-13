@@ -1,0 +1,29 @@
+{
+   "serverUrl" : "https://app.reachmali.org/",
+   "syncProtocol" : "two-way",
+   "showQueries" : true,
+   "languageCode" : "en",
+   "hashSecurityQuestionResponse" : false,
+   "securityQuestionText" : "What is your year of birth?",
+   "languageDirection" : "ltr",
+   "homeUrl" : "case-home",
+   "listUsernamesOnLoginScreen" : true,
+   "uploadUnlockedFormReponses" : false,
+   "centrallyManagedUserProfile" : true,
+   "modules" : [
+      "csv",
+      "logstash"
+   ],
+   "uploadToken" : "gJX53VD7dkW18Xpu",
+   "registrationRequiresServerUser" : true,
+   "sharedUserDatabase" : false,
+   "hideProfile" : true,
+   "groupId" : "group-9c26a885-386a-4154-9a1d-3b5bdd419c0d",
+   "columnsOnVisitsTab" : [],
+   "securityPolicy" : [
+      "password"
+   ],
+   "groupName" : "group-9c26a885-386a-4154-9a1d-3b5bdd419c0d",
+   "direction" : "undefined",
+   "barcodeSearchMapFunction": "if ((JSON.parse(data)).participant_id) { return (JSON.parse(data)).participant_id } else { throw 'Incorrect format'} "
+}
