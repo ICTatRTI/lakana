@@ -5,17 +5,11 @@
       "icon" : "icons:home",
       "type" : "case",
       "searchSettings" : {
-         "primaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `<t-lang en>Participant ID</t-lang><t-lang fr>ID de participant</t-lang>: ${searchDoc.variables.participant_id} &nbsp; &nbsp; &nbsp; <t-lang en>Enrollment Date</t-lang><t-lang fr>Date de l'inscriptione</t-lang>: ${(searchDoc.variables.enrollment_date).substring(8,10) + '-' + (searchDoc.variables.enrollment_date).substring(5,7)+ '-' + (searchDoc.variables.enrollment_date).substring(0,4)}` : `<t-lang en>Screening ID</t-lang><t-lang fr>ID de dépistage</t-lang>: ${response._id.substr(0,6)}  &nbsp; &nbsp; &nbsp; <t-lang en>Screening Date</t-lang><t-lang fr>Date de dépistage</t-lang>: ${searchDoc.variables.screening_date ? searchDoc.variables.screening_date : 'N/A' }` }",
+         "primaryTemplate" : "Test",
          "shouldIndex" : true,
-         "secondaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `<t-lang en>Name</t-lang><t-lang fr>Nom</t-lang>: ${searchDoc.variables.firstname} ${searchDoc.variables.surname}  &nbsp; &nbsp; &nbsp; Village: ${searchDoc.variables.village}  &nbsp; &nbsp; &nbsp; <t-lang en>Status</t-lang><t-lang fr>Statut</t-lang>: <t-lang en>Enrolled</t-lang><t-lang fr>Inscrite</t-lang> &nbsp; &nbsp; &nbsp;` : `<t-lang en>Status</t-lang><t-lang fr>Statut</t-lang>: <t-lang en>Not enrolled</t-lang><t-lang fr>Pas inscrit</t-lang>  &nbsp; &nbsp; &nbsp;` }",
+         "secondaryTemplate" : "Test",
          "variablesToIndex" : [
-            "firstname",
-            "surname",
-            "status",
-            "village",
-            "participant_id",
-            "workflow_state",
-            "enrollment_date",
+          
             "screening_date"
          ]
       },
@@ -26,9 +20,79 @@
    {
       "type" : "form",
       "listed" : false,
-      "title" : "Household Eligibility and Consent",
+      "title" : "Form 02 - Household Eligibility and Consent",
       "src" : "./assets/form-02-household-eligibility-and-consent/form.html",
       "id" : "form-02-household-eligibility-and-consent"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 03 - Household Characteristics",
+      "src" : "./assets/form-03-household-characteristics/form.html",
+      "id" : "form-03-household-characteristics"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 04 - WASH Questionnaire",
+      "src" : "./assets/form-04-wash-questionnaire/form.html",
+      "id" : "form-04-wash-questionnaire"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 05 - Household Census",
+      "src" : "./assets/form-05-household-census/form.html",
+      "id" : "form-05-household-census"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 06 - Child Eligibility and Consent",
+      "src" : "./assets/form-06-child-eligibility-and-consentt/form.html",
+      "id" : "form-06-child-eligibility-and-consent"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 07 - Baseline Characteristics of Enrolled Child",
+      "src" : "./assets/form-07-baseline-characteristics-of-enrolled-child/form.html",
+      "id" : "form-07-baseline-characteristics-of-enrolled-child"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 08 - Anthropometrics of Enrolled Child",
+      "src" : "./assets/form-08-anthropometrics-of-enrolled-child/form.html",
+      "id" : "form-08-anthropometrics-of-enrolled-child"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 09 - Medical History",
+      "src" : "./assets/form-09-medical-history/form.html",
+      "id" : "form-09-medical-history"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 10 - Drug Administration for Enrolled Child",
+      "src" : "./assets/form-10-drug-administration-for-enrolled-child/form.html",
+      "id" : "form-10-drug-administration-for-enrolled-child"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 11 - Biological Sample Collection for Enrolled Child",
+      "src" : "./assets/form-11-biological-sample-collection-for-enrolled-child/form.html",
+      "id" : "form-11-biological-sample-collection-for-enrolled-child"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Form 12 - Vital Status",
+      "src" : "./assets/form-12-vital-status/form.html",
+      "id" : "form-12-vital-status"
    },
    {
       "type" : "form",
