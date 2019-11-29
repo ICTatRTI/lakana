@@ -1,28 +1,33 @@
 {
   "id": "household-case",
   "formId": "household-manifest",
-  "name": "<t-lang en>Household</t-lang><t-lang fr>Household</t-lang>",
-  "description": "<t-lang en>Select this case type to a a household to the census.</t-lang><t-lang fr>Select this case type to a a household to the census.</t-lang>",
+  "name": "Household",
+  "description": "Select this case type to a a household to the census.",
   "caseRoles": [
     {
       "id": "household-role",
-      "label": "<t-lang en>Household</t-lang><t-lang fr>Household</t-lang>",
-      "templateListItem": "<t-lang en>Forms for</t-lang><t-lang fr>Formulaires pour</t-lang> Household ${data.household_id}"
+      "label": "Household",
+      "templateListItem": "Forms for Household ${data.household_id}"
     },
     {
       "id": "enrolled-infant-role",
+      "label": "Infant",
+      "templateListItem": "Forms for ${data.firstname} ${data.surname} (${data.household_id})"
+    },
+    {
+      "id": "under5-infant-role",
       "label": "<t-lang en>Infant</t-lang><t-lang fr>Infant</t-lang>",
-      "templateListItem": "<t-lang en>Forms for</t-lang><t-lang fr>Formulaires pour</t-lang> ${data.firstname} ${data.surname} (${data.household_id})"
+      "templateListItem": "Forms for ${data.firstname} ${data.surname} (${data.household_id})"
     }
   ],
   "templateCaseTitle": "${getVariable('household_id') ? `${getVariable('firstname')} ${getVariable('surname')}` : '...'}",
-  "templateCaseDescription": "${getVariable('household_id') ? `<t-lang en>Participant ID</t-lang><t-lang fr>ID de participant</t-lang>: ${getVariable('household_id')}&nbsp;&nbsp;&nbsp;&nbsp; <t-lang en>Village</t-lang><t-lang fr>Village</t-lang>: ${getVariable('village')}<br><t-lang en>Head of household</t-lang><t-lang fr>Chef de ménage</t-lang>: ${getVariable('headofhouse')}` : '...'}",
+  "templateCaseDescription": "${getVariable('household_id') ? `Household ID: ${getVariable('household_id')}&nbsp;&nbsp;&nbsp;&nbsp; Village: ${getVariable('village')}<br>Head of household: ${getVariable('headofhouse')}` : '...'}",
   "templateCaseEventListItemIcon": "${caseEvent.complete ? 'event_available' : 'event_note'}",
   "templateCaseEventListItemPrimary": "<span>${caseEventDefinition.name}</span>",
-  "templateCaseEventListItemSecondary": "<t-lang en>Scheduled</t-lang><t-lang fr>Prévu</t-lang>: <t-lang en>${formatDate(caseEvent.dateStart,'DD-MM-YYYY')}</t-lang><t-lang fr>${formatDate(caseEvent.dateStart,'DD-MM-YYYY')}</t-lang>",
+  "templateCaseEventListItemSecondary": "Scheduled: ${formatDate(caseEvent.dateStart,'DD-MM-YYYY')}",
   "templateEventFormListItemIcon": "",
   "templateEventFormListItemPrimary": "<span>${eventFormDefinition.name}</span>",
-  "templateEventFormListItemSecondary": "<t-lang en>Status</t-lang><t-lang fr>Statut</t-lang>: ${!eventForm.complete ? '<t-lang en>Incomplete</t-lang><t-lang fr>Incomplète</t-lang>' : '<t-lang en>Complete</t-lang><t-lang fr>Achevée</t-lang>'}",
+  "templateEventFormListItemSecondary": "Status: ${!eventForm.complete ? 'Incomplete' : 'Complete'}",
   "startFormOnOpen": {
     "eventId": "event-baseline",
     "eventFormId": "event-form-household-eligibility-and-consent"
@@ -30,7 +35,7 @@
   "eventDefinitions": [ 
     {
       "id": "event-baseline",
-      "name": "<t-lang en>Household Screening</t-lang><t-lang fr>Household Screening</t-lang>",
+      "name": "Household Screening",
       "description": "",
       "repeatable": false,
       "estimatedTimeFromCaseOpening": 0,
@@ -41,9 +46,185 @@
           "id": "event-form-household-eligibility-and-consent",
           "formId": "form-02-household-eligibility-and-consent",
           "forCaseRole": "",
-          "name": "Form 02: <t-lang en>Household Eligibility and Consent</t-lang><t-lang fr>Household Eligibility and Consent</t-lang>",
+          "name": "Form 02 - Household Eligibility and Consent",
           "required": true,
-          "repeatable": true
+          "repeatable": false
+        },
+        {
+          "id": "event-form-household-characteristics",
+          "formId": "form-03-household-characteristics",
+          "forCaseRole": "household-role",
+          "name": "Form 03 - Household Characteristics",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-wash-questionnaire",
+          "formId": "form-04-wash-questionnaire",
+          "forCaseRole": "household-role",
+          "name": "Form 04 - WASH Questionnaire",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "id": "event-form-household-census",
+          "formId": "form-05-household-census",
+          "forCaseRole": "household-role",
+          "name": "Form 05 - Household Census",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-visit-2",
+      "name": "Visit 2 (3 months)",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "visit-2-form-5",
+          "formId": "form-05-household-census",
+          "forCaseRole": "household-role",
+          "name": "Form 05 - Household Census",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-visit-3",
+      "name": "Visit 3 (6 months)",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "visit-3-form-5",
+          "formId": "form-05-household-census",
+          "forCaseRole": "household-role",
+          "name": "Form 05 - Household Census",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-visit-4",
+      "name": "Visit 4 (9 months)",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "visit-4-form-5",
+          "formId": "form-05-household-census",
+          "forCaseRole": "household-role",
+          "name": "Form 05 - Household Census",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-visit-5",
+      "name": "Visit 5 (12 months)",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "visit-5-form-5",
+          "formId": "form-05-household-census",
+          "forCaseRole": "household-role",
+          "name": "Form 05 - Household Census",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-visit-6",
+      "name": "Visit 6 (15 months)",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "visit-6-form-5",
+          "formId": "form-05-household-census",
+          "forCaseRole": "household-role",
+          "name": "Form 05 - Household Census",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-visit-7",
+      "name": "Visit 7 (18 months)",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 7776000000,
+      "estimatedTimeWindow": 2592000000,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "visit-7-form-5",
+          "formId": "form-05-household-census",
+          "forCaseRole": "household-role",
+          "name": "Form 05 - Household Census",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-visit-8",
+      "name": "Visit 8 (21 months)",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 7776000000,
+      "estimatedTimeWindow": 2592000000,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "visit-8-form-5",
+          "formId": "form-05-household-census",
+          "forCaseRole": "household-role",
+          "name": "Form 05 - Household Census",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    },
+    {
+      "id": "event-visit-9",
+      "name": "Visit 9 (24 months)",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "visit-9-form-5",
+          "formId": "form-05-household-census",
+          "forCaseRole": "household-role",
+          "name": "Form 05 - Household Census",
+          "required": true,
+          "repeatable": false
         }
       ]
     }

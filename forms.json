@@ -1,13 +1,13 @@
 [
    {
       "listed" : true,
-      "title" : "<t-lang en>Household Case</t-lang><t-lang fr>Household Case</t-lang>",
+      "title" : "Household Case",
       "icon" : "icons:home",
       "type" : "case",
       "searchSettings" : {
-         "primaryTemplate" : "Test",
+         "primaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `Household ID: ${searchDoc.variables.household_id} &nbsp; &nbsp; &nbsp; Enrollment Date: ${searchDoc.variables.screening_date ? searchDoc.variables.screening_date : 'N/A' }` : `New Household`  }",
          "shouldIndex" : true,
-         "secondaryTemplate" : "Test",
+         "secondaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `Head of household: ${searchDoc.variables.firstname} ${searchDoc.variables.surname}  &nbsp; &nbsp; &nbsp; Village: ${searchDoc.variables.village}  &nbsp; &nbsp; &nbsp; Status: Enrolled &nbsp; &nbsp; &nbsp;` : `Status: Screening in progress` }",
          "variablesToIndex" : [
           
             "screening_date"

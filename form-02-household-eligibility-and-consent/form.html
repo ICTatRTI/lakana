@@ -1,4 +1,22 @@
-<tangy-form id="form-02-household-eligibility-and-consent" title="Form 02 - Household Eligibility and Consent" on-submit="">
+<tangy-form id="form-02-household-eligibility-and-consent" title="Form 02 - Household Eligibility and Consent" 
+    on-open="
+        if (!caseService.getVariable('status')) caseService.setVariable('status', 'Screening');
+    "
+    on-submit="
+        if (getValue('complete') == '1') {
+            caseService.setVariable('status', 'Enrolled');
+            caseService.setVariable('firstname', 'Kevin');
+            caseService.setVariable('lastname', 'Wilson');
+            const household = caseService.createParticipant('household-role');
+            caseService.setParticipantData(household.id, 'firstname', 'Kevin');
+            caseService.setParticipantData(household.id, 'lastname', 'Wilson');
+            caseService.setParticipantData(household.id, 'household_id', '12345');
+            for (let i=2; i < 10; i++) {
+                let visit = caseService.createEvent('event-visit-' + i);
+                caseService.scheduleEvent(visit.id, Date.now()+((i-1)*3*2592000000), Date.now()+((i-1)*3*2592000000));
+            }
+        }
+    ">
   <tangy-form-item id="form-information" title="Form Information" on-open="" on-change="">
       <template>
           <tangy-box name="example-warning" style="font-size: 1.1em">
