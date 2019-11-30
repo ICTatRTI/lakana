@@ -1,18 +1,41 @@
 <tangy-form id="form-05-household-cenusus" title="Form 05 - Household Census" on-submit="">
-    <tangy-form-item id="form-information" title="Form Information" on-open="" on-change="">
+    <tangy-form-item id="head-of-household-information" title="Head of Household Information" on-open="
+        inputs.visit_date.value = new Date().toISOString().split('T')[0];
+        let name = caseService.getVariable('firstname') + ' ' + caseService.getVariable('lastname');
+        let questions = this.querySelectorAll('tangy-input, tangy-radio-buttons');
+        this.querySelectorAll('tangy-input, tangy-radio-buttons').forEach((question) => {
+            let label = (question.tagName == 'TANGY-INPUT' ? question.$.container.getElementsByTagName('label')[0] : question.$.label);
+            label.innerText = label.innerText.replace('@name', name);
+        });
+    " on-change="">
         <template>
-            <tangy-box name="example-warning" style="font-size: 1.1em">
+            <tangy-box name="form-instructions" style="font-size: 1.1em">
                 <div style="border: 2px #AFD8F8 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#DFEFFC;">
                     <iron-icon icon="warning" style="padding: 5px 0;"></iron-icon>
                     <span style="font-size: 0.8em;">
-                            This is a form stub. Form content will be displayed here.
+                            <strong>Instructions: </strong>
+                            Complete this form at the baseline visit for all enumerated households. 
                     </span>
                 </div>
              </tangy-box>
-             <tangy-radio-buttons question-number="1." name="complete" label="Is this form complete?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="">
+             <tangy-partial-date question-number="1." name="visit_date" label="Visit date:" required="" min-year="2019" max-year="2023" show-today-button="" disallow-future-date=""></tangy-partial-date>
+             <tangy-radio-buttons question-number="2." name="hh_nickname_yn" label="Does @name have a nickname?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="">
                 <option value="1">Yes</option>
                 <option value="2">No</option>
              </tangy-radio-buttons>
+             <tangy-input question-number="3." name="hh_nickname" label="Specify nickname:" required="" show-if="getValue('hh_nickname_yn') == '1'"  inner-label=" " error-text="This question is required. Please provide a response."></tangy-input>
+             <tangy-radio-buttons question-number="4." name="hh_sex" label="What is the sex of @name?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="">
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+             </tangy-radio-buttons>
+             <tangy-radio-buttons question-number="5." name="hh_pregnant" label="Is @name pregnant?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="" show-if="getValue('hh_sex') == '2'">
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+             </tangy-radio-buttons>   
+             <tangy-input question-number="6." name="hh_pregnant_months" label="How many months pregnant?" type="number" min="1" max="9" required="" show-if="getValue('hh_pregnant') == '1'"  inner-label=" " error-text="This question is required. Please provide a response between 1 and 9."></tangy-input>
         </template>
+    </tangy-form-item>
+    <tangy-form-item name='item2'>
+
     </tangy-form-item>
 </tangy-form>
