@@ -1,4 +1,12 @@
-<tangy-form id="form-05-household-cenusus" title="Form 05 - Household Census" on-submit="">
+<tangy-form id="form-05-household-cenusus" title="Form 05 - Household Census"  on-submit="
+    const children = caseService.getVariable('children');
+    children.forEach(
+        (child) => {
+            let child_instance = caseService.createParticipant('enrolled-infant-role');
+            caseService.setParticipantData(child_instance.id, 'child_name', child);
+        }
+    ); // This is working but I need to get the events and forms to show up.
+">
     <tangy-form-item id="head-of-household-information" title="Head of Household Information" on-open="
         inputs.visit_date.value = new Date().toISOString().split('T')[0];
         let name = caseService.getVariable('firstname') + ' ' + caseService.getVariable('lastname');
@@ -7,35 +15,81 @@
             let label = (question.tagName == 'TANGY-INPUT' ? question.$.container.getElementsByTagName('label')[0] : question.$.label);
             label.innerText = label.innerText.replace('@name', name);
         });
-    " on-change="">
-        <template>
-            <tangy-box name="form-instructions" style="font-size: 1.1em">
-                <div style="border: 2px #AFD8F8 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#DFEFFC;">
-                    <iron-icon icon="warning" style="padding: 5px 0;"></iron-icon>
-                    <span style="font-size: 0.8em;">
-                            <strong>Instructions: </strong>
-                            Complete this form at the baseline visit for all enumerated households. 
-                    </span>
-                </div>
-             </tangy-box>
-             <tangy-partial-date question-number="1." name="visit_date" label="Visit date:" required="" min-year="2019" max-year="2023" show-today-button="" disallow-future-date=""></tangy-partial-date>
-             <tangy-radio-buttons question-number="2." name="hh_nickname_yn" label="Does @name have a nickname?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="">
-                <option value="1">Yes</option>
-                <option value="2">No</option>
-             </tangy-radio-buttons>
-             <tangy-input question-number="3." name="hh_nickname" label="Specify nickname:" required="" show-if="getValue('hh_nickname_yn') == '1'"  inner-label=" " error-text="This question is required. Please provide a response."></tangy-input>
-             <tangy-radio-buttons question-number="4." name="hh_sex" label="What is the sex of @name?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="">
-                <option value="1">Male</option>
-                <option value="2">Female</option>
-             </tangy-radio-buttons>
-             <tangy-radio-buttons question-number="5." name="hh_pregnant" label="Is @name pregnant?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="" show-if="getValue('hh_sex') == '2'">
-                <option value="1">Yes</option>
-                <option value="2">No</option>
-             </tangy-radio-buttons>   
-             <tangy-input question-number="6." name="hh_pregnant_months" label="How many months pregnant?" type="number" min="1" max="9" required="" show-if="getValue('hh_pregnant') == '1'"  inner-label=" " error-text="This question is required. Please provide a response between 1 and 9."></tangy-input>
-        </template>
+    " 
+   
+    on-change="">
+
+    <tangy-box name="form-instructions" style="font-size: 1.1em">
+        <div style="border: 2px #AFD8F8 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#DFEFFC;">
+            <iron-icon icon="warning" style="padding: 5px 0;"></iron-icon>
+            <span style="font-size: 0.8em;">
+                <strong>Instructions: </strong>
+                Complete this form at the baseline visit for all enumerated households. 
+            </span>
+        </div>
+        </tangy-box>
+        <tangy-partial-date question-number="1." name="visit_date" label="Visit date:" required="" min-year="2019" max-year="2023" show-today-button="" disallow-future-date=""></tangy-partial-date>
+        <tangy-radio-buttons question-number="2." name="hh_nickname_yn" label="Does @name have a nickname?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="">
+        <option value="1">Yes</option>
+        <option value="2">No</option>
+        </tangy-radio-buttons>
+        <tangy-input question-number="3." name="hh_nickname" label="Specify nickname:" required="" show-if="getValue('hh_nickname_yn') == '1'"  inner-label=" " error-text="This question is required. Please provide a response."></tangy-input>
+        <tangy-radio-buttons question-number="4." name="hh_sex" label="What is the sex of @name?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="">
+        <option value="1">Male</option>
+        <option value="2">Female</option>
+        </tangy-radio-buttons>
+        <tangy-radio-buttons question-number="5." name="hh_pregnant" label="Is @name pregnant?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="" show-if="getValue('hh_sex') == '2'">
+        <option value="1">Yes</option>
+        <option value="2">No</option>
+        </tangy-radio-buttons>   
+        <tangy-input question-number="6." name="hh_pregnant_months" label="How many months pregnant?" type="number" min="1" max="9" required="" show-if="getValue('hh_pregnant') == '1'"  inner-label=" " error-text="This question is required. Please provide a response between 1 and 9."></tangy-input>
     </tangy-form-item>
-    <tangy-form-item name='item2'>
+    <tangy-form-item id="guardians" title="Mothers and Guardians">
+        <tangy-box name="mother-list-instructions" style="font-size: 1.1em">
+            <div style="border: 2px #AFD8F8 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#DFEFFC;">
+                <iron-icon icon="warning" style="padding: 5px 0;"></iron-icon>
+                <span style="font-size: 0.8em;">
+                    <strong>7. </strong>
+                    Enter the name of the mothers/guardians who live in this household.
+                </span>
+            </div>
+        </tangy-box>
+        <tangy-input-groups name="mothers_table" initial-count="1">
+            <tangy-input question-number=" " name="mother_name" label="Mother/guardian:" required="" inner-label=" "></tangy-input>
+        </tangy-input-groups>
+    </tangy-form-item>
+    <tangy-form-item id="children" title="Under-5 Children" on-open="
+        let mothers = [];
+        inputs.mothers_table.value.forEach(
+            (mother) => { mothers.push(inputs[mother + '.mother_name'].value); }
+        );
+        caseService.setVariable('mothers', mothers);
+    ">
+    <tangy-box name="child-list-instructions" style="font-size: 1.1em">
+            <div style="border: 2px #AFD8F8 solid; margin:10px 10px 0px 0px; padding:5px 5px 5px 10px;  background-color:#DFEFFC;">
+                <iron-icon icon="warning" style="padding: 5px 0;"></iron-icon>
+                <span style="font-size: 0.8em;">
+                    <strong>8. </strong>
+                    Enter the name of the under-5 children who live in this household. For each child, complete Form 6.
+                </span>
+            </div>
+        </tangy-box>
+        <tangy-input-groups name="child_table" initial-count="1">
+            <tangy-input question-number=" " name="child_name" label="Child's full name:" required="" inner-label=" "></tangy-input>
+        </tangy-input-groups>
+    </tangy-form-item>
+    <tangy-form-item id="final-screen" title="Form review and finalization" on-open="
+        let children = [];
+        inputs.child_table.value.forEach(
+            (child) => { children.push(inputs[child + '.child_name'].value); }
+        );
+        caseService.setVariable('children', children);
+    " >
+
+        <tangy-radio-buttons question-number=" " name="complete" label="Is this form complete?" error-text="This question is required. Please provide a response." error-message=" " invalid-message="" hint-text="" required="">
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+        </tangy-radio-buttons>
 
     </tangy-form-item>
 </tangy-form>
