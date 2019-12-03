@@ -5,7 +5,7 @@
       "icon" : "icons:home",
       "type" : "case",
       "searchSettings" : {
-         "primaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `Household ID: ${searchDoc.variables.household_id} &nbsp; &nbsp; &nbsp; Enrollment Date: ${searchDoc.variables.screening_date ? searchDoc.variables.screening_date : 'N/A' }` : `New Household`  }",
+         "primaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `<t-lang en>Household ID</t-lang><t-lang fr>ID de participant</t-lang>: ${searchDoc.variables.household_id} &nbsp; &nbsp; &nbsp; <t-lang en>Enrollment Date</t-lang><t-lang fr>Date de l'inscriptione</t-lang>: ${(searchDoc.variables.enrollment_date).substring(8,10) + '-' + (searchDoc.variables.enrollment_date).substring(5,7)+ '-' + (searchDoc.variables.enrollment_date).substring(0,4)}` : `<t-lang en>Household Screening ID</t-lang><t-lang fr>ID de dépistage</t-lang>: ${response._id.substr(0,6)}  &nbsp; &nbsp; &nbsp; <t-lang en>Screening Date</t-lang><t-lang fr>Date de dépistage</t-lang>: ${searchDoc.variables.screening_date ? searchDoc.variables.screening_date : 'N/A' }` }",
          "shouldIndex" : true,
          "secondaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `Head of household: ${searchDoc.variables.firstname} ${searchDoc.variables.surname}  &nbsp; &nbsp; &nbsp; Village: ${searchDoc.variables.village}  &nbsp; &nbsp; &nbsp; Status: Enrolled &nbsp; &nbsp; &nbsp;` : `Status: Screening in progress` }",
          "variablesToIndex" : [

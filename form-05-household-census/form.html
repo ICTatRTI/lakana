@@ -5,7 +5,7 @@
             let child_instance = caseService.createParticipant('enrolled-infant-role');
             caseService.setParticipantData(child_instance.id, 'child_name', child);
         }
-    ); // This is working but I need to get the events and forms to show up.
+    );
 ">
     <tangy-form-item id="head-of-household-information" title="Head of Household Information" on-open="
         inputs.visit_date.value = new Date().toISOString().split('T')[0];

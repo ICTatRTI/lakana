@@ -12,7 +12,7 @@
     {
       "id": "enrolled-infant-role",
       "label": "Infant",
-      "templateListItem": "Forms for ${data.firstname} ${data.surname} (${data.household_id})"
+      "templateListItem": "Forms for ${data.child_name}"
     },
     {
       "id": "under5-infant-role",
@@ -42,6 +42,14 @@
       "estimatedTimeWindow": 0,
       "required": true,
       "eventFormDefinitions": [
+        {
+          "id": "event-form-child-eligibility-and-consent",
+          "formId": "form-06-child-eligibility-and-consent",
+          "forCaseRole": "enrolled-infant-role",
+          "name": "Form 06 - Child Eligibility and Consent",
+          "required": true,
+          "repeatable": false
+        },
         {
           "id": "event-form-household-eligibility-and-consent",
           "formId": "form-02-household-eligibility-and-consent",

@@ -7,6 +7,7 @@
             caseService.setVariable('status', 'Enrolled');
             caseService.setVariable('firstname', 'Kevin');
             caseService.setVariable('lastname', 'Wilson');
+            caseService.setVariable('screening_date', new Date().toISOString().split('T')[0]);
             const household = caseService.createParticipant('household-role');
             caseService.setParticipantData(household.id, 'firstname', 'Kevin');
             caseService.setParticipantData(household.id, 'lastname', 'Wilson');
